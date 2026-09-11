@@ -4,148 +4,270 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voting Resmi Ketua ID42NER Chapter Sumut</title>
-    <!-- Font Awesome untuk Ikon-ikon Keren -->
+    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
             --primary-red: #D32F2F;
             --dark-red: #B71C1C;
-            --black: #212121;
-            --dark-gray: #424242;
-            --light-gray: #f5f5f5;
+            --black: #121212;
+            --dark-gray: #2A2A2A;
+            --light-gray: #f4f6f9;
             --white: #ffffff;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--light-gray);
+            background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
             color: var(--black);
         }
 
-        .container {
+        /* NAVBAR / HEADER */
+        .navbar {
+            background-color: var(--black);
+            padding: 15px 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--primary-red);
+        }
+
+        .navbar-brand {
+            color: var(--white);
+            font-weight: 800;
+            font-size: 20px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-brand span {
+            color: var(--primary-red);
+        }
+        
+        .timer {
+            color: #ff9800;
+            font-weight: bold;
+            font-size: 14px;
+            background: rgba(255,255,255,0.1);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        /* MAIN CONTAINER */
+        .main-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title h1 {
+            font-size: 32px;
+            text-transform: uppercase;
+            font-weight: 900;
+            color: var(--black);
+            margin-bottom: 10px;
+        }
+        
+        .page-title p {
+            color: #555;
+            font-size: 16px;
+        }
+
+        /* CANDIDATE GRID */
+        .candidate-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .candidate-card {
             background-color: var(--white);
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 450px;
             overflow: hidden;
-            margin: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            cursor: pointer;
+            border: 2px solid transparent;
         }
 
-        .header {
-            background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 100%);
-            color: var(--white);
-            padding: 30px 20px;
+        .candidate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+
+        .candidate-card.selected {
+            border-color: var(--primary-red);
+            box-shadow: 0 0 15px rgba(211, 47, 47, 0.4);
+        }
+
+        .candidate-card.selected .check-overlay {
+            opacity: 1;
+        }
+
+        .check-overlay {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary-red);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 10;
+        }
+
+        .candidate-img-container {
+            height: 200px;
+            background-color: #e0e0e0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Placeholder image styles */
+        .candidate-img-placeholder {
+            font-size: 60px;
+            color: #9e9e9e;
+        }
+
+        .candidate-number {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: var(--black);
+            color: white;
+            padding: 5px 15px;
+            font-weight: bold;
+            border-top-right-radius: 10px;
+            font-size: 18px;
+        }
+
+        .candidate-info {
+            padding: 15px;
             text-align: center;
-            border-bottom: 5px solid var(--primary-red);
         }
 
-        .header h1 {
+        .candidate-name {
+            font-weight: bold;
+            font-size: 16px;
+            margin: 0 0 5px 0;
+            color: var(--black);
+        }
+
+        .candidate-desc {
+            font-size: 12px;
+            color: #757575;
             margin: 0;
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
         }
 
-        .header p {
-            margin: 10px 0 0;
-            font-size: 14px;
-            color: #e0e0e0;
+        /* VOTING PANEL FIXED BOTTOM */
+        .voting-panel {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 50px;
+            border-top: 5px solid var(--primary-red);
         }
 
-        .form-content {
-            padding: 30px 25px;
+        .voting-panel h3 {
+            margin-top: 0;
+            color: var(--black);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            align-items: flex-end;
         }
 
         .form-group {
-            margin-bottom: 25px;
-            position: relative;
+            flex: 1;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 600;
+            font-weight: bold;
             color: var(--dark-gray);
             font-size: 14px;
         }
 
-        .form-group i {
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
             position: absolute;
-            top: 38px;
             left: 15px;
-            color: #9e9e9e;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #757575;
         }
 
-        input[type="text"], select {
+        input[type="text"] {
             width: 100%;
-            padding: 12px 15px 12px 40px;
-            border: 2px solid #e0e0e0;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #ddd;
             border-radius: 8px;
-            font-size: 15px;
+            font-size: 16px;
             box-sizing: border-box;
-            transition: all 0.3s ease;
             background-color: #fafafa;
-        }
-
-        select {
-            appearance: none;
-            cursor: pointer;
-            padding-left: 40px;
-        }
-
-        .form-group select + i {
-            top: 38px;
+            font-weight: bold;
         }
         
-        .select-arrow {
-            position: absolute;
-            top: 38px;
-            right: 15px;
-            color: #9e9e9e;
-            pointer-events: none;
-        }
-
-        input[type="text"]:focus, select:focus {
+        input[type="text"]:focus {
             border-color: var(--primary-red);
             outline: none;
-            background-color: var(--white);
-            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
-        }
-
-        input[type="text"]:focus + i, select:focus + i {
-            color: var(--primary-red);
+            background-color: white;
         }
 
         .btn-submit {
             background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
             color: var(--white);
             border: none;
-            padding: 15px;
-            width: 100%;
+            padding: 15px 30px;
             border-radius: 8px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
+            height: 54px;
             display: flex;
-            justify-content: center;
             align-items: center;
             gap: 10px;
         }
 
         .btn-submit:hover {
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(211, 47, 47, 0.3);
         }
 
         .btn-submit:disabled {
@@ -155,51 +277,50 @@
             box-shadow: none;
         }
 
-        .footer {
-            text-align: center;
-            padding: 15px;
-            font-size: 12px;
-            color: #9e9e9e;
-            background-color: #f9f9f9;
-            border-top: 1px solid #eeeeee;
-        }
-
-        /* Success State Styles */
-        .success-box {
+        /* SUCCESS MODAL */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
             display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
             text-align: center;
-            animation: fadeIn 0.5s;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: slideUp 0.4s ease-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
-        .icon-success {
-            font-size: 60px;
-            color: #4CAF50;
-            margin-bottom: 15px;
+        .ticket-box {
+            background: #f0f8ff;
+            border: 2px dashed #2196F3;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
         }
 
         .ticket-code {
-            background-color: #f0f8ff;
-            border: 2px dashed #2196F3;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 32px;
+            font-weight: 900;
             color: #1976D2;
-            letter-spacing: 3px;
-            margin: 20px 0;
-            display: inline-block;
-        }
-
-        .warning-text {
-            color: var(--primary-red);
-            font-weight: bold;
-            margin-bottom: 20px;
-            font-size: 15px;
+            letter-spacing: 5px;
         }
 
         .btn-wa {
@@ -208,12 +329,10 @@
             text-decoration: none;
             padding: 15px;
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            display: block;
             font-weight: bold;
             font-size: 16px;
+            margin-top: 20px;
             transition: background-color 0.3s;
         }
 
@@ -221,131 +340,392 @@
             background-color: #128C7E;
         }
         
-        #loading-text {
-            display: none;
-            color: #1976D2;
-            font-style: italic;
-            margin-top: 15px;
-            text-align: center;
+        #selected-candidate-name {
+            color: var(--primary-red);
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .btn-submit {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <h1>Pemilihan Ketua</h1>
-        <p>ID42NER Chapter Sumut 2026-2028</p>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <i class="fas fa-car-side"></i> ID42NER <span>SUMUT</span>
+        </div>
+        <div class="timer">
+            <i class="far fa-clock"></i> 20 Sept 2026
+        </div>
+    </nav>
+
+    <div class="main-container">
+        
+        <div class="page-title">
+            <h1>E-Voting Ketua Chapter</h1>
+            <p>Silakan pilih salah satu kandidat terbaik untuk memimpin ID42NER Chapter Sumut 2026-2028</p>
+        </div>
+
+        <!-- DAFTAR CALON KETUA -->
+        <div class="candidate-grid" id="candidateList">
+            <!-- Kandidat 1 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Dani (F1717)')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">01</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Dani</h3>
+                    <p class="candidate-desc">Mantan Ketua 2 (F1717)</p>
+                </div>
+            </div>
+
+            <!-- Kandidat 2 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Nurhadi')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">02</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Nurhadi</h3>
+                    <p class="candidate-desc">Penasehat ID42NER</p>
+                </div>
+            </div>
+
+            <!-- Kandidat 3 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Umri')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">03</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Umri</h3>
+                    <p class="candidate-desc">Penasehat ID42NER</p>
+                </div>
+            </div>
+
+            <!-- Kandidat 4 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Hasyim (F1396)')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">04</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Hasyim</h3>
+                    <p class="candidate-desc">Penasehat ID42NER (F1396)</p>
+                </div>
+            </div>
+            
+            <!-- Kandidat 5 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Tantra Deska (F1884)')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">05</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Tantra Deska</h3>
+                    <p class="candidate-desc">Waka Depenitif (F1884)</p>
+                </div>
+            </div>
+
+            <!-- Kandidat 6 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Hery Zz (F2)')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">06</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Hery Zz</h3>
+                    <p class="candidate-desc">F2</p>
+                </div>
+            </div>
+
+            <!-- Kandidat 7 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Hendra Sinaga (F1812)')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">07</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Hendra Sinaga</h3>
+                    <p class="candidate-desc">F1812</p>
+                </div>
+            </div>
+
+            <!-- Kandidat 8 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Erick/Sulaiman Azhari (F2850)')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">08</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Erick / Sulaiman</h3>
+                    <p class="candidate-desc">F2850</p>
+                </div>
+            </div>
+
+            <!-- Kandidat 9 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Wansa/Endri Irwanto (F965)')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">09</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Wansa / Endri</h3>
+                    <p class="candidate-desc">F965</p>
+                </div>
+            </div>
+
+            <!-- Kandidat 10 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Try Sutrisno')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">10</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Try Sutrisno</h3>
+                    <p class="candidate-desc">Kandidat Ketua</p>
+                </div>
+            </div>
+
+            <!-- Kandidat 11 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Nanang')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">11</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Nanang</h3>
+                    <p class="candidate-desc">Kandidat Ketua</p>
+                </div>
+            </div>
+
+            <!-- Kandidat 12 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Husni')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">12</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Husni</h3>
+                    <p class="candidate-desc">Kandidat Ketua</p>
+                </div>
+            </div>
+
+            <!-- Kandidat 13 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Afdhal')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">13</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Afdhal</h3>
+                    <p class="candidate-desc">Kandidat Ketua</p>
+                </div>
+            </div>
+
+            <!-- Kandidat 14 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Jefrie Himawan')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">14</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Jefrie Himawan</h3>
+                    <p class="candidate-desc">Kandidat Ketua</p>
+                </div>
+            </div>
+
+            <!-- Kandidat 15 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Dicky')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">15</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Dicky</h3>
+                    <p class="candidate-desc">Kandidat Ketua</p>
+                </div>
+            </div>
+
+            <!-- Kandidat 16 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Ronald')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">16</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Ronald</h3>
+                    <p class="candidate-desc">Sekretaris</p>
+                </div>
+            </div>
+
+            <!-- Kandidat 17 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Wyne Purba (F2913)')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">17</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Wyne Purba</h3>
+                    <p class="candidate-desc">F2913</p>
+                </div>
+            </div>
+
+            <!-- Kandidat 18 -->
+            <div class="candidate-card" onclick="selectCandidate(this, 'Om Hendra Martin')">
+                <div class="check-overlay"><i class="fas fa-check"></i></div>
+                <div class="candidate-img-container">
+                    <i class="fas fa-user-tie candidate-img-placeholder"></i>
+                    <div class="candidate-number">18</div>
+                </div>
+                <div class="candidate-info">
+                    <h3 class="candidate-name">Om Hendra Martin</h3>
+                    <p class="candidate-desc">Kandidat Ketua</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- PANEL KONFIRMASI (Bawah) -->
+        <div class="voting-panel">
+            <h3>Panel Pengesahan Suara</h3>
+            <p style="color: #666; font-size: 14px; margin-bottom: 20px;">Anda memilih: <span id="selected-candidate-name">Belum ada kandidat dipilih</span></p>
+            
+            <form id="votingForm">
+                <input type="hidden" id="pilihan" required>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nopung">Verifikasi Nopung Anda:</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-id-badge"></i>
+                            <input type="text" id="nopung" placeholder="Ketik Nopung di sini (Contoh: 045)" required autocomplete="off">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit" id="btnVote" disabled>
+                        <i class="fas fa-paper-plane"></i> KIRIM SUARA
+                    </button>
+                </div>
+            </form>
+        </div>
+
     </div>
 
-    <div class="form-content">
-        <form id="votingForm">
-            <div class="form-group">
-                <label for="nopung">Nomor Punggung (Nopung)</label>
-                <i class="fas fa-id-card"></i>
-                <input type="text" id="nopung" placeholder="Contoh: 045" required autocomplete="off">
-            </div>
-
-            <div class="form-group">
-                <label for="pilihan">Pilihan Calon Ketua</label>
-                <i class="fas fa-user-tie"></i>
-                <select id="pilihan" required>
-                    <option value="" disabled selected>-- Silakan Pilih Kandidat --</option>
-                    <option value="1. Om Dani (F1717)">1. Om Dani ( Mantan Ketua 2 ) - F1717</option>
-                    <option value="2. Om Nurhadi">2. Om Nurhadi ( Penasehat ID42NER )</option>
-                    <option value="3. Om Umri">3. Om Umri ( Penasehat ID42NER )</option>
-                    <option value="4. Om Hasyim (F1396)">4. Om Hasyim ( Penasehat ID42NER ) - F1396</option>
-                    <option value="5. Om Tantra Deska (F1884)">5. Om Tantra Deska ( Waka Depenitif ) - F1884</option>
-                    <option value="6. Om Hery Zz (F2)">6. Om Hery Zz - F2</option>
-                    <option value="7. Om Hendra Sinaga (F1812)">7. Om Hendra Sinaga - F1812</option>
-                    <option value="8. Om Erick/Sulaiman Azhari (F2850)">8. Om Erick/Sulaiman Azhari - F2850</option>
-                    <option value="9. Om Wansa/Endri Irwanto (F965)">9. Om Wansa/Endri Irwanto - F965</option>
-                    <option value="10. Om Try Sutrisno">10. Om Try Sutrisno</option>
-                    <option value="11. Om Nanang">11. Om Nanang</option>
-                    <option value="12. Om Husni">12. Om Husni</option>
-                    <option value="13. Om Afdhal">13. Om Afdhal</option>
-                    <option value="14. Om Jefrie Himawan">14. Om Jefrie Himawan</option>
-                    <option value="15. Om Dicky">15. Om Dicky</option>
-                    <option value="16. Om Ronald">16. Om Ronald ( Sekretaris )</option>
-                    <option value="17. Om Wyne Purba (F2913)">17. OM Wyne Purba - F2913</option>
-                    <option value="18. Om Hendra Martin">18. Om Hendra Martin</option>
-                </select>
-                <i class="fas fa-chevron-down select-arrow"></i>
-            </div>
-
-            <button type="submit" class="btn-submit" id="btnVote">
-                <i class="fas fa-check-circle"></i> KIRIM SUARA
-            </button>
-            <div id="loading-text"><i class="fas fa-spinner fa-spin"></i> Memproses suara Anda...</div>
-        </form>
-
-        <div id="successBox" class="success-box">
-            <i class="fas fa-check-circle icon-success"></i>
-            <h2 style="color: #333; margin: 10px 0;">Suara Terekam!</h2>
-            <p style="color: #666; margin-bottom: 5px;">Ini adalah Kode Tiket Anda:</p>
-            <div class="ticket-code" id="displayTiket">XYZ1</div>
+    <!-- MODAL SUKSES (Popup) -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content">
+            <i class="fas fa-check-circle" style="font-size: 60px; color: #4CAF50; margin-bottom: 15px;"></i>
+            <h2 style="margin: 0; color: #333;">Voting Terekam!</h2>
             
-            <div class="warning-text">
-                <i class="fas fa-exclamation-triangle"></i> SANGAT PENTING!<br>Suara Anda BELUM SAH.
+            <div class="ticket-box">
+                <p style="margin: 0 0 5px 0; color: #666; font-size: 14px;">Kode Tiket Sah Anda:</p>
+                <div class="ticket-code" id="displayTiket">XYZ1</div>
             </div>
             
-            <p style="font-size: 14px; color: #555; margin-bottom: 20px;">Klik tombol di bawah ini untuk mengirim pesan validasi ke WhatsApp Panitia.</p>
+            <p style="color: #D32F2F; font-weight: bold; margin: 10px 0;"><i class="fas fa-exclamation-triangle"></i> SUARA BELUM SAH!</p>
+            <p style="font-size: 14px; color: #555;">Kirimkan tiket ini ke WhatsApp Panitia agar suara Anda sah terhitung.</p>
             
             <a href="#" id="linkWA" class="btn-wa">
-                <i class="fab fa-whatsapp" style="font-size: 20px;"></i> KIRIM WA KE PANITIA
+                <i class="fab fa-whatsapp" style="font-size: 20px;"></i> VALIDASI VIA WHATSAPP
             </a>
         </div>
     </div>
-    
-    <div class="footer">
-        &copy; 2026 ID42NER Chapter Sumut. All rights reserved.
-    </div>
-</div>
 
-<script>
-    document.getElementById("votingForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-        
-        var nopung = document.getElementById("nopung").value;
-        var pilihan = document.getElementById("pilihan").value;
-        var btnVote = document.getElementById("btnVote");
-        var loadingText = document.getElementById("loading-text");
-        
-        // SCRIPT OM DARI GOOGLE APPS SCRIPT
-        var urlAPI = "https://script.google.com/macros/s/AKfycbxiXfRdAl6znrkRy73WqfKaNv-BWIWRQW32gpAQY5VdIjJMma5C9PDljE9H7qkfdTIr/exec"; 
-        
-        // NOMOR WA PANITIA
-        var nomorWA = "6281260414053"; 
-        
-        btnVote.style.display = "none";
-        loadingText.style.display = "block";
+    <script>
+        // Fungsi saat kartu kandidat diklik
+        function selectCandidate(cardElement, candidateName) {
+            // Hapus seleksi dari semua kartu
+            var cards = document.querySelectorAll('.candidate-card');
+            cards.forEach(function(card) {
+                card.classList.remove('selected');
+            });
 
-        fetch(urlAPI + "?nopung=" + encodeURIComponent(nopung) + "&pilihan=" + encodeURIComponent(pilihan), {
-            method: "POST"
-        })
-        .then(response => response.text())
-        .then(kodeTiket => {
-            // Sembunyikan form
-            document.getElementById("votingForm").style.display = "none";
+            // Tambahkan seleksi ke kartu yang diklik
+            cardElement.classList.add('selected');
+
+            // Set nilai ke hidden input
+            document.getElementById('pilihan').value = candidateName;
             
-            // Tampilkan kotak sukses
-            var successBox = document.getElementById("successBox");
-            successBox.style.display = "block";
+            // Ubah teks nama pilihan
+            document.getElementById('selected-candidate-name').innerText = candidateName;
+
+            // Aktifkan tombol submit
+            document.getElementById('btnVote').disabled = false;
             
-            // Set kode tiket
-            document.getElementById("displayTiket").innerText = kodeTiket;
+            // Gulir otomatis ke bawah (ke panel input nopung)
+            document.querySelector('.voting-panel').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Fungsi saat form disubmit
+        document.getElementById("votingForm").addEventListener("submit", function(e) {
+            e.preventDefault();
             
-            // Set Link WA (Teks otomatis WA)
-            var teksWA = "Halo Panitia, saya member dengan Nopung *" + nopung + "* telah memberikan suara di Web Voting. Mohon disahkan.\n\nKode Tiket: *" + kodeTiket + "*";
-            document.getElementById("linkWA").href = "https://wa.me/" + nomorWA + "?text=" + encodeURIComponent(teksWA);
-        })
-        .catch(error => {
-            alert("Terjadi kesalahan koneksi. Silakan coba lagi.");
-            btnVote.style.display = "flex";
-            loadingText.style.display = "none";
+            var nopung = document.getElementById("nopung").value;
+            var pilihan = document.getElementById("pilihan").value;
+            var btnVote = document.getElementById("btnVote");
+            
+            // PASTIKAN URL INI BENAR
+            var urlAPI = "https://script.google.com/macros/s/AKfycbxiXfRdAl6znrkRy73WqfKaNv-BWIWRQW32gpAQY5VdIjJMma5C9PDljE9H7qkfdTIr/exec"; 
+            
+            // NOMOR WA PANITIA
+            var nomorWA = "6281260414053"; 
+            
+            // Ubah tombol jadi loading
+            var originalBtnText = btnVote.innerHTML;
+            btnVote.innerHTML = '<i class="fas fa-spinner fa-spin"></i> MEMPROSES...';
+            btnVote.disabled = true;
+
+            fetch(urlAPI + "?nopung=" + encodeURIComponent(nopung) + "&pilihan=" + encodeURIComponent(pilihan), {
+                method: "POST"
+            })
+            .then(response => response.text())
+            .then(kodeTiket => {
+                // Tampilkan Modal
+                document.getElementById("successModal").style.display = "flex";
+                
+                // Set kode tiket
+                document.getElementById("displayTiket").innerText = kodeTiket;
+                
+                // Set Link WA (Teks otomatis WA)
+                var teksWA = "Halo Panitia, saya member dengan Nopung *" + nopung + "* telah memberikan suara di Web Voting. Mohon disahkan.\n\nKode Tiket: *" + kodeTiket + "*";
+                document.getElementById("linkWA").href = "https://wa.me/" + nomorWA + "?text=" + encodeURIComponent(teksWA);
+            })
+            .catch(error => {
+                alert("Terjadi kesalahan koneksi. Silakan coba lagi.");
+                btnVote.innerHTML = originalBtnText;
+                btnVote.disabled = false;
+            });
         });
-    });
-</script>
-
+    </script>
 </body>
 </html>
