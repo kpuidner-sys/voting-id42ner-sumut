@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting Ketchap ID42NER Sumut</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; text-align: center; padding: 20px; }
+        .container { background-color: white; padding: 30px; border-radius: 10px; max-width: 400px; margin: 0 auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h2 { color: #d32f2f; }
+        select, input, button { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; font-size: 16px; box-sizing: border-box; }
+        .btn-merah { background-color: #d32f2f; color: white; font-weight: bold; border: none; cursor: pointer; }
+        .btn-merah:hover { background-color: #b71c1c; }
+        .btn-wa { background-color: #25D366; color: white; font-weight: bold; border: none; cursor: pointer; display: block; text-decoration: none; padding: 15px; border-radius: 5px; margin-top: 15px; }
+        .btn-wa:hover { background-color: #128C7E; }
+        #pesan { font-size: 16px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>PEMILIHAN KETUA ID42NER CHAPTER SUMUT</h2>
+    
+    <form id="votingForm">
+        <p>Silakan isi Nopung dan pilih Calon Anda:</p>
+        <input type="text" id="nopung" placeholder="Masukkan Nopung Anda (Contoh: 045)" required>
+        
+        <select id="pilihan" required>
+            <option value="" disabled selected>-- Pilih Calon Ketua --</option>
+            <option value="Calon 1">Calon 1</option>
+            <option value="Calon 2">Calon 2</option>
+            <option value="Calon 3">Calon 3</option>
+            <!-- Lanjutkan sampai Calon 16 -->
+        </select>
+        
+        <button type="submit" class="btn-merah" id="btnVote">VOTE SEKARANG</button>
+    </form>
+    
+    <div id="pesan"></div>
+</div>
+
+<script>
+    document.getElementById("votingForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        
+        var nopung = document.getElementById("nopung").value;
+        var pilihan = document.getElementById("pilihan").value;
+        var pesan = document.getElementById("pesan");
+        var btnVote = document.getElementById("btnVote");
+        
+        // 1. GANTI DENGAN URL GOOGLE APPS SCRIPT OM
+        var urlAPI = "https://script.google.com/macros/s/AKfycbxiXfRdAl6znrkRy73WqfKaNv-BWIWRQW32gpAQY5VdIjJMma5C9PDljE9H7qkfdTIr/exec"; 
+        
+        // 2. GANTI DENGAN NOMOR WA PANITIA (Gunakan awalan 62 tanpa 0)
+        var nomorWA = "6281260414053"; 
+        
+        pesan.innerHTML = "<i>Memproses suara... Mohon tunggu sebentar.</i>";
+        pesan.style.color = "blue";
+        btnVote.disabled = true;
+
+        fetch(urlAPI + "?nopung=" + nopung + "&pilihan=" + pilihan, {
+            method: "POST"
+        })
+        .then(response => response.text())
+        .then(kodeTiket => {
+            // Sembunyikan form agar tidak bisa klik vote lagi
+            document.getElementById("votingForm").style.display = "none";
+            
+            // Buat Teks Pesan WhatsApp otomatis
+            var teksWA = "Halo Panitia, saya member dengan Nopung " + nopung + " telah memberikan suara di Web Voting. Mohon disahkan. (Kode Tiket: *" + kodeTiket + "*)";
+            var linkWA = "https://wa.me/" + nomorWA + "?text=" + encodeURIComponent(teksWA);
+            
+            // Tampilkan Pesan Sukses dan Tombol WA
+            pesan.innerHTML = "<h3 style='color:green;'>✅ SUARA TEREKAM!</h3>" + 
+                              "<p>Kode Tiket Anda: <b>" + kodeTiket + "</b></p>" +
+                              "<p style='color:red; font-weight:bold;'>⚠️ BELUM SAH!</p>" + 
+                              "<p>Klik tombol hijau di bawah ini untuk mengirim pesan WA ke Panitia agar suara Anda sah.</p>" +
+                              "<a href='" + linkWA + "' class='btn-wa'>KIRIM WA KE PANITIA SEKARANG</a>";
+        });
+    });
+</script>
+
+</body>
+</html>
