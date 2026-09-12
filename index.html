@@ -84,15 +84,16 @@
         .card-img i.placeholder-icon {
             font-size: 60px; color: rgba(255,255,255,0.1); 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            z-index: 10;
         }
         
         .card.active .foto-kandidat { transform: scale(1.1); filter: brightness(1.2); }
-        .card-img i { font-size: 60px; color: rgba(255,255,255,0.1); transition: all 0.3s; }
-        .card.active .card-img i { color: var(--red-main); transform: scale(1.1); }
-        .number-badge { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; font-weight: 900; padding: 4px 8px; border-radius: 8px; font-size: 14px; border: 1px solid rgba(255,255,255,0.1); }
+        .card-img i { transition: all 0.3s; }
+        .card.active .card-img i { color: var(--red-main); transform: translate(-50%, -50%) scale(1.1); }
+        .number-badge { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; font-weight: 900; padding: 4px 8px; border-radius: 8px; font-size: 14px; border: 1px solid rgba(255,255,255,0.1); z-index: 20; }
         .check-badge {
             position: absolute; top: 10px; right: 10px; background: var(--red-main); color: white; width: 25px; height: 25px;
-            border-radius: 50%; display: flex; justify-content: center; align-items: center; opacity: 0; transform: scale(0); transition: all 0.3s;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center; opacity: 0; transform: scale(0); transition: all 0.3s; z-index: 20;
         }
         .card.active .check-badge { opacity: 1; transform: scale(1); }
         .card-info { padding: 15px; text-align: center; }
@@ -234,35 +235,52 @@
 
     <script>
         const candidates = [
-            { id: 1, name: "Om Dani", desc: "Pembina 2 (F1717)", val: "Om Dani (F1717)", foto: "./calon1.jpg" },
-            { id: 2, name: "Om Nurhadi", desc: "Penasehat ID42NER (F)", val: "Om Nurhadi (F)", foto: "./calon2.jpg" },
-            { id: 3, name: "Om Hasyim", desc: "Penasehat ID42NER (F1396)", val: "Om Hasyim (F1396)", foto: "./calon3.jpg" },
-            { id: 4, name: "Om Hendra Sinaga", desc: "Penasehat ID42NER (F1812)", val: "Om Hendra Sinaga (F1812)", foto: "./calon4.jpg" },
-            { id: 5, name: "Om Umri", desc: "Penasehat ID42NER (F2216)", val: "Om Umri (F2216)", foto: "./calon5.jpg" },
-            { id: 6, name: "Om Tantra Deska", desc: "Wakil Ketua (F1884)", val: "Om Tantra Deska (F1884)", foto: "./calon6.jpg" },
-            { id: 7, name: "Om Ronald", desc: "Sekretaris (F1488)", val: "Om Ronald (F1488)", foto: "./calon7.jpg" },
-            { id: 8, name: "Om Afdhal", desc: "Bendahara (F)", val: "Om Afdhal (F)", foto: "./calon8.jpg" },
-            { id: 9, name: "Om Hery Zz", desc: "Wkl Sekrt (F2850)", val: "Om Hery Zz (F2850)", foto: "./calon9.jpg" },
-            { id: 10, name: "Om Wansa/Endri Irwanto", desc: "F965", val: "Om Wansa/Endri Irwanto (F965)", foto: "./calon10.jpeg" }, // Tetap .jpeg
-            { id: 11, name: "Om Erick/Sulaiman Azhari", desc: "F", val: "Om Erick/Sulaiman Azhari (F)", foto: "./calon11.jpg" },
-            { id: 12, name: "Om Husni", desc: "F", val: "Om Husni (F)", foto: "./calon12.jpg" },
-            { id: 13, name: "Om Jefrie Himawan", desc: "F", val: "Om Jefrie Himawan (F)", foto: "./calon13.jpg" },
-            { id: 14, name: "Om Dicky", desc: "2177", val: "Om Dicky (2177)", foto: "./calon14.jpg" },
-            { id: 15, name: "Om Dedy Ginting", desc: "F", val: "Om Dedy Ginting (F)", foto: "./calon15.jpeg" }, // Tetap .jpeg
-            { id: 16, name: "Om Hendra Martin", desc: "F2552", val: "Om Hendra Martin (F2552)", foto: "./calon16.jpg" },
-            { id: 17, name: "Om Nanang", desc: "F", val: "Om Nanang (F)", foto: "./calon17.jpg" },
-            { id: 18, name: "Om Try Sutrisno", desc: "F2782", val: "Om Try Sutrisno (F2782)", foto: "./calon18.jpg" },
-            { id: 19, name: "Om Wyne Purba", desc: "F2913", val: "Om Wyne Purba (F2913)", foto: "./calon19.jpg" }
+            { id: 1, name: "Om Dani", desc: "Pembina 2 (F1717)", val: "Om Dani (F1717)", foto: "calon1.jpg" },
+            { id: 2, name: "Om Nurhadi", desc: "Penasehat ID42NER (F)", val: "Om Nurhadi (F)", foto: "calon2.jpg" },
+            { id: 3, name: "Om Hasyim", desc: "Penasehat ID42NER (F1396)", val: "Om Hasyim (F1396)", foto: "calon3.jpg" },
+            { id: 4, name: "Om Hendra Sinaga", desc: "Penasehat ID42NER (F1812)", val: "Om Hendra Sinaga (F1812)", foto: "calon4.jpg" },
+            { id: 5, name: "Om Umri", desc: "Penasehat ID42NER (F2216)", val: "Om Umri (F2216)", foto: "calon5.jpg" },
+            { id: 6, name: "Om Tantra Deska", desc: "Wakil Ketua (F1884)", val: "Om Tantra Deska (F1884)", foto: "calon6.jpg" },
+            { id: 7, name: "Om Ronald", desc: "Sekretaris (F1488)", val: "Om Ronald (F1488)", foto: "calon7.jpg" },
+            { id: 8, name: "Om Afdhal", desc: "Bendahara (F)", val: "Om Afdhal (F)", foto: "calon8.jpg" },
+            { id: 9, name: "Om Hery Zz", desc: "Wkl Sekrt (F2850)", val: "Om Hery Zz (F2850)", foto: "calon9.jpg" },
+            { id: 10, name: "Om Wansa/Endri Irwanto", desc: "F965", val: "Om Wansa/Endri Irwanto (F965)", foto: "calon10.jpeg" },
+            { id: 11, name: "Om Erick/Sulaiman Azhari", desc: "F", val: "Om Erick/Sulaiman Azhari (F)", foto: "calon11.jpg" },
+            { id: 12, name: "Om Husni", desc: "F", val: "Om Husni (F)", foto: "calon12.jpg" },
+            { id: 13, name: "Om Jefrie Himawan", desc: "F", val: "Om Jefrie Himawan (F)", foto: "calon13.jpg" },
+            { id: 14, name: "Om Dicky", desc: "2177", val: "Om Dicky (2177)", foto: "calon14.jpg" },
+            { id: 15, name: "Om Dedy Ginting", desc: "F", val: "Om Dedy Ginting (F)", foto: "calon15.jpeg" },
+            { id: 16, name: "Om Hendra Martin", desc: "F2552", val: "Om Hendra Martin (F2552)", foto: "calon16.jpg" },
+            { id: 17, name: "Om Nanang", desc: "F", val: "Om Nanang (F)", foto: "calon17.jpg" },
+            { id: 18, name: "Om Try Sutrisno", desc: "F2782", val: "Om Try Sutrisno (F2782)", foto: "calon18.jpg" },
+            { id: 19, name: "Om Wyne Purba", desc: "F2913", val: "Om Wyne Purba (F2913)", foto: "calon19.jpg" }
         ];
 
         const grid = document.getElementById('candidateGrid');
         candidates.forEach(c => {
             const numPad = c.id.toString().padStart(2, '0');
+            
+            // Kode Sapu Jagat untuk Gambar yang DIJAMIN JALAN
+            const imageRender = `
+                <img src="${c.foto}" class="foto-kandidat" alt="${c.name}" 
+                     onerror="
+                        this.onerror=null; 
+                        this.style.display='none'; 
+                        var icon = this.nextElementSibling;
+                        if(icon) {
+                            icon.style.display='block';
+                        }
+                     ">
+                <i class="fas fa-user-astronaut placeholder-icon" style="display:none;"></i>
+            `;
+
             const cardHTML = `
                 <div class="card" data-name="${c.name.toLowerCase()}" data-desc="${c.desc.toLowerCase()}" onclick="selectCard(this, '${c.name}', '${c.val}')">
                     <div class="number-badge">${numPad}</div>
                     <div class="check-badge"><i class="fas fa-check"></i></div>
-                    <div class="card-img"><i class="fas fa-user-astronaut"></i></div>
+                    <div class="card-img">
+                        ${imageRender}
+                    </div>
                     <div class="card-info">
                         <h3 class="card-name">${c.name}</h3>
                         <p class="card-desc">${c.desc}</p>
@@ -304,24 +322,19 @@
         document.getElementById('formVoting').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Konversi token jadi huruf besar (uppercase) agar sistem lebih mudah membacanya
             const token = document.getElementById('tokenInput').value.toUpperCase();
             const pilihan = document.getElementById('selectedCandidateVal').value;
             
-            // INI ADALAH URL API MILIK OM DARI CHAT SEBELUMNYA. 
-            // JIKA TADI OM BUAT URL BARU, SILAKAN GANTI URL DI BAWAH INI.
             const urlAPI = "https://script.google.com/macros/s/AKfycbzLI3l43BbbueXFbwh0bJnP38GeSzXQFKrHRp_kiCtqGetgA4C5QD5l0ZqV6jOm-iyEVA/exec"; 
 
             closeModal('tokenModal');
             document.getElementById('loader').style.display = "flex";
 
-            // Menggunakan GET
             fetch(urlAPI + "?token=" + encodeURIComponent(token) + "&pilihan=" + encodeURIComponent(pilihan), { method: "GET" })
             .then(res => res.text())
             .then(responServer => {
                 document.getElementById('loader').style.display = "none";
                 
-                // Cek balasan dari Google Sheets
                 if (responServer === "SUKSES") {
                     document.getElementById('successModal').classList.add('active');
                 } 
@@ -336,7 +349,6 @@
                     document.getElementById('tokenModal').classList.add('active');
                 }
                 else {
-                    // Kalau error dari internal Google (misal: "ERROR: ...")
                     alert("Terjadi kesalahan server: " + responServer);
                     document.getElementById('tokenModal').classList.add('active');
                 }
