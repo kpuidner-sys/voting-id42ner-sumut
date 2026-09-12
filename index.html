@@ -69,7 +69,24 @@
         }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
         .card.active { border-color: var(--red-main); box-shadow: 0 0 20px var(--red-glow); transform: scale(1.02); }
-        .card-img { height: 150px; background: linear-gradient(135deg, #2a2a2f 0%, #1c1c1f 100%); display: flex; justify-content: center; align-items: center; position: relative; }
+        .card-img { height: 180px; background-color: #2a2a2f; position: relative; overflow: hidden; }
+        
+        /* Tambahan Kode Baru Untuk Foto Asli */
+        .foto-kandidat {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Biar foto tidak gepeng, otomatis menyesuaikan kotak */
+            object-position: center top; /* Fokus ke wajah */
+            transition: all 0.4s ease;
+        }
+        
+        /* Kalau foto belum ada, ikon ini yang muncul */
+        .card-img i.placeholder-icon {
+            font-size: 60px; color: rgba(255,255,255,0.1); 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        }
+        
+        .card.active .foto-kandidat { transform: scale(1.1); filter: brightness(1.2); }
         .card-img i { font-size: 60px; color: rgba(255,255,255,0.1); transition: all 0.3s; }
         .card.active .card-img i { color: var(--red-main); transform: scale(1.1); }
         .number-badge { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; font-weight: 900; padding: 4px 8px; border-radius: 8px; font-size: 14px; border: 1px solid rgba(255,255,255,0.1); }
@@ -217,24 +234,25 @@
 
     <script>
         const candidates = [
-            { id: 1, name: "Om Dani", desc: "Mantan Ketua 2 (F1717)", val: "Om Dani (F1717)" },
-            { id: 2, name: "Om Nurhadi", desc: "Penasehat ID42NER", val: "Om Nurhadi" },
-            { id: 3, name: "Om Umri", desc: "Penasehat ID42NER", val: "Om Umri" },
-            { id: 4, name: "Om Hasyim", desc: "Penasehat (F1396)", val: "Om Hasyim (F1396)" },
-            { id: 5, name: "Om Tantra Deska", desc: "Waka Depenitif (F1884)", val: "Om Tantra Deska (F1884)" },
-            { id: 6, name: "Om Hery Zz", desc: "F2", val: "Om Hery Zz (F2)" },
-            { id: 7, name: "Om Hendra Sinaga", desc: "F1812", val: "Om Hendra Sinaga (F1812)" },
-            { id: 8, name: "Om Erick / Sulaiman", desc: "F2850", val: "Om Erick/Sulaiman Azhari (F2850)" },
-            { id: 9, name: "Om Wansa / Endri", desc: "F965", val: "Om Wansa/Endri Irwanto (F965)" },
-            { id: 10, name: "Om Try Sutrisno", desc: "Kandidat Ketua", val: "Om Try Sutrisno" },
-            { id: 11, name: "Om Nanang", desc: "Kandidat Ketua", val: "Om Nanang" },
-            { id: 12, name: "Om Husni", desc: "Kandidat Ketua", val: "Om Husni" },
-            { id: 13, name: "Om Afdhal", desc: "Kandidat Ketua", val: "Om Afdhal" },
-            { id: 14, name: "Om Jefrie Himawan", desc: "Kandidat Ketua", val: "Om Jefrie Himawan" },
-            { id: 15, name: "Om Dicky", desc: "Kandidat Ketua", val: "Om Dicky" },
-            { id: 16, name: "Om Ronald", desc: "Sekretaris", val: "Om Ronald" },
-            { id: 17, name: "Om Wyne Purba", desc: "F2913", val: "Om Wyne Purba (F2913)" },
-            { id: 18, name: "Om Hendra Martin", desc: "Kandidat Ketua", val: "Om Hendra Martin" }
+            { id: 1, name: "Om Dani", desc: "Pembina 2 (F1717)", val: "Om Dani (F1717)", foto: "calon1.jpg" },
+            { id: 2, name: "Om Nurhadi", desc: "Penasehat ID42NER (F)", val: "Om Nurhadi (F)", foto: "calon2.jpg" },
+            { id: 3, name: "Om Hasyim", desc: "Penasehat ID42NER (F1396)", val: "Om Hasyim (F1396)", foto: "calon3.jpg" },
+            { id: 4, name: "Om Hendra Sinaga", desc: "Penasehat ID42NER (F1812)", val: "Om Hendra Sinaga (F1812)", foto: "calon4.jpg" },
+            { id: 5, name: "Om Umri", desc: "Penasehat ID42NER (F2216)", val: "Om Umri (F2216)", foto: "calon5.jpg" },
+            { id: 6, name: "Om Tantra Deska", desc: "Wakil Ketua (F1884)", val: "Om Tantra Deska (F1884)", foto: "calon6.jpg" },
+            { id: 7, name: "Om Ronald", desc: "Sekretaris (F1488)", val: "Om Ronald (F1488)", foto: "calon7.jpg" },
+            { id: 8, name: "Om Afdhal", desc: "Bendahara (F)", val: "Om Afdhal (F)", foto: "calon8.jpg" },
+            { id: 9, name: "Om Hery Zz", desc: "Wkl Sekrt (F2850)", val: "Om Hery Zz (F2850)", foto: "calon9.jpg" },
+            { id: 10, name: "Om Wansa/Endri Irwanto", desc: "F965", val: "Om Wansa/Endri Irwanto (F965)", foto: "calon10.jpg" },
+            { id: 11, name: "Om Erick/Sulaiman Azhari", desc: "F", val: "Om Erick/Sulaiman Azhari (F)", foto: "calon11.jpg" },
+            { id: 12, name: "Om Husni", desc: "F", val: "Om Husni (F)", foto: "calon12.jpg" },
+            { id: 13, name: "Om Jefrie Himawan", desc: "F", val: "Om Jefrie Himawan (F)", foto: "calon13.jpg" },
+            { id: 14, name: "Om Dicky", desc: "2177", val: "Om Dicky (2177)", foto: "calon14.jpg" },
+            { id: 15, name: "Om Dedy Ginting", desc: "F", val: "Om Dedy Ginting (F)", foto: "calon15.jpg" },
+            { id: 16, name: "Om Hendra Martin", desc: "F2552", val: "Om Hendra Martin (F2552)", foto: "calon16.jpg" },
+            { id: 17, name: "Om Nanang", desc: "F", val: "Om Nanang (F)", foto: "calon17.jpg" },
+            { id: 18, name: "Om Try Sutrisno", desc: "F2782", val: "Om Try Sutrisno (F2782)", foto: "calon18.jpg" },
+            { id: 19, name: "Om Wyne Purba", desc: "F2913", val: "Om Wyne Purba (F2913)", foto: "calon19.jpg" }
         ];
 
         const grid = document.getElementById('candidateGrid');
