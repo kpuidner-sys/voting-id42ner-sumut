@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>E-Voting ID42NER Chapter Sumut</title>
-    <!-- Font Awesome untuk Ikon -->
+    <title>E-Voting ID42NER Sumut</title>
+    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
@@ -24,7 +24,7 @@
             color: var(--text-light);
             margin: 0;
             padding: 0;
-            padding-bottom: 100px; /* Space for floating bar */
+            padding-bottom: 100px;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -42,335 +42,110 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
-
-        .navbar-brand {
-            font-weight: 900;
-            font-size: 22px;
-            letter-spacing: 1px;
-        }
-
+        .navbar-brand { font-weight: 900; font-size: 22px; letter-spacing: 1px; }
         .navbar-brand span { color: var(--red-main); }
         .timer { font-size: 12px; font-weight: 600; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 20px;}
 
         /* HEADER & SEARCH */
-        .header-section {
-            padding: 30px 20px;
-            text-align: center;
-        }
-
+        .header-section { padding: 30px 20px; text-align: center; }
         .header-section h1 {
-            margin: 0;
-            font-size: 28px;
-            font-weight: 900;
-            text-transform: uppercase;
-            background: linear-gradient(to right, #fff, #888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin: 0; font-size: 28px; font-weight: 900; text-transform: uppercase;
+            background: linear-gradient(to right, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-
-        .search-container {
-            max-width: 500px;
-            margin: 20px auto 0;
-            position: relative;
-        }
-
-        .search-container i {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-        }
-
+        .search-container { max-width: 500px; margin: 20px auto 0; position: relative; }
+        .search-container i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
         .search-input {
-            width: 100%;
-            padding: 15px 20px 15px 50px;
-            border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: var(--card-bg);
-            color: white;
-            font-size: 16px;
-            box-sizing: border-box;
-            outline: none;
-            transition: all 0.3s;
-            font-family: 'Montserrat', sans-serif;
+            width: 100%; padding: 15px 20px 15px 50px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1);
+            background: var(--card-bg); color: white; font-size: 16px; box-sizing: border-box; outline: none; transition: all 0.3s; font-family: 'Montserrat', sans-serif;
         }
-
-        .search-input:focus {
-            border-color: var(--red-main);
-            box-shadow: 0 0 15px var(--red-glow);
-        }
+        .search-input:focus { border-color: var(--red-main); box-shadow: 0 0 15px var(--red-glow); }
 
         /* GRID KANDIDAT */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 15px;
-        }
-
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
         .card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            border: 2px solid transparent;
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background: var(--card-bg); border-radius: 15px; border: 2px solid transparent; overflow: hidden;
+            position: relative; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-        }
-
-        .card.active {
-            border-color: var(--red-main);
-            box-shadow: 0 0 20px var(--red-glow);
-            transform: scale(1.02);
-        }
-
-        .card-img {
-            height: 150px;
-            background: linear-gradient(135deg, #2a2a2f 0%, #1c1c1f 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .card-img i {
-            font-size: 60px;
-            color: rgba(255,255,255,0.1);
-            transition: all 0.3s;
-        }
-
-        .card.active .card-img i {
-            color: var(--red-main);
-            transform: scale(1.1);
-        }
-
-        .number-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(0,0,0,0.6);
-            color: white;
-            font-weight: 900;
-            padding: 4px 8px;
-            border-radius: 8px;
-            font-size: 14px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+        .card.active { border-color: var(--red-main); box-shadow: 0 0 20px var(--red-glow); transform: scale(1.02); }
+        .card-img { height: 150px; background: linear-gradient(135deg, #2a2a2f 0%, #1c1c1f 100%); display: flex; justify-content: center; align-items: center; position: relative; }
+        .card-img i { font-size: 60px; color: rgba(255,255,255,0.1); transition: all 0.3s; }
+        .card.active .card-img i { color: var(--red-main); transform: scale(1.1); }
+        .number-badge { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; font-weight: 900; padding: 4px 8px; border-radius: 8px; font-size: 14px; border: 1px solid rgba(255,255,255,0.1); }
         .check-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--red-main);
-            color: white;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transform: scale(0);
-            transition: all 0.3s;
+            position: absolute; top: 10px; right: 10px; background: var(--red-main); color: white; width: 25px; height: 25px;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center; opacity: 0; transform: scale(0); transition: all 0.3s;
         }
-
-        .card.active .check-badge {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .card-info {
-            padding: 15px;
-            text-align: center;
-        }
-
-        .card-name {
-            font-weight: 800;
-            font-size: 14px;
-            margin: 0 0 5px 0;
-            line-height: 1.3;
-        }
-
-        .card-desc {
-            font-size: 11px;
-            color: var(--text-muted);
-            margin: 0;
-        }
+        .card.active .check-badge { opacity: 1; transform: scale(1); }
+        .card-info { padding: 15px; text-align: center; }
+        .card-name { font-weight: 800; font-size: 14px; margin: 0 0 5px 0; line-height: 1.3; }
+        .card-desc { font-size: 11px; color: var(--text-muted); margin: 0; }
 
         /* FLOATING ACTION BAR */
         .floating-bar {
-            position: fixed;
-            bottom: -100px;
-            left: 0;
-            width: 100%;
-            background: rgba(28, 28, 31, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 15px 20px;
-            box-sizing: border-box;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 100;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+            position: fixed; bottom: -100px; left: 0; width: 100%; background: rgba(28, 28, 31, 0.95); backdrop-filter: blur(10px);
+            padding: 15px 20px; box-sizing: border-box; border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex; justify-content: space-between; align-items: center; transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 100; box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
         }
-
-        .floating-bar.visible {
-            bottom: 0;
-        }
-
-        .selection-text {
-            flex: 1;
-        }
-
+        .floating-bar.visible { bottom: 0; }
+        .selection-text { flex: 1; }
         .selection-text p { margin: 0; font-size: 12px; color: var(--text-muted); }
         .selection-text h4 { margin: 0; font-size: 16px; font-weight: 800; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;}
-
-        .btn-lanjut {
-            background: var(--red-main);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-weight: 800;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px var(--red-glow);
-            transition: transform 0.2s;
-        }
-
+        .btn-lanjut { background: var(--red-main); color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: 800; font-family: 'Montserrat', sans-serif; font-size: 14px; cursor: pointer; box-shadow: 0 4px 15px var(--red-glow); transition: transform 0.2s; }
         .btn-lanjut:active { transform: scale(0.95); }
 
-        /* MODALS (NOPUNG & SUCCESS) */
+        /* MODALS (TOKEN & SUCCESS) */
         .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(5px);
-            z-index: 999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px);
+            z-index: 999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s;
         }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
         .modal-box {
-            background: var(--card-bg);
-            width: 90%;
-            max-width: 400px;
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            transform: translateY(50px) scale(0.9);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
+            background: var(--card-bg); width: 90%; max-width: 400px; padding: 30px; border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); transform: translateY(50px) scale(0.9);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative;
         }
-
-        .modal-overlay.active .modal-box {
-            transform: translateY(0) scale(1);
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 15px; right: 15px;
-            background: none; border: none;
-            color: var(--text-muted);
-            font-size: 20px; cursor: pointer;
-        }
-
+        .modal-overlay.active .modal-box { transform: translateY(0) scale(1); }
+        .close-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer; }
         .modal-title { margin: 0 0 20px 0; font-weight: 900; font-size: 20px; text-align: center; }
-
+        
+        /* Input Token Khusus */
         .input-group { position: relative; margin-bottom: 20px; }
         .input-group i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
         .input-group input {
-            width: 100%; padding: 15px 15px 15px 45px;
-            background: #121212; border: 1px solid rgba(255,255,255,0.1);
-            color: white; border-radius: 12px; font-size: 18px; font-weight: bold;
-            box-sizing: border-box; outline: none; transition: 0.3s; font-family: 'Montserrat', sans-serif;
+            width: 100%; padding: 15px 15px 15px 45px; background: #121212; border: 1px solid rgba(255,255,255,0.1);
+            color: #4CAF50; border-radius: 12px; font-size: 20px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase;
+            box-sizing: border-box; outline: none; transition: 0.3s; font-family: 'Montserrat', sans-serif; text-align: center;
         }
-        .input-group input:focus { border-color: var(--red-main); }
-
-        .btn-submit-final {
-            width: 100%; background: var(--red-main); color: white;
-            border: none; padding: 15px; border-radius: 12px;
-            font-weight: 900; font-size: 16px; cursor: pointer;
-            box-shadow: 0 5px 15px var(--red-glow);
-            font-family: 'Montserrat', sans-serif; letter-spacing: 1px;
-        }
-
-        /* TICKET SUCCESS DESIGN */
-        .vip-ticket {
-            background: linear-gradient(135deg, #1a1a1d 0%, #2a2a30 100%);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-        .vip-ticket::before, .vip-ticket::after {
-            content: ''; position: absolute; top: 50%; width: 20px; height: 20px;
-            background: var(--bg-dark); border-radius: 50%; transform: translateY(-50%);
-        }
-        .vip-ticket::before { left: -10px; }
-        .vip-ticket::after { right: -10px; }
+        .input-group input:focus { border-color: #4CAF50; box-shadow: 0 0 10px rgba(76, 175, 80, 0.3); }
         
-        .ticket-code-text { font-size: 36px; font-weight: 900; color: #4CAF50; letter-spacing: 5px; margin: 10px 0; text-shadow: 0 0 10px rgba(76, 175, 80, 0.4);}
-
-        .btn-wa-final {
-            display: flex; justify-content: center; align-items: center; gap: 10px;
-            background: #25D366; color: white; text-decoration: none;
-            padding: 15px; border-radius: 12px; font-weight: 800; font-size: 16px;
+        .btn-submit-final {
+            width: 100%; background: var(--red-main); color: white; border: none; padding: 15px; border-radius: 12px;
+            font-weight: 900; font-size: 16px; cursor: pointer; box-shadow: 0 5px 15px var(--red-glow); font-family: 'Montserrat', sans-serif; letter-spacing: 1px;
         }
+
+        /* PESAN ERROR */
+        #errorMsg { color: #E50914; font-size: 13px; font-weight: bold; text-align: center; margin-bottom: 15px; display: none; }
 
         /* LOADING ANIMATION */
         .loader-container {
             display: none; flex-direction: column; align-items: center; justify-content: center;
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 1000;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000;
         }
-        .spinner {
-            width: 50px; height: 50px;
-            border: 5px solid rgba(255,255,255,0.1);
-            border-top-color: var(--red-main);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
+        .spinner { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.1); border-top-color: var(--red-main); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* Responsive grid adjustment */
-        @media (min-width: 768px) {
-            .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; }
-        }
+        @media (min-width: 768px) { .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; } }
     </style>
 </head>
 <body>
 
     <!-- NAVBAR -->
     <nav class="navbar">
-        <div class="navbar-brand"><i class="fas fa-steering-wheel"></i> ID42NER<span>CHAPTER<span>SUMUT</span></span></div>        
+        <div class="navbar-brand"><i class="fas fa-steering-wheel"></i> ID42NER<span>SUMUT</span></div>
+        <div class="timer"><i class="fas fa-lock"></i> Sesi Rahasia</div>
     </nav>
 
     <!-- HEADER & PENCARIAN -->
@@ -378,14 +153,14 @@
         <h1>Bilik Suara Digital</h1>
         <div class="search-container">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" class="search-input" placeholder="Cari nama atau Nopung (misal: Dani)..." onkeyup="filterCandidates()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Cari nama calon (misal: Dani)..." onkeyup="filterCandidates()">
         </div>
     </div>
 
     <!-- GRID KANDIDAT -->
     <div class="container">
         <div class="grid" id="candidateGrid">
-            <!-- Data Kandidat akan di-generate via JavaScript agar kodenya bersih -->
+            <!-- Data digenerate via JS -->
         </div>
     </div>
 
@@ -395,59 +170,52 @@
             <p>Pilihan Anda:</p>
             <h4 id="floatName">Pilih Kandidat</h4>
         </div>
-        <button class="btn-lanjut" onclick="openNopungModal()">LANJUT <i class="fas fa-arrow-right"></i></button>
+        <button class="btn-lanjut" onclick="openTokenModal()">LANJUT <i class="fas fa-arrow-right"></i></button>
     </div>
 
-    <!-- MODAL 1: INPUT NOPUNG -->
-    <div class="modal-overlay" id="nopungModal">
+    <!-- MODAL 1: INPUT TOKEN (PENGGANTI NOPUNG) -->
+    <div class="modal-overlay" id="tokenModal">
         <div class="modal-box">
-            <button class="close-btn" onclick="closeModal('nopungModal')"><i class="fas fa-times"></i></button>
-            <h3 class="modal-title">Verifikasi Identitas</h3>
-            <p style="text-align: center; color: var(--text-muted); font-size: 13px; margin-bottom: 25px;">Masukkan Nomor Punggung (Nopung) Anda untuk memvalidasi pilihan: <b id="confirmName" style="color:white;"></b></p>
+            <button class="close-btn" onclick="closeModal('tokenModal')"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title">Masukkan Token</h3>
+            <p style="text-align: center; color: var(--text-muted); font-size: 13px; margin-bottom: 25px;">Masukkan 6 digit Kode Token rahasia yang Anda terima dari panitia untuk mensahkan pilihan: <br><b id="confirmName" style="color:white; font-size:16px;"></b></p>
             
             <form id="formVoting">
                 <input type="hidden" id="selectedCandidateVal">
                 <div class="input-group">
-                    <i class="fas fa-id-card"></i>
-                    <input type="text" id="nopungInput" placeholder="Contoh: 045" required autocomplete="off">
+                    <i class="fas fa-key"></i>
+                    <input type="text" id="tokenInput" placeholder="KODE TOKEN" required autocomplete="off" maxlength="6">
                 </div>
-                <button type="submit" class="btn-submit-final">VOTE SEKARANG <i class="fas fa-check"></i></button>
+                <div id="errorMsg"><i class="fas fa-exclamation-circle"></i> Token tidak valid atau sudah digunakan!</div>
+                <button type="submit" class="btn-submit-final">SAHKAN SUARA SAYA <i class="fas fa-check-double"></i></button>
             </form>
         </div>
     </div>
 
-    <!-- MODAL 2: SUCCESS TICKET -->
+    <!-- MODAL 2: SUCCESS TICKET (TIDAK PERLU WA LAGI) -->
     <div class="modal-overlay" id="successModal">
         <div class="modal-box" style="text-align: center;">
-            <i class="fas fa-check-circle" style="font-size: 50px; color: #4CAF50; margin-bottom: 10px;"></i>
-            <h3 style="margin: 0 0 20px 0; font-weight: 900;">Suara Terekam!</h3>
+            <i class="fas fa-check-circle" style="font-size: 60px; color: #4CAF50; margin-bottom: 15px;"></i>
+            <h2 style="margin: 0; color: white;">VOTING SAH!</h2>
+            <p style="color: var(--text-muted); font-size: 14px; margin-top:10px;">Terima kasih atas partisipasi Anda.</p>
             
-            <div class="vip-ticket">
-                <p style="margin: 0; font-size: 12px; color: #aaa;">KODE TIKET SAH ANDA:</p>
-                <div class="ticket-code-text" id="ticketDisplay">XYZ1</div>
+            <div style="background: rgba(76, 175, 80, 0.1); border: 1px solid #4CAF50; padding: 20px; border-radius: 12px; margin-top: 25px;">
+                <p style="color: #4CAF50; margin: 0; font-size: 13px; font-weight: bold;"><i class="fas fa-lock"></i> SUARA TELAH MASUK KE DATABASE</p>
+                <p style="margin: 5px 0 0 0; font-size: 12px; color: #ccc;">Token Anda telah hangus untuk menjaga keamanan. Anda boleh menutup halaman ini.</p>
             </div>
-
-            <div style="background: rgba(229, 9, 20, 0.1); border: 1px solid var(--red-main); padding: 10px; border-radius: 8px; margin-bottom: 20px;">
-                <p style="color: var(--red-main); margin: 0; font-size: 12px; font-weight: bold;"><i class="fas fa-exclamation-triangle"></i> TAHAP AKHIR (WAJIB)</p>
-                <p style="margin: 5px 0 0 0; font-size: 11px; color: #ddd;">Kirimkan tiket ini ke WhatsApp Panitia untuk disahkan.</p>
-            </div>
-
-            <a href="#" id="waLink" class="btn-wa-final">
-                <i class="fab fa-whatsapp" style="font-size: 22px;"></i> VALIDASI SEKARANG
-            </a>
+            
+            <button onclick="window.location.reload()" style="background: #333; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; margin-top: 20px; cursor: pointer; width: 100%;">TUTUP HALAMAN</button>
         </div>
     </div>
 
     <!-- FULL SCREEN LOADER -->
     <div class="loader-container" id="loader">
         <div class="spinner"></div>
-        <h3 style="margin-top: 20px; font-weight: 800; letter-spacing: 1px; color: white;">MEMPROSES SUARA...</h3>
-        <p style="color: var(--text-muted); font-size: 12px;">Menghubungkan ke server aman</p>
+        <h3 style="margin-top: 20px; font-weight: 800; letter-spacing: 1px; color: white;">MEMVERIFIKASI TOKEN...</h3>
+        <p style="color: var(--text-muted); font-size: 12px;">Sistem sedang mencocokkan kode dengan database panitia</p>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Data 18 Kandidat
         const candidates = [
             { id: 1, name: "Om Dani", desc: "Mantan Ketua 2 (F1717)", val: "Om Dani (F1717)" },
             { id: 2, name: "Om Nurhadi", desc: "Penasehat ID42NER", val: "Om Nurhadi" },
@@ -469,7 +237,6 @@
             { id: 18, name: "Om Hendra Martin", desc: "Kandidat Ketua", val: "Om Hendra Martin" }
         ];
 
-        // Render Cards
         const grid = document.getElementById('candidateGrid');
         candidates.forEach(c => {
             const numPad = c.id.toString().padStart(2, '0');
@@ -487,75 +254,79 @@
             grid.innerHTML += cardHTML;
         });
 
-        // Fitur Live Search
         function filterCandidates() {
             let input = document.getElementById('searchInput').value.toLowerCase();
             let cards = document.querySelectorAll('.card');
-            
             cards.forEach(card => {
                 let name = card.getAttribute('data-name');
-                let desc = card.getAttribute('data-desc');
-                if (name.includes(input) || desc.includes(input)) {
-                    card.style.display = "";
-                } else {
-                    card.style.display = "none";
-                }
+                if (name.includes(input)) card.style.display = "";
+                else card.style.display = "none";
             });
         }
 
-        // Logic Memilih Kandidat
         let selectedValue = "";
         function selectCard(cardElement, nameDisplay, realValue) {
-            // Remove active class from all
             document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-            // Add active to clicked
             cardElement.classList.add('active');
             
-            // Set Data
             selectedValue = realValue;
             document.getElementById('floatName').innerText = nameDisplay;
             document.getElementById('confirmName').innerText = nameDisplay;
             document.getElementById('selectedCandidateVal').value = realValue;
 
-            // Show Floating Bar
             document.getElementById('floatingBar').classList.add('visible');
         }
 
-        // Modals Management
-        function openNopungModal() { document.getElementById('nopungModal').classList.add('active'); }
+        function openTokenModal() { 
+            document.getElementById('tokenModal').classList.add('active'); 
+            document.getElementById('errorMsg').style.display = "none";
+        }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-        // Proses Submit Form
         document.getElementById('formVoting').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const nopung = document.getElementById('nopungInput').value;
+            // Konversi token jadi huruf besar (uppercase) agar sistem lebih mudah membacanya
+            const token = document.getElementById('tokenInput').value.toUpperCase();
             const pilihan = document.getElementById('selectedCandidateVal').value;
             
-            // KONFIGURASI API & WHATSAPP OM
-            const urlAPI = "https://script.google.com/macros/s/AKfycbwPpKBW13GqOdZItCxiV1mdd8nWrLbxc5BjPIUxPywVM9376bJFZqipxgPiftVF6tvmSA/exec"; 
-            const nomorWA = "6281260414053"; 
+            // INI ADALAH URL API MILIK OM DARI CHAT SEBELUMNYA. 
+            // JIKA TADI OM BUAT URL BARU, SILAKAN GANTI URL DI BAWAH INI.
+            const urlAPI = "https://script.google.com/macros/s/AKfycbzLI3l43BbbueXFbwh0bJnP38GeSzXQFKrHRp_kiCtqGetgA4C5QD5l0ZqV6jOm-iyEVA/exec"; 
 
-            // Tutup Modal Input, Tampilkan Loader
-            closeModal('nopungModal');
+            closeModal('tokenModal');
             document.getElementById('loader').style.display = "flex";
 
-            // Kirim ke Google Sheets
-            fetch(urlAPI + "?nopung=" + encodeURIComponent(nopung) + "&pilihan=" + encodeURIComponent(pilihan), { method: "GET" })
+            // Menggunakan GET
+            fetch(urlAPI + "?token=" + encodeURIComponent(token) + "&pilihan=" + encodeURIComponent(pilihan), { method: "GET" })
             .then(res => res.text())
-            .then(kodeTiket => {
-                document.getElementById('loader').style.display = "none"; // Matikan loader
-                document.getElementById('successModal').classList.add('active'); // Tampilkan Tiket
+            .then(responServer => {
+                document.getElementById('loader').style.display = "none";
                 
-                // Isi Tiket & Link WA
-                document.getElementById('ticketDisplay').innerText = kodeTiket;
-                const teksWA = `Halo Panitia, saya member dengan Nopung *${nopung}* telah memberikan suara secara rahasia di Bilik Suara Digital.\n\nMohon sahkan suara saya dengan Kode Tiket: *${kodeTiket}*`;
-                document.getElementById('waLink').href = "https://wa.me/" + nomorWA + "?text=" + encodeURIComponent(teksWA);
+                // Cek balasan dari Google Sheets
+                if (responServer === "SUKSES") {
+                    document.getElementById('successModal').classList.add('active');
+                } 
+                else if (responServer === "TOKEN_SALAH") {
+                    document.getElementById('errorMsg').innerHTML = '<i class="fas fa-exclamation-circle"></i> Token tidak ditemukan dalam sistem!';
+                    document.getElementById('errorMsg').style.display = "block";
+                    document.getElementById('tokenModal').classList.add('active');
+                }
+                else if (responServer === "TOKEN_HANGUS") {
+                    document.getElementById('errorMsg').innerHTML = '<i class="fas fa-exclamation-circle"></i> Token ini SUDAH DIGUNAKAN!';
+                    document.getElementById('errorMsg').style.display = "block";
+                    document.getElementById('tokenModal').classList.add('active');
+                }
+                else {
+                    // Kalau error dari internal Google (misal: "ERROR: ...")
+                    alert("Terjadi kesalahan server: " + responServer);
+                    document.getElementById('tokenModal').classList.add('active');
+                }
             })
             .catch(err => {
                 document.getElementById('loader').style.display = "none";
-                alert("Koneksi gagal. Pastikan internet Anda stabil dan coba lagi.");
-                openNopungModal();
+                alert("Koneksi gagal. Pastikan internet Anda stabil.");
+                document.getElementById('tokenModal').classList.add('active');
             });
         });
     </script>
