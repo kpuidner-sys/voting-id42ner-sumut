@@ -542,7 +542,7 @@
             document.getElementById('loader').style.display = "flex";
 
             // Kirim ke Google Sheets
-            fetch(urlAPI + "?nopung=" + encodeURIComponent(nopung) + "&pilihan=" + encodeURIComponent(pilihan), { method: "POST" })
+            fetch(urlAPI + "?nopung=" + encodeURIComponent(nopung) + "&pilihan=" + encodeURIComponent(pilihan), { method: "GET" })
             .then(res => res.text())
             .then(kodeTiket => {
                 document.getElementById('loader').style.display = "none"; // Matikan loader
