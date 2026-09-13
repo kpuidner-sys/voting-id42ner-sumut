@@ -60,20 +60,34 @@
         }
         .search-input:focus { border-color: var(--red-main); box-shadow: 0 0 15px var(--red-glow); }
 
-        /* GRID KANDIDAT */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 10px; }
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        /* GRID KANDIDAT: Menggunakan auto-fit agar lebih pintar menyesuaikan layar */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+        
+        .grid { 
+            display: grid; 
+            /* Di HP jadi 2 kolom (min 140px), di PC akan otomatis membagi proporsional tanpa gepeng */
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+            gap: 15px; 
+        }
         
         .card {
             background: var(--card-bg); border-radius: 12px; overflow: hidden;
             position: relative; cursor: pointer; transition: all 0.3s ease;
             border: 2px solid transparent; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             display: flex; flex-direction: column;
+            /* Memastikan rasio kartu itu sendiri tetap tegak/potret */
+            aspect-ratio: 3 / 4; 
         }
 
         .card.active { border-color: var(--red-main); box-shadow: 0 0 15px var(--red-glow); transform: scale(1.02); }
 
-        .card-img { width: 100%; height: 190px; background-color: #2a2a2f; position: relative; overflow: hidden; }
+        /* FOTO KANDIDAT */
+        .card-img { 
+            width: 100%; 
+            /* Mengambil porsi 70% dari tinggi kartu, sisanya untuk teks */
+            height: 70%; 
+            background-color: #2a2a2f; position: relative; overflow: hidden; 
+        }
         .foto-kandidat { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: all 0.4s ease; }
         .placeholder-icon { font-size: 50px; color: rgba(255,255,255,0.05); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; }
         
@@ -90,7 +104,7 @@
         .card.active .cancel-badge { opacity: 1; transform: scale(1); }
         .cancel-badge:active { transform: scale(0.8); }
         
-        .card-info { padding: 10px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center;}
+        .card-info { padding: 10px 5px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; background: var(--card-bg);}
         .card-name { font-weight: 800; font-size: 12px; margin: 0 0 3px 0; line-height: 1.2; }
         .card-desc { font-size: 9px; color: var(--text-muted); margin: 0; }
         
@@ -140,6 +154,17 @@
         .spinner { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.1); border-top-color: var(--red-main); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
+        /* RESPONSIVE KHUSUS LAYAR BESAR (PC / LAPTOP) */
+        @media (min-width: 768px) {
+            .grid { 
+                /* Di PC akan otomatis membuat 4-5 kolom yang seimbang */
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+                gap: 20px; 
+            }
+            .card-name { font-size: 15px; }
+            .card-desc { font-size: 11px; }
+            .zoom-img-container { height: 500px; } /* Zoom foto lebih besar di PC */
+        }
     </style>
 </head>
 <body>
