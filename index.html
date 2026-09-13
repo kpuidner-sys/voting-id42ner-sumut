@@ -122,6 +122,7 @@
             background: none; border: 1px solid rgba(255,255,255,0.2); color: white; 
             padding: 8px 15px; border-radius: 20px; font-size: 11px; cursor: pointer;
             transition: 0.3s; margin: 0 auto; width: 80%; display: flex; justify-content: center; align-items: center; gap: 5px;
+            position: relative; z-index: 30; /* Ditambahkan agar lebih mudah diklik */
         }
         .btn-flip:hover { background: rgba(255,255,255,0.1); border-color: white; }
 
@@ -129,6 +130,7 @@
             background: var(--red-main); border: none; color: white;
             padding: 10px; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer;
             margin-top: 10px; width: 100%; transition: 0.2s;
+            position: relative; z-index: 30; /* Ditambahkan agar lebih mudah diklik */
         }
         .btn-pilih-langsung:active { transform: scale(0.95); }
 
@@ -143,7 +145,12 @@
         }
         .back-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px; }
         .back-title { font-weight: 900; font-size: 14px; margin: 0; color: var(--red-main); }
-        .btn-close-flip { background: none; border: none; color: #888; font-size: 18px; cursor: pointer; padding: 0; }
+        .btn-close-flip { 
+            background: none; border: none; color: #aaa; font-size: 22px; 
+            cursor: pointer; padding: 5px; margin: -5px; transition: color 0.3s;
+            position: relative; z-index: 40; /* Dinaikkan z-index agar 100% bisa diklik */
+        }
+        .btn-close-flip:hover { color: white; }
         
         .visi-misi-content { flex-grow: 1; overflow-y: auto; font-size: 12px; line-height: 1.5; color: #ccc; padding-right: 5px; }
         .visi-misi-content::-webkit-scrollbar { width: 4px; }
@@ -156,6 +163,7 @@
             background: var(--red-main); border: none; color: white;
             padding: 12px; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer;
             margin-top: 15px; width: 100%; transition: 0.2s; box-shadow: 0 4px 10px rgba(229,9,20,0.3);
+            position: relative; z-index: 40;
         }
         .btn-pilih-dari-back:active { transform: scale(0.95); }
 
@@ -179,7 +187,7 @@
         .modal-overlay.active { opacity: 1; pointer-events: all; }
         .modal-box { background: var(--card-bg); width: 90%; max-width: 400px; padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); transform: translateY(50px) scale(0.9); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
         .modal-overlay.active .modal-box { transform: translateY(0) scale(1); }
-        .close-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer; }
+        .close-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer; z-index: 50; }
         .modal-title { margin: 0 0 20px 0; font-weight: 900; font-size: 20px; text-align: center; }
         
         .input-group { position: relative; margin-bottom: 20px; }
@@ -271,27 +279,27 @@
     </div>
 
     <script>
-        // DAFTAR KANDIDAT DENGAN DATA VISI-MISI
+        // DAFTAR KANDIDAT (VISI-MISI DIKOSONGKAN)
         const candidates = [
-            { id: 1, name: "Om Dani", desc: "(F1717)", val: "Om Dani (F1717)", foto: "./calon1.jpg", visi: "Menjadikan ID42NER Sumut chapter terbaik se-Indonesia.", misi: ["Meningkatkan silaturahmi member", "Mengadakan touring lintas sumatera", "Berbagi dengan masyarakat sekitar"] },
-            { id: 2, name: "Om H.Nurhadi", desc: "(F1493)", val: "Om Nurhadi (F)", foto: "./calon2.jpg", visi: "Membangun persaudaraan tanpa batas.", misi: ["Program kopdar wajib", "Edukasi safety driving"] },
-            { id: 3, name: "Om Hasyim", desc: "(F1396)", val: "Om Hasyim (F1396)", foto: "./calon3.png", visi: "ID42NER Kuat, ID42NER Hebat.", misi: ["Penguatan struktur organisasi", "Peningkatan kas chapter"] },
-            { id: 4, name: "Om Hendra Sinaga", desc: "(F1812)", val: "Om Hendra Sinaga (F1812)", foto: "./calon4.jpg", visi: "Solidaritas adalah kunci.", misi: ["Acara family gathering rutin", "Bantuan sosial kebencanaan"] },
-            { id: 5, name: "Om Umri", desc: "(F2216)", val: "Om Umri (F2216)", foto: "./calon5.jpg", visi: "Menjadi wadah otomotif paling positif.", misi: ["Kerjasama dengan bengkel mitra", "Touring wisata keluarga"] },
-            { id: 6, name: "Om Tantra Deska", desc: "(F1884)", val: "Om Tantra Deska (F1884)", foto: "./calon6.jpg", visi: "Transparansi dan kebersamaan.", misi: ["Laporan keuangan terbuka", "Diskon khusus member di merchant"] },
-            { id: 7, name: "Om Ronald", desc: "(F1488)", val: "Om Ronald (F1488)", foto: "./calon7.jpg", visi: "Administrasi rapi, chapter maju.", misi: ["Digitalisasi data member", "Pembuatan KTA cepat"] },
-            { id: 8, name: "Om Afdhal", desc: "(F)", val: "Om Afdhal (F)", foto: "./calon8.jpg", visi: "Kemandirian finansial chapter.", misi: ["Pengadaan merchandise resmi", "Iuran yang fleksibel"] },
-            { id: 9, name: "Om Hery Zz", desc: "(F2850)", val: "Om Hery Zz (F2850)", foto: "./calon9.jpg", visi: "Dukungan penuh untuk program kerja.", misi: ["Membantu sekretariat", "Komunikasi antar chapter"] },
-            { id: 10, name: "Om H.Wansa/Endri Irwanto", desc: "(F965)", val: "Om Wansa/Endri Irwanto (F965)", foto: "./calon10.jpg", visi: "Kolaborasi untuk inovasi.", misi: ["Event otomotif besar tahunan", "Kopdar tematik"] },
-            { id: 11, name: "Om Erick/Sulaiman Azhari", desc: "(F)", val: "Om Erick/Sulaiman Azhari (F)", foto: "./calon11.jpg", visi: "Menyatukan semua hobi member.", misi: ["Mini touring 2 bulan sekali", "Kegiatan olahraga bersama"] },
-            { id: 12, name: "Om Husni", desc: "(F)", val: "Om Husni (F)", foto: "./calon12.jpg", visi: "Maju bersama meraih prestasi.", misi: ["Ikut serta kontes mobil", "Bakti sosial panti asuhan"] },
-            { id: 13, name: "Om Jefrie Himawan", desc: "F", val: "Om Jefrie Himawan (F)", foto: "./calon13.jpg", visi: "Membawa nama baik ID42NER.", misi: ["Tertib berlalu lintas", "Kampanye anti narkoba"] },
-            { id: 14, name: "Om Dicky", desc: "(F2177)", val: "Om Dicky (2177)", foto: "./calon14.jpg", visi: "Selalu ada untuk keluarga ID42NER.", misi: ["Tanggap darurat member", "Solidaritas di jalan"] },
-            { id: 15, name: "Om Dedy Ginting", desc: "(F)", val: "Om Dedy Ginting (F)", foto: "./calon15.jpeg", visi: "Eksistensi di Sumatera Utara.", misi: ["Kopdar lintas kota", "Pengenalan wisata lokal"] },
-            { id: 16, name: "Om Hendra Martin", desc: "(F2552)", val: "Om Hendra Martin (F2552)", foto: "./calon16.jpg", visi: "Menjadikan mobil bukan sekadar alat.", misi: ["Klinik perbaikan mobil darurat", "Sharing modifikasi"] },
-            { id: 17, name: "Om Nanang", desc: "(F)", val: "Om Nanang (F)", foto: "./calon17.jpg", visi: "Gembira, Guyub, Rukun.", misi: ["Tidak ada sekat senior-junior", "Acara makan bersama rutin"] },
-            { id: 18, name: "Om Try Sutrisno", desc: "(F2782)", val: "Om Try Sutrisno (F2782)", foto: "./calon18.jpg", visi: "Berjaya di aspal, beramal di darat.", misi: ["Touring religi", "Pengajian rutin bulanan"] },
-            { id: 19, name: "Om Wyne Purba", desc: "(F2913)", val: "Om Wyne Purba (F2913)", foto: "./calon19.jpg", visi: "Integritas dan kekompakan.", misi: ["Resolusi konflik member", "Pendampingan hukum jika perlu"] }
+            { id: 1, name: "Om Dani", desc: "(F1717)", val: "Om Dani (F1717)", foto: "./calon1.jpg", visi: "", misi: [] },
+            { id: 2, name: "Om H.Nurhadi", desc: "(F1493)", val: "Om Nurhadi (F)", foto: "./calon2.jpg", visi: "", misi: [] },
+            { id: 3, name: "Om Hasyim", desc: "(F1396)", val: "Om Hasyim (F1396)", foto: "./calon3.png", visi: "", misi: [] },
+            { id: 4, name: "Om Hendra Sinaga", desc: "(F1812)", val: "Om Hendra Sinaga (F1812)", foto: "./calon4.jpg", visi: "", misi: [] },
+            { id: 5, name: "Om Umri", desc: "(F2216)", val: "Om Umri (F2216)", foto: "./calon5.jpg", visi: "", misi: [] },
+            { id: 6, name: "Om Tantra Deska", desc: "(F1884)", val: "Om Tantra Deska (F1884)", foto: "./calon6.jpg", visi: "", misi: [] },
+            { id: 7, name: "Om Ronald", desc: "(F1488)", val: "Om Ronald (F1488)", foto: "./calon7.jpg", visi: "", misi: [] },
+            { id: 8, name: "Om Afdhal", desc: "(F)", val: "Om Afdhal (F)", foto: "./calon8.jpg", visi: "", misi: [] },
+            { id: 9, name: "Om Hery Zz", desc: "(F2850)", val: "Om Hery Zz (F2850)", foto: "./calon9.jpg", visi: "", misi: [] },
+            { id: 10, name: "Om H.Wansa/Endri Irwanto", desc: "(F965)", val: "Om Wansa/Endri Irwanto (F965)", foto: "./calon10.png", visi: "", misi: [] },
+            { id: 11, name: "Om Erick/Sulaiman Azhari", desc: "(F)", val: "Om Erick/Sulaiman Azhari (F)", foto: "./calon11.jpg", visi: "", misi: [] },
+            { id: 12, name: "Om Husni", desc: "(F)", val: "Om Husni (F)", foto: "./calon12.jpg", visi: "", misi: [] },
+            { id: 13, name: "Om Jefrie Himawan", desc: "F", val: "Om Jefrie Himawan (F)", foto: "./calon13.jpg", visi: "", misi: [] },
+            { id: 14, name: "Om Dicky", desc: "(F2177)", val: "Om Dicky (2177)", foto: "./calon14.jpg", visi: "", misi: [] },
+            { id: 15, name: "Om Dedy Ginting", desc: "(F)", val: "Om Dedy Ginting (F)", foto: "./calon15.jpeg", visi: "", misi: [] },
+            { id: 16, name: "Om Hendra Martin", desc: "(F2552)", val: "Om Hendra Martin (F2552)", foto: "./calon16.jpg", visi: "", misi: [] },
+            { id: 17, name: "Om Nanang", desc: "(F)", val: "Om Nanang (F)", foto: "./calon17.jpg", visi: "", misi: [] },
+            { id: 18, name: "Om Try Sutrisno", desc: "(F2782)", val: "Om Try Sutrisno (F2782)", foto: "./calon18.jpg", visi: "", misi: [] },
+            { id: 19, name: "Om Wyne Purba", desc: "(F2913)", val: "Om Wyne Purba (F2913)", foto: "./calon19.jpg", visi: "", misi: [] }
         ];
 
         const grid = document.getElementById('candidateGrid');
@@ -299,11 +307,17 @@
         candidates.forEach(c => {
             const numPad = c.id.toString().padStart(2, '0');
             
-            // Format list Misi menjadi elemen <li>
+            // Format list Misi menjadi elemen <li>, jika kosong tampilkan teks default
             let misiList = "";
-            c.misi.forEach(m => {
-                misiList += `<li>${m}</li>`;
-            });
+            if (c.misi && c.misi.length > 0) {
+                c.misi.forEach(m => {
+                    misiList += `<li>${m}</li>`;
+                });
+            } else {
+                misiList = "<li style='list-style:none; padding-left:0; color:#888;'>Belum ada data misi.</li>";
+            }
+
+            let visiText = (c.visi && c.visi !== "") ? `"${c.visi}"` : "<span style='color:#888;'>Belum ada data visi.</span>";
             
             // Kode Gambar Sapu Jagat
             const imageRender = `
@@ -322,7 +336,7 @@
                     <div class="card-inner">
                         
                         <!-- SISI DEPAN (FOTO KANDIDAT) -->
-                        <div class="card-front">
+                        <div class="card-front" onclick="pilihKandidat(${c.id}, '${c.name}', '${c.val}')" style="cursor: pointer;">
                             <div class="number-badge">${numPad}</div>
                             <div class="check-badge" id="check-${c.id}"><i class="fas fa-check"></i></div>
                             <div class="card-img">
@@ -334,7 +348,7 @@
                                 <div style="display:flex; gap:10px; width:100%; margin-top:5px;">
                                     <button class="btn-flip" onclick="flipCard(${c.id}, event)"><i class="fas fa-book-open"></i> Visi Misi</button>
                                 </div>
-                                <button class="btn-pilih-langsung" onclick="pilihKandidat(${c.id}, '${c.name}', '${c.val}')"><i class="fas fa-vote-yea"></i> PILIH CALON INI</button>
+                                <!-- Tombol Pilih Calon Ini dihapus karena area card depan sudah bisa diklik untuk memilih -->
                             </div>
                         </div>
 
@@ -342,11 +356,11 @@
                         <div class="card-back">
                             <div class="back-header">
                                 <h3 class="back-title">VISI & MISI</h3>
-                                <button class="btn-close-flip" onclick="flipCard(${c.id}, event)"><i class="fas fa-times-circle"></i></button>
+                                <button class="btn-close-flip" onclick="flipCard(${c.id}, event)" title="Tutup"><i class="fas fa-times"></i></button>
                             </div>
                             <div class="visi-misi-content">
                                 <h4>VISI:</h4>
-                                <p style="margin-top:0;">"${c.visi}"</p>
+                                <p style="margin-top:0;">${visiText}</p>
                                 <h4>MISI:</h4>
                                 <ul>${misiList}</ul>
                             </div>
@@ -372,7 +386,7 @@
 
         // Fungsi Memutar Kartu (Flip)
         function flipCard(id, event) {
-            event.stopPropagation(); // Mencegah klik menembus ke elemen lain
+            event.stopPropagation(); // Mencegah klik menembus dan memilih kartu secara tidak sengaja
             const card = document.getElementById(`card-${id}`);
             card.classList.toggle('is-flipped');
         }
@@ -415,7 +429,6 @@
             const token = document.getElementById('tokenInput').value.toUpperCase();
             const pilihan = document.getElementById('selectedCandidateVal').value;
             
-            // URL API OM
             const urlAPI = "https://script.google.com/macros/s/AKfycbzLI3l43BbbueXFbwh0bJnP38GeSzXQFKrHRp_kiCtqGetgA4C5QD5l0ZqV6jOm-iyEVA/exec"; 
 
             closeModal('tokenModal');
