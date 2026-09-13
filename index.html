@@ -109,11 +109,15 @@
         .card-container.active .foto-kandidat { filter: brightness(1.2); }
         
         .number-badge { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; font-weight: 900; padding: 4px 8px; border-radius: 8px; font-size: 14px; border: 1px solid rgba(255,255,255,0.1); z-index: 20; }
-        .check-badge {
-            position: absolute; top: 10px; right: 10px; background: var(--red-main); color: white; width: 25px; height: 25px;
-            border-radius: 50%; display: flex; justify-content: center; align-items: center; opacity: 0; transform: scale(0); transition: all 0.3s; z-index: 20;
+        
+        /* TOMBOL BATAL (X) PENGGANTI CENTANG */
+        .cancel-badge {
+            position: absolute; top: 10px; right: 10px; background: var(--red-main); color: white; width: 30px; height: 30px;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center; opacity: 0; transform: scale(0); 
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 30; border: none; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
-        .card-container.active .check-badge { opacity: 1; transform: scale(1); }
+        .card-container.active .cancel-badge { opacity: 1; transform: scale(1); }
+        .cancel-badge:active { transform: scale(0.8); }
         
         .card-info { padding: 15px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center;}
         .card-name { font-weight: 800; font-size: 15px; margin: 0 0 5px 0; line-height: 1.3; }
@@ -133,6 +137,7 @@
         }
         .back-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px; }
         .back-title { font-weight: 900; font-size: 14px; margin: 0; color: var(--red-main); }
+        .btn-close-flip { background: none; border: none; color: #888; font-size: 20px; cursor: pointer; padding: 0; position: relative; z-index: 40;}
         
         .visi-misi-content { flex-grow: 1; overflow-y: auto; font-size: 12px; line-height: 1.5; color: #ccc; padding-right: 5px; }
         .visi-misi-content::-webkit-scrollbar { width: 4px; }
@@ -150,7 +155,6 @@
         .btn-pilih-dari-back:active { transform: scale(0.95); }
         .card-container.active .btn-pilih-dari-back { background: #4CAF50; box-shadow: 0 4px 10px rgba(76,175,80,0.3); }
 
-
         /* FLOATING ACTION BAR */
         .floating-bar {
             position: fixed; bottom: -100px; left: 0; width: 100%; background: rgba(28, 28, 31, 0.95); backdrop-filter: blur(10px);
@@ -165,7 +169,7 @@
         .btn-lanjut { background: var(--red-main); color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: 800; font-family: 'Montserrat', sans-serif; font-size: 14px; cursor: pointer; box-shadow: 0 4px 15px var(--red-glow); transition: transform 0.2s; }
         .btn-lanjut:active { transform: scale(0.95); }
 
-        /* MODALS (TOKEN & SUCCESS) */
+        /* MODALS */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
         .modal-overlay.active { opacity: 1; pointer-events: all; }
         .modal-box { background: var(--card-bg); width: 90%; max-width: 400px; padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); transform: translateY(50px) scale(0.9); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
@@ -265,7 +269,7 @@
         // DAFTAR KANDIDAT
         const candidates = [
             { id: 1, name: "Om Dani", desc: "(F1717)", val: "Om Dani (F1717)", foto: "./calon1.jpg", visi: "", misi: [] },
-            { id: 2, name: "Om H.Nurhadi", desc: "(F1493)", val: "Om Nurhadi (F)", foto: "./calon2.jpg", visi: "", misi: [] },
+            { id: 2, name: "Om Hj.Nurhadi", desc: "(F1493)", val: "Om Nurhadi (F)", foto: "./calon2.jpg", visi: "", misi: [] },
             { id: 3, name: "Om Hasyim", desc: "(F1396)", val: "Om Hasyim (F1396)", foto: "./calon3.png", visi: "", misi: [] },
             { id: 4, name: "Om Hendra Sinaga", desc: "(F1812)", val: "Om Hendra Sinaga (F1812)", foto: "./calon4.jpg", visi: "", misi: [] },
             { id: 5, name: "Om Umri", desc: "(F2216)", val: "Om Umri (F2216)", foto: "./calon5.jpg", visi: "", misi: [] },
@@ -273,7 +277,7 @@
             { id: 7, name: "Om Ronald", desc: "(F1488)", val: "Om Ronald (F1488)", foto: "./calon7.jpg", visi: "", misi: [] },
             { id: 8, name: "Om Afdhal", desc: "(F)", val: "Om Afdhal (F)", foto: "./calon8.jpg", visi: "", misi: [] },
             { id: 9, name: "Om Hery Zz", desc: "(F2850)", val: "Om Hery Zz (F2850)", foto: "./calon9.jpg", visi: "", misi: [] },
-            { id: 10, name: "Om H.Wansa/Endri Irwanto", desc: "(F965)", val: "Om Wansa/Endri Irwanto (F965)", foto: "./calon10.jpg", visi: "", misi: [] },
+            { id: 10, name: "Om Hj.Wansa/Endri Irwanto", desc: "(F965)", val: "Om Wansa/Endri Irwanto (F965)", foto: "./calon10.jpg", visi: "", misi: [] },
             { id: 11, name: "Om Erick/Sulaiman Azhari", desc: "(F)", val: "Om Erick/Sulaiman Azhari (F)", foto: "./calon11.jpg", visi: "", misi: [] },
             { id: 12, name: "Om Husni", desc: "(F)", val: "Om Husni (F)", foto: "./calon12.jpg", visi: "", misi: [] },
             { id: 13, name: "Om Jefrie Himawan", desc: "F", val: "Om Jefrie Himawan (F)", foto: "./calon13.jpg", visi: "", misi: [] },
@@ -311,13 +315,15 @@
             `;
 
             const cardHTML = `
-                <div class="card-container" id="card-${c.id}" data-name="${c.name.toLowerCase()}" onclick="handleCardClick(${c.id}, '${c.name}', '${c.val}', event)">
+                <div class="card-container" id="card-${c.id}" data-name="${c.name.toLowerCase()}">
                     <div class="card-inner">
                         
                         <!-- SISI DEPAN (FOTO KANDIDAT) -->
-                        <div class="card-front">
+                        <div class="card-front" onclick="handleCardClick(${c.id}, event)">
                             <div class="number-badge">${numPad}</div>
-                            <div class="check-badge" id="check-${c.id}"><i class="fas fa-check"></i></div>
+                            <!-- Tombol Batal Pilih (X) -->
+                            <button class="cancel-badge" id="cancel-${c.id}" onclick="batalPilih(event)" title="Batal Pilih"><i class="fas fa-times"></i></button>
+                            
                             <div class="card-img">
                                 ${imageRender}
                             </div>
@@ -332,6 +338,7 @@
                         <div class="card-back">
                             <div class="back-header">
                                 <h3 class="back-title">VISI & MISI</h3>
+                                <button class="btn-close-flip" onclick="handleCardClick(${c.id}, event)"><i class="fas fa-times-circle"></i></button>
                             </div>
                             <div class="visi-misi-content">
                                 <h4>VISI:</h4>
@@ -359,62 +366,74 @@
             });
         }
 
-        // Logic Utama Klik Kartu
-        function handleCardClick(id, nameDisplay, realValue, event) {
+        // FUNGSI 1: Memutar Kartu Saja
+        function handleCardClick(id, event) {
+            event.stopPropagation(); // Mencegah klik nyasar
+            
             const card = document.getElementById(`card-${id}`);
             
-            // 1. Jika kartu sedang menghadap depan
-            if (!card.classList.contains('is-flipped')) {
-                // Semua kartu kembalikan ke awal (hapus active & flip)
-                document.querySelectorAll('.card-container').forEach(c => {
-                    c.classList.remove('active');
-                    if(c.id !== `card-${id}`) c.classList.remove('is-flipped');
-                });
-                
-                // Flip kartu ini ke belakang (Visi Misi)
-                card.classList.add('is-flipped');
-                
-                // Sembunyikan bar mengambang jika ada
-                document.getElementById('floatingBar').classList.remove('visible');
-                document.getElementById('selectedCandidateVal').value = "";
-            } 
-            // 2. Jika kartu sudah di belakang, tapi diklik BUKAN di tombol pilih
-            else {
-                // Balikkan lagi ke depan (batalkan)
-                card.classList.remove('is-flipped');
-                card.classList.remove('active');
-                
-                document.getElementById('floatingBar').classList.remove('visible');
-                document.getElementById('selectedCandidateVal').value = "";
-            }
+            // Tutup kartu lain yang sedang terbuka agar rapi
+            document.querySelectorAll('.card-container').forEach(c => {
+                if(c.id !== `card-${id}`) {
+                    c.classList.remove('is-flipped');
+                }
+            });
+
+            // Putar kartu ini
+            card.classList.toggle('is-flipped');
         }
 
-        // Logic Pilih dari Tombol Belakang
+        // FUNGSI 2: Klik Tombol Merah 'PILIH CALON INI' di Belakang
         function pilihDariBelakang(id, nameDisplay, realValue, event) {
-            event.stopPropagation(); // Stop agar tidak memicu handleCardClick
+            event.stopPropagation(); // Stop agar tidak memicu putar balik
             
             const card = document.getElementById(`card-${id}`);
             
-            // Balikkan kartu ke depan
+            // 1. Reset semua kartu ke awal (hapus bingkai merah)
+            document.querySelectorAll('.card-container').forEach(c => {
+                c.classList.remove('active');
+            });
+            
+            // 2. Reset semua tulisan tombol kembali jadi "PILIH CALON INI"
+            resetSemuaTombolPilih();
+
+            // 3. Putar kembali kartu ini menghadap depan
             card.classList.remove('is-flipped');
             
-            // Beri tanda aktif (merah & centang)
+            // 4. Jadikan kartu ini TERPILIH (bingkai merah & tombol X muncul)
             card.classList.add('active');
             
-            // Ganti tulisan di tombol dari belakang
+            // 5. Ganti tulisan tombol khusus di kartu ini jadi TERPILIH (untuk jaga-jaga kalau diputar lagi)
             event.target.innerHTML = '<i class="fas fa-check-circle"></i> TERPILIH';
             
-            // Munculkan Bar Floating
+            // 6. Munculkan Bar Floating di bawah
             document.getElementById('floatName').innerText = nameDisplay;
             document.getElementById('confirmName').innerText = nameDisplay;
             document.getElementById('selectedCandidateVal').value = realValue;
             document.getElementById('floatingBar').classList.add('visible');
+        }
+
+        // FUNGSI 3: Membatalkan Pilihan (Klik Tombol X)
+        function batalPilih(event) {
+            event.stopPropagation(); // Cegah kartu malah berputar saat tombol X diklik
             
-            // Kembalikan tulisan tombol yang lain jadi normal
+            // 1. Hapus bingkai merah dari semua kartu
+            document.querySelectorAll('.card-container').forEach(c => {
+                c.classList.remove('active');
+            });
+            
+            // 2. Wajib: Reset tulisan di semua tombol belakang jadi normal lagi
+            resetSemuaTombolPilih();
+            
+            // 3. Sembunyikan Bar di bawah
+            document.getElementById('floatingBar').classList.remove('visible');
+            document.getElementById('selectedCandidateVal').value = "";
+        }
+
+        // Fungsi Helper untuk Mereset Tulisan Tombol
+        function resetSemuaTombolPilih() {
             document.querySelectorAll('.btn-pilih-dari-back').forEach(btn => {
-                if(btn !== event.target) {
-                    btn.innerHTML = '<i class="fas fa-vote-yea"></i> PILIH CALON INI';
-                }
+                btn.innerHTML = '<i class="fas fa-vote-yea"></i> PILIH CALON INI';
             });
         }
 
