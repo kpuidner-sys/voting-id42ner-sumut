@@ -24,7 +24,7 @@
             color: var(--text-light);
             margin: 0;
             padding: 0;
-            padding-bottom: 120px; /* Diperbesar sedikit agar tidak tertutup floating bar */
+            padding-bottom: 120px;
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -32,7 +32,7 @@
         .navbar {
             background: rgba(15, 15, 17, 0.9);
             backdrop-filter: blur(10px);
-            padding: 15px 20px;
+            padding: 12px 15px;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -42,89 +42,80 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
-        .navbar-brand { font-weight: 900; font-size: 20px; letter-spacing: 1px; }
+        .navbar-brand { font-weight: 900; font-size: 18px; letter-spacing: 1px; }
         .navbar-brand span { color: var(--red-main); }
-        .timer { font-size: 11px; font-weight: 600; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 6px 12px; border-radius: 20px;}
+        .timer { font-size: 11px; font-weight: 600; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 20px;}
 
         /* HEADER & SEARCH */
-        .header-section { padding: 25px 20px; text-align: center; }
+        .header-section { padding: 20px 15px; text-align: center; }
         .header-section h1 {
-            margin: 0; font-size: 24px; font-weight: 900; text-transform: uppercase;
+            margin: 0; font-size: 22px; font-weight: 900; text-transform: uppercase;
             background: linear-gradient(to right, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .search-container { max-width: 500px; margin: 20px auto 0; position: relative; }
-        .search-container i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+        .search-container { max-width: 500px; margin: 15px auto 0; position: relative; }
+        .search-container i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
         .search-input {
-            width: 100%; padding: 15px 20px 15px 50px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1);
-            background: var(--card-bg); color: white; font-size: 15px; box-sizing: border-box; outline: none; transition: all 0.3s; font-family: 'Montserrat', sans-serif;
+            width: 100%; padding: 12px 15px 12px 40px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1);
+            background: var(--card-bg); color: white; font-size: 14px; box-sizing: border-box; outline: none; transition: all 0.3s; font-family: 'Montserrat', sans-serif;
         }
         .search-input:focus { border-color: var(--red-main); box-shadow: 0 0 15px var(--red-glow); }
 
         /* GRID KANDIDAT & FLIP CARD ANIMATION */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 10px; }
         
-        /* Grid yang proposional untuk HP (Minimal lebar 160px) */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; perspective: 1000px; }
+        /* WAJIB 2 KOLOM DI HP AGAR RAPI */
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; perspective: 1000px; }
         
         .card-container {
             position: relative;
             width: 100%;
+            height: 320px; /* TINGGI FIX UNTUK HP (Pas dengan proporsi 9:16) */
             cursor: pointer;
-            /* Kita hilangkan fixed height agar fleksibel mengikuti isi konten */
         }
 
         .card-inner {
-            position: relative;
+            position: absolute;
             width: 100%;
             height: 100%;
             transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
-            /* Styling dipindah ke inner agar shadow dan border ikut berputar */
-            border-radius: 16px;
+            border-radius: 12px;
             background: var(--card-bg);
-            border: 2px solid transparent; /* Border default transparan */
+            border: 2px solid transparent;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
         .card-container.active .card-inner {
             border-color: var(--red-main);
-            box-shadow: 0 0 20px var(--red-glow);
+            box-shadow: 0 0 15px var(--red-glow);
         }
 
         .card-container.is-flipped .card-inner {
             transform: rotateY(180deg);
         }
 
-        .card-front {
-            width: 100%;
-            /* Kita tidak pakai absolute di sini agar card-inner menyesuaikan tinggi card-front */
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            border-radius: 14px; /* Sedikit lebih kecil dari inner */
-            overflow: hidden;
-            background: var(--card-bg);
-        }
-
-        .card-back {
+        .card-front, .card-back {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
             display: flex;
             flex-direction: column;
-            border-radius: 14px;
+            border-radius: 10px; 
+            overflow: hidden;
+        }
+
+        .card-back {
             background: linear-gradient(145deg, #1f1f23, #151518);
             transform: rotateY(180deg);
-            padding: 15px;
+            padding: 12px;
             box-sizing: border-box;
         }
 
         /* BAGIAN DEPAN (FOTO) */
-        /* Tinggi foto di-fix agar seragam dan rapi di semua HP */
         .card-img { 
             width: 100%; 
-            height: 200px; /* Ukuran paling ideal untuk potret 9:16 di layar kecil */
+            height: 190px; /* Tinggi Pas Untuk Potret 9:16 di 2 kolom */
             background-color: #2a2a2f; 
             position: relative; 
             overflow: hidden; 
@@ -134,43 +125,42 @@
         
         .card-container.active .foto-kandidat { filter: brightness(1.2); }
         
-        .number-badge { position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-weight: 900; padding: 4px 10px; border-radius: 8px; font-size: 13px; border: 1px solid rgba(255,255,255,0.1); z-index: 20; backdrop-filter: blur(5px);}
+        .number-badge { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.7); color: white; font-weight: 900; padding: 4px 8px; border-radius: 6px; font-size: 11px; border: 1px solid rgba(255,255,255,0.1); z-index: 20; backdrop-filter: blur(5px);}
         
         /* TOMBOL BATAL (X) PENGGANTI CENTANG */
         .cancel-badge {
-            position: absolute; top: 12px; right: 12px; background: var(--red-main); color: white; width: 32px; height: 32px;
+            position: absolute; top: 8px; right: 8px; background: var(--red-main); color: white; width: 28px; height: 28px;
             border-radius: 50%; display: flex; justify-content: center; align-items: center; opacity: 0; transform: scale(0); 
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 30; border: none; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            font-size: 14px;
+            font-size: 13px;
         }
         .card-container.active .cancel-badge { opacity: 1; transform: scale(1); }
         .cancel-badge:active { transform: scale(0.8); }
         
-        .card-info { padding: 15px 12px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;}
-        .card-name { font-weight: 800; font-size: 14px; margin: 0 0 5px 0; line-height: 1.3; }
-        .card-desc { font-size: 11px; color: var(--text-muted); margin: 0; }
+        .card-info { padding: 10px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center;}
+        .card-name { font-weight: 800; font-size: 12px; margin: 0 0 3px 0; line-height: 1.2; }
+        .card-desc { font-size: 9px; color: var(--text-muted); margin: 0; }
         
         /* Hint Klik */
-        .click-hint { font-size: 10px; color: var(--text-muted); margin-top: 12px; opacity: 0.8; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 4px; }
-        .click-hint i { color: var(--red-main); }
+        .click-hint { font-size: 9px; color: var(--red-main); margin-top: 6px; opacity: 0.8; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 4px; }
 
         /* BAGIAN BELAKANG (VISI MISI) */
-        .back-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; margin-bottom: 10px; }
-        .back-title { font-weight: 900; font-size: 13px; margin: 0; color: var(--red-main); }
-        .btn-close-flip { background: none; border: none; color: #888; font-size: 20px; cursor: pointer; padding: 0; position: relative; z-index: 40; transition: 0.3s;}
-        .btn-close-flip:hover { color: white;}
+        .back-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; margin-bottom: 8px; }
+        .back-title { font-weight: 900; font-size: 11px; margin: 0; color: var(--red-main); }
+        .btn-close-flip { background: none; border: none; color: #888; font-size: 16px; cursor: pointer; padding: 0; position: relative; z-index: 40;}
+        .btn-close-flip:hover { color: white; }
         
-        .visi-misi-content { flex-grow: 1; overflow-y: auto; font-size: 11px; line-height: 1.5; color: #ccc; padding-right: 5px; text-align: left;}
+        .visi-misi-content { flex-grow: 1; overflow-y: auto; font-size: 9px; line-height: 1.4; color: #ccc; padding-right: 3px; text-align: left;}
         .visi-misi-content::-webkit-scrollbar { width: 3px; }
         .visi-misi-content::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
-        .visi-misi-content h4 { margin: 0 0 4px 0; color: white; font-size: 12px; }
-        .visi-misi-content ul { margin: 0 0 8px 0; padding-left: 15px; }
-        .visi-misi-content li { margin-bottom: 4px; }
+        .visi-misi-content h4 { margin: 0 0 3px 0; color: white; font-size: 10px; }
+        .visi-misi-content ul { margin: 0 0 6px 0; padding-left: 12px; }
+        .visi-misi-content li { margin-bottom: 3px; }
 
         .btn-pilih-dari-back {
             background: var(--red-main); border: none; color: white;
-            padding: 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer;
-            margin-top: 10px; width: 100%; transition: 0.2s; box-shadow: 0 4px 10px rgba(229,9,20,0.3);
+            padding: 8px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer;
+            margin-top: 8px; width: 100%; transition: 0.2s; box-shadow: 0 4px 10px rgba(229,9,20,0.3);
             position: relative; z-index: 40;
         }
         .btn-pilih-dari-back:active { transform: scale(0.95); }
@@ -211,12 +201,17 @@
         .spinner { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.1); border-top-color: var(--red-main); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* Responsiveness tambahan untuk desktop */
+        /* RESPONSIVE LAYOUT UNTUK LAYAR BESAR (TABLET/LAPTOP) */
         @media (min-width: 768px) {
             .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-            .card-img { height: 260px; } 
-            .card-name { font-size: 16px; }
-            .card-desc { font-size: 12px; }
+            .card-container { height: 380px; }
+            .card-img { height: 240px; } 
+            .card-name { font-size: 15px; margin-bottom: 5px; }
+            .card-desc { font-size: 11px; }
+            .click-hint { font-size: 11px; margin-top: 10px; }
+            .visi-misi-content { font-size: 11px; }
+            .visi-misi-content h4 { font-size: 12px; }
+            .btn-pilih-dari-back { padding: 12px; font-size: 13px; margin-top: 15px; }
         }
     </style>
 </head>
@@ -297,7 +292,7 @@
         // DAFTAR KANDIDAT
         const candidates = [
             { id: 1, name: "Om Dani", desc: "(F1717)", val: "Om Dani (F1717)", foto: "./calon1.jpg", visi: "", misi: [] },
-            { id: 2, name: "Om H.Nurhadi", desc: "(F1493)", val: "Om Nurhadi (F)", foto: "./calon2.jpg", visi: "", misi: [] },
+            { id: 2, name: "Om Hj.Nurhadi", desc: "(F1493)", val: "Om Nurhadi (F)", foto: "./calon2.jpg", visi: "", misi: [] },
             { id: 3, name: "Om Hasyim", desc: "(F1396)", val: "Om Hasyim (F1396)", foto: "./calon3.png", visi: "", misi: [] },
             { id: 4, name: "Om Hendra Sinaga", desc: "(F1812)", val: "Om Hendra Sinaga (F1812)", foto: "./calon4.jpg", visi: "", misi: [] },
             { id: 5, name: "Om Umri", desc: "(F2216)", val: "Om Umri (F2216)", foto: "./calon5.jpg", visi: "", misi: [] },
@@ -305,7 +300,7 @@
             { id: 7, name: "Om Ronald", desc: "(F1488)", val: "Om Ronald (F1488)", foto: "./calon7.jpg", visi: "", misi: [] },
             { id: 8, name: "Om Afdhal", desc: "(F)", val: "Om Afdhal (F)", foto: "./calon8.jpg", visi: "", misi: [] },
             { id: 9, name: "Om Hery Zz", desc: "(F2850)", val: "Om Hery Zz (F2850)", foto: "./calon9.jpg", visi: "", misi: [] },
-            { id: 10, name: "Om H.Wansa/Endri Irwanto", desc: "(F965)", val: "Om Wansa/Endri Irwanto (F965)", foto: "./calon10.jpg", visi: "", misi: [] },
+            { id: 10, name: "Om Hj.Wansa/Endri Irwanto", desc: "(F965)", val: "Om Wansa/Endri Irwanto (F965)", foto: "./calon10.jpg", visi: "", misi: [] },
             { id: 11, name: "Om Erick/Sulaiman Azhari", desc: "(F)", val: "Om Erick/Sulaiman Azhari (F)", foto: "./calon11.jpg", visi: "", misi: [] },
             { id: 12, name: "Om Husni", desc: "(F)", val: "Om Husni (F)", foto: "./calon12.jpg", visi: "", misi: [] },
             { id: 13, name: "Om Jefrie Himawan", desc: "F", val: "Om Jefrie Himawan (F)", foto: "./calon13.jpg", visi: "", misi: [] },
@@ -358,7 +353,7 @@
                             <div class="card-info">
                                 <h3 class="card-name">${c.name}</h3>
                                 <p class="card-desc">${c.desc}</p>
-                                <span class="click-hint"><i class="fas fa-undo-alt"></i> Balik untuk Visi-Misi</span>
+                                <span class="click-hint"><i class="fas fa-sync-alt"></i> Ketuk untuk Visi-Misi</span>
                             </div>
                         </div>
 
@@ -396,7 +391,7 @@
 
         // FUNGSI 1: Memutar Kartu Saja
         function handleCardClick(id, event) {
-            event.stopPropagation(); // Mencegah klik nyasar
+            event.stopPropagation(); 
             
             const card = document.getElementById(`card-${id}`);
             
@@ -413,16 +408,16 @@
 
         // FUNGSI 2: Klik Tombol Merah 'PILIH CALON INI' di Belakang
         function pilihDariBelakang(id, nameDisplay, realValue, event) {
-            event.stopPropagation(); // Stop agar tidak memicu putar balik
+            event.stopPropagation(); 
             
             const card = document.getElementById(`card-${id}`);
             
-            // 1. Reset semua kartu ke awal (hapus bingkai merah)
+            // 1. Reset semua kartu ke awal
             document.querySelectorAll('.card-container').forEach(c => {
                 c.classList.remove('active');
             });
             
-            // 2. Reset semua tulisan tombol kembali jadi "PILIH CALON INI"
+            // 2. Reset semua tulisan tombol kembali normal
             resetSemuaTombolPilih();
 
             // 3. Putar kembali kartu ini menghadap depan
@@ -431,7 +426,7 @@
             // 4. Jadikan kartu ini TERPILIH (bingkai merah & tombol X muncul)
             card.classList.add('active');
             
-            // 5. Ganti tulisan tombol khusus di kartu ini jadi TERPILIH (untuk jaga-jaga kalau diputar lagi)
+            // 5. Ganti tulisan tombol khusus di kartu ini jadi TERPILIH
             event.target.innerHTML = '<i class="fas fa-check-circle"></i> TERPILIH';
             
             // 6. Munculkan Bar Floating di bawah
@@ -443,14 +438,14 @@
 
         // FUNGSI 3: Membatalkan Pilihan (Klik Tombol X)
         function batalPilih(event) {
-            event.stopPropagation(); // Cegah kartu malah berputar saat tombol X diklik
+            event.stopPropagation(); // Cegah kartu berputar
             
-            // 1. Hapus bingkai merah dari semua kartu
+            // 1. Hapus bingkai merah
             document.querySelectorAll('.card-container').forEach(c => {
                 c.classList.remove('active');
             });
             
-            // 2. Wajib: Reset tulisan di semua tombol belakang jadi normal lagi
+            // 2. Reset tombol
             resetSemuaTombolPilih();
             
             // 3. Sembunyikan Bar di bawah
@@ -458,7 +453,6 @@
             document.getElementById('selectedCandidateVal').value = "";
         }
 
-        // Fungsi Helper untuk Mereset Tulisan Tombol
         function resetSemuaTombolPilih() {
             document.querySelectorAll('.btn-pilih-dari-back').forEach(btn => {
                 btn.innerHTML = '<i class="fas fa-vote-yea"></i> PILIH CALON INI';
