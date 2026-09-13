@@ -24,7 +24,7 @@
             color: var(--text-light);
             margin: 0;
             padding: 0;
-            padding-bottom: 100px;
+            padding-bottom: 120px; /* Diperbesar sedikit agar tidak tertutup floating bar */
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -42,46 +42,47 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
-        .navbar-brand { font-weight: 900; font-size: 22px; letter-spacing: 1px; }
+        .navbar-brand { font-weight: 900; font-size: 20px; letter-spacing: 1px; }
         .navbar-brand span { color: var(--red-main); }
-        .timer { font-size: 12px; font-weight: 600; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 20px;}
+        .timer { font-size: 11px; font-weight: 600; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 6px 12px; border-radius: 20px;}
 
         /* HEADER & SEARCH */
-        .header-section { padding: 30px 20px; text-align: center; }
+        .header-section { padding: 25px 20px; text-align: center; }
         .header-section h1 {
-            margin: 0; font-size: 28px; font-weight: 900; text-transform: uppercase;
+            margin: 0; font-size: 24px; font-weight: 900; text-transform: uppercase;
             background: linear-gradient(to right, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         .search-container { max-width: 500px; margin: 20px auto 0; position: relative; }
         .search-container i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
         .search-input {
             width: 100%; padding: 15px 20px 15px 50px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1);
-            background: var(--card-bg); color: white; font-size: 16px; box-sizing: border-box; outline: none; transition: all 0.3s; font-family: 'Montserrat', sans-serif;
+            background: var(--card-bg); color: white; font-size: 15px; box-sizing: border-box; outline: none; transition: all 0.3s; font-family: 'Montserrat', sans-serif;
         }
         .search-input:focus { border-color: var(--red-main); box-shadow: 0 0 15px var(--red-glow); }
 
         /* GRID KANDIDAT & FLIP CARD ANIMATION */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
         
-        /* Lebar Grid Diperkecil agar muat 2 kolom di HP */
+        /* Grid yang proposional untuk HP (Minimal lebar 160px) */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; perspective: 1000px; }
         
         .card-container {
             position: relative;
             width: 100%;
             cursor: pointer;
-            display: flex;
+            /* Kita hilangkan fixed height agar fleksibel mengikuti isi konten */
         }
 
         .card-inner {
-            position: relative; /* Diubah jadi relative agar tinggi kartu fleksibel */
+            position: relative;
             width: 100%;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            border: 2px solid rgba(255,255,255,0.05);
+            /* Styling dipindah ke inner agar shadow dan border ikut berputar */
+            border-radius: 16px;
             background: var(--card-bg);
+            border: 2px solid transparent; /* Border default transparan */
         }
 
         .card-container.active .card-inner {
@@ -93,70 +94,83 @@
             transform: rotateY(180deg);
         }
 
-        .card-front, .card-back {
+        .card-front {
             width: 100%;
+            /* Kita tidak pakai absolute di sini agar card-inner menyesuaikan tinggi card-front */
             backface-visibility: hidden;
             display: flex;
             flex-direction: column;
-            border-radius: 13px; /* Mengikuti radius inner */
+            border-radius: 14px; /* Sedikit lebih kecil dari inner */
+            overflow: hidden;
+            background: var(--card-bg);
         }
 
         .card-back {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            border-radius: 14px;
+            background: linear-gradient(145deg, #1f1f23, #151518);
+            transform: rotateY(180deg);
+            padding: 15px;
+            box-sizing: border-box;
         }
 
         /* BAGIAN DEPAN (FOTO) */
-        /* Tinggi foto diperbesar untuk rasio 9:16 */
-        .card-img { height: 240px; background-color: #2a2a2f; position: relative; overflow: hidden; border-top-left-radius: 13px; border-top-right-radius: 13px;}
+        /* Tinggi foto di-fix agar seragam dan rapi di semua HP */
+        .card-img { 
+            width: 100%; 
+            height: 200px; /* Ukuran paling ideal untuk potret 9:16 di layar kecil */
+            background-color: #2a2a2f; 
+            position: relative; 
+            overflow: hidden; 
+        }
         .foto-kandidat { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: all 0.4s ease; }
-        .placeholder-icon { font-size: 60px; color: rgba(255,255,255,0.1); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; }
+        .placeholder-icon { font-size: 50px; color: rgba(255,255,255,0.05); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; }
         
         .card-container.active .foto-kandidat { filter: brightness(1.2); }
         
-        .number-badge { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; font-weight: 900; padding: 4px 8px; border-radius: 8px; font-size: 14px; border: 1px solid rgba(255,255,255,0.1); z-index: 20; }
+        .number-badge { position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: white; font-weight: 900; padding: 4px 10px; border-radius: 8px; font-size: 13px; border: 1px solid rgba(255,255,255,0.1); z-index: 20; backdrop-filter: blur(5px);}
         
         /* TOMBOL BATAL (X) PENGGANTI CENTANG */
         .cancel-badge {
-            position: absolute; top: 10px; right: 10px; background: var(--red-main); color: white; width: 30px; height: 30px;
+            position: absolute; top: 12px; right: 12px; background: var(--red-main); color: white; width: 32px; height: 32px;
             border-radius: 50%; display: flex; justify-content: center; align-items: center; opacity: 0; transform: scale(0); 
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 30; border: none; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            font-size: 14px;
         }
         .card-container.active .cancel-badge { opacity: 1; transform: scale(1); }
         .cancel-badge:active { transform: scale(0.8); }
         
-        .card-info { padding: 15px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;}
+        .card-info { padding: 15px 12px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;}
         .card-name { font-weight: 800; font-size: 14px; margin: 0 0 5px 0; line-height: 1.3; }
         .card-desc { font-size: 11px; color: var(--text-muted); margin: 0; }
         
         /* Hint Klik */
-        .click-hint { font-size: 10px; color: var(--red-main); margin-top: 8px; opacity: 0.8; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .click-hint { font-size: 10px; color: var(--text-muted); margin-top: 12px; opacity: 0.8; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 4px; }
+        .click-hint i { color: var(--red-main); }
 
         /* BAGIAN BELAKANG (VISI MISI) */
-        .card-back {
-            transform: rotateY(180deg);
-            background: linear-gradient(145deg, #1f1f23, #151518);
-            padding: 15px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            border-radius: 13px;
-        }
-        .back-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px; }
-        .back-title { font-weight: 900; font-size: 14px; margin: 0; color: var(--red-main); }
-        .btn-close-flip { background: none; border: none; color: #888; font-size: 20px; cursor: pointer; padding: 0; position: relative; z-index: 40;}
+        .back-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; margin-bottom: 10px; }
+        .back-title { font-weight: 900; font-size: 13px; margin: 0; color: var(--red-main); }
+        .btn-close-flip { background: none; border: none; color: #888; font-size: 20px; cursor: pointer; padding: 0; position: relative; z-index: 40; transition: 0.3s;}
+        .btn-close-flip:hover { color: white;}
         
         .visi-misi-content { flex-grow: 1; overflow-y: auto; font-size: 11px; line-height: 1.5; color: #ccc; padding-right: 5px; text-align: left;}
-        .visi-misi-content::-webkit-scrollbar { width: 4px; }
+        .visi-misi-content::-webkit-scrollbar { width: 3px; }
         .visi-misi-content::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
-        .visi-misi-content h4 { margin: 0 0 5px 0; color: white; font-size: 12px; }
-        .visi-misi-content ul { margin: 0 0 10px 0; padding-left: 20px; }
-        .visi-misi-content li { margin-bottom: 5px; }
+        .visi-misi-content h4 { margin: 0 0 4px 0; color: white; font-size: 12px; }
+        .visi-misi-content ul { margin: 0 0 8px 0; padding-left: 15px; }
+        .visi-misi-content li { margin-bottom: 4px; }
 
         .btn-pilih-dari-back {
             background: var(--red-main); border: none; color: white;
-            padding: 10px; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer;
-            margin-top: 15px; width: 100%; transition: 0.2s; box-shadow: 0 4px 10px rgba(229,9,20,0.3);
+            padding: 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer;
+            margin-top: 10px; width: 100%; transition: 0.2s; box-shadow: 0 4px 10px rgba(229,9,20,0.3);
             position: relative; z-index: 40;
         }
         .btn-pilih-dari-back:active { transform: scale(0.95); }
@@ -199,8 +213,10 @@
 
         /* Responsiveness tambahan untuk desktop */
         @media (min-width: 768px) {
-            .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; }
-            .card-img { height: 280px; } /* Foto lebih tinggi di desktop */
+            .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+            .card-img { height: 260px; } 
+            .card-name { font-size: 16px; }
+            .card-desc { font-size: 12px; }
         }
     </style>
 </head>
@@ -288,7 +304,7 @@
             { id: 6, name: "Om Tantra Deska", desc: "(F1884)", val: "Om Tantra Deska (F1884)", foto: "./calon6.jpg", visi: "", misi: [] },
             { id: 7, name: "Om Ronald", desc: "(F1488)", val: "Om Ronald (F1488)", foto: "./calon7.jpg", visi: "", misi: [] },
             { id: 8, name: "Om Afdhal", desc: "(F)", val: "Om Afdhal (F)", foto: "./calon8.jpg", visi: "", misi: [] },
-            { id: 9, name: "Om Hery Zz", desc: "(F2850)", val: "Om Hery Zz (F2850)", foto: "./calon9.jpeg", visi: "", misi: [] },
+            { id: 9, name: "Om Hery Zz", desc: "(F2850)", val: "Om Hery Zz (F2850)", foto: "./calon9.jpg", visi: "", misi: [] },
             { id: 10, name: "Om H.Wansa/Endri Irwanto", desc: "(F965)", val: "Om Wansa/Endri Irwanto (F965)", foto: "./calon10.jpg", visi: "", misi: [] },
             { id: 11, name: "Om Erick/Sulaiman Azhari", desc: "(F)", val: "Om Erick/Sulaiman Azhari (F)", foto: "./calon11.jpg", visi: "", misi: [] },
             { id: 12, name: "Om Husni", desc: "(F)", val: "Om Husni (F)", foto: "./calon12.jpg", visi: "", misi: [] },
@@ -342,7 +358,7 @@
                             <div class="card-info">
                                 <h3 class="card-name">${c.name}</h3>
                                 <p class="card-desc">${c.desc}</p>
-                                <span class="click-hint"><i class="fas fa-sync-alt"></i> Ketuk untuk Visi & Misi</span>
+                                <span class="click-hint"><i class="fas fa-undo-alt"></i> Balik untuk Visi-Misi</span>
                             </div>
                         </div>
 
