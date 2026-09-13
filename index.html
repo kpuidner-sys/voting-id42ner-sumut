@@ -46,7 +46,7 @@
         .navbar-brand span { color: var(--red-main); }
         .timer { font-size: 11px; font-weight: 600; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 20px;}
 
-        /* HEADER & SEARCH */
+        /* HEADER & PENCARIAN */
         .header-section { padding: 20px 15px; text-align: center; }
         .header-section h1 {
             margin: 0; font-size: 22px; font-weight: 900; text-transform: uppercase;
@@ -60,113 +60,41 @@
         }
         .search-input:focus { border-color: var(--red-main); box-shadow: 0 0 15px var(--red-glow); }
 
-        /* GRID KANDIDAT & FLIP CARD ANIMATION */
+        /* GRID KANDIDAT */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 10px; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         
-        /* WAJIB 2 KOLOM DI HP AGAR RAPI */
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; perspective: 1000px; }
-        
-        .card-container {
-            position: relative;
-            width: 100%;
-            height: 320px; /* TINGGI FIX UNTUK HP (Pas dengan proporsi 9:16) */
-            cursor: pointer;
+        .card {
+            background: var(--card-bg); border-radius: 12px; overflow: hidden;
+            position: relative; cursor: pointer; transition: all 0.3s ease;
+            border: 2px solid transparent; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: flex; flex-direction: column;
         }
 
-        .card-inner {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform-style: preserve-3d;
-            border-radius: 12px;
-            background: var(--card-bg);
-            border: 2px solid transparent;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
+        .card.active { border-color: var(--red-main); box-shadow: 0 0 15px var(--red-glow); transform: scale(1.02); }
 
-        .card-container.active .card-inner {
-            border-color: var(--red-main);
-            box-shadow: 0 0 15px var(--red-glow);
-        }
-
-        .card-container.is-flipped .card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            border-radius: 10px; 
-            overflow: hidden;
-        }
-
-        .card-back {
-            background: linear-gradient(145deg, #1f1f23, #151518);
-            transform: rotateY(180deg);
-            padding: 12px;
-            box-sizing: border-box;
-        }
-
-        /* BAGIAN DEPAN (FOTO) */
-        .card-img { 
-            width: 100%; 
-            height: 190px; /* Tinggi Pas Untuk Potret 9:16 di 2 kolom */
-            background-color: #2a2a2f; 
-            position: relative; 
-            overflow: hidden; 
-        }
+        .card-img { width: 100%; height: 190px; background-color: #2a2a2f; position: relative; overflow: hidden; }
         .foto-kandidat { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: all 0.4s ease; }
         .placeholder-icon { font-size: 50px; color: rgba(255,255,255,0.05); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; }
         
-        .card-container.active .foto-kandidat { filter: brightness(1.2); }
+        .card.active .foto-kandidat { filter: brightness(1.2); }
         
         .number-badge { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.7); color: white; font-weight: 900; padding: 4px 8px; border-radius: 6px; font-size: 11px; border: 1px solid rgba(255,255,255,0.1); z-index: 20; backdrop-filter: blur(5px);}
         
-        /* TOMBOL BATAL (X) PENGGANTI CENTANG */
+        /* TOMBOL BATAL (X) DI CARD KECIL */
         .cancel-badge {
             position: absolute; top: 8px; right: 8px; background: var(--red-main); color: white; width: 28px; height: 28px;
             border-radius: 50%; display: flex; justify-content: center; align-items: center; opacity: 0; transform: scale(0); 
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 30; border: none; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            font-size: 13px;
+            transition: all 0.3s ease; z-index: 30; border: none; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5); font-size: 13px;
         }
-        .card-container.active .cancel-badge { opacity: 1; transform: scale(1); }
+        .card.active .cancel-badge { opacity: 1; transform: scale(1); }
         .cancel-badge:active { transform: scale(0.8); }
         
         .card-info { padding: 10px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center;}
         .card-name { font-weight: 800; font-size: 12px; margin: 0 0 3px 0; line-height: 1.2; }
         .card-desc { font-size: 9px; color: var(--text-muted); margin: 0; }
         
-        /* Hint Klik */
-        .click-hint { font-size: 9px; color: var(--red-main); margin-top: 6px; opacity: 0.8; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 4px; }
-
-        /* BAGIAN BELAKANG (VISI MISI) */
-        .back-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; margin-bottom: 8px; }
-        .back-title { font-weight: 900; font-size: 11px; margin: 0; color: var(--red-main); }
-        .btn-close-flip { background: none; border: none; color: #888; font-size: 16px; cursor: pointer; padding: 0; position: relative; z-index: 40;}
-        .btn-close-flip:hover { color: white; }
-        
-        .visi-misi-content { flex-grow: 1; overflow-y: auto; font-size: 9px; line-height: 1.4; color: #ccc; padding-right: 3px; text-align: left;}
-        .visi-misi-content::-webkit-scrollbar { width: 3px; }
-        .visi-misi-content::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
-        .visi-misi-content h4 { margin: 0 0 3px 0; color: white; font-size: 10px; }
-        .visi-misi-content ul { margin: 0 0 6px 0; padding-left: 12px; }
-        .visi-misi-content li { margin-bottom: 3px; }
-
-        .btn-pilih-dari-back {
-            background: var(--red-main); border: none; color: white;
-            padding: 8px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer;
-            margin-top: 8px; width: 100%; transition: 0.2s; box-shadow: 0 4px 10px rgba(229,9,20,0.3);
-            position: relative; z-index: 40;
-        }
-        .btn-pilih-dari-back:active { transform: scale(0.95); }
-        .card-container.active .btn-pilih-dari-back { background: #4CAF50; box-shadow: 0 4px 10px rgba(76,175,80,0.3); }
-
-        /* FLOATING ACTION BAR */
+        /* FLOATING ACTION BAR (LANJUT) */
         .floating-bar {
             position: fixed; bottom: -100px; left: 0; width: 100%; background: rgba(28, 28, 31, 0.95); backdrop-filter: blur(10px);
             padding: 15px 20px; box-sizing: border-box; border-top: 1px solid rgba(255,255,255,0.1);
@@ -180,39 +108,38 @@
         .btn-lanjut { background: var(--red-main); color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: 800; font-family: 'Montserrat', sans-serif; font-size: 14px; cursor: pointer; box-shadow: 0 4px 15px var(--red-glow); transition: transform 0.2s; }
         .btn-lanjut:active { transform: scale(0.95); }
 
-        /* MODALS */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        /* MODALS (Semua Pop-up) */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(5px); z-index: 999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
         .modal-overlay.active { opacity: 1; pointer-events: all; }
         .modal-box { background: var(--card-bg); width: 90%; max-width: 400px; padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); transform: translateY(50px) scale(0.9); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
         .modal-overlay.active .modal-box { transform: translateY(0) scale(1); }
-        .close-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer; z-index: 50; }
+        .close-btn { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.5); border: none; color: white; font-size: 16px; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; z-index: 50; display:flex; justify-content:center; align-items:center;}
         .modal-title { margin: 0 0 20px 0; font-weight: 900; font-size: 20px; text-align: center; }
         
+        /* MODAL KHUSUS ZOOM FOTO */
+        .zoom-modal-box { padding: 0; overflow: hidden; display: flex; flex-direction: column; background: #151518;}
+        .zoom-img-container { width: 100%; height: 400px; position: relative; background: #000; }
+        .zoom-img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+        .zoom-info { padding: 20px; text-align: center; }
+        .zoom-name { font-weight: 900; font-size: 22px; margin: 0 0 5px 0; color: white; }
+        .zoom-desc { font-size: 14px; color: var(--text-muted); margin: 0 0 20px 0; }
+        .btn-pilih-zoom { width: 100%; background: var(--red-main); color: white; border: none; padding: 18px; border-radius: 12px; font-weight: 900; font-size: 16px; cursor: pointer; box-shadow: 0 5px 20px var(--red-glow); transition: 0.2s; }
+        .btn-pilih-zoom:active { transform: scale(0.95); }
+
+        /* Input Token Khusus */
         .input-group { position: relative; margin-bottom: 20px; }
         .input-group i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
         .input-group input { width: 100%; padding: 15px 15px 15px 45px; background: #121212; border: 1px solid rgba(255,255,255,0.1); color: #4CAF50; border-radius: 12px; font-size: 20px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; box-sizing: border-box; outline: none; transition: 0.3s; font-family: 'Montserrat', sans-serif; text-align: center; }
         .input-group input:focus { border-color: #4CAF50; box-shadow: 0 0 10px rgba(76, 175, 80, 0.3); }
-        
         .btn-submit-final { width: 100%; background: var(--red-main); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: 900; font-size: 16px; cursor: pointer; box-shadow: 0 5px 15px var(--red-glow); font-family: 'Montserrat', sans-serif; letter-spacing: 1px; }
 
         #errorMsg { color: #E50914; font-size: 13px; font-weight: bold; text-align: center; margin-bottom: 15px; display: none; }
 
+        /* LOADING */
         .loader-container { display: none; flex-direction: column; align-items: center; justify-content: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; }
         .spinner { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.1); border-top-color: var(--red-main); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* RESPONSIVE LAYOUT UNTUK LAYAR BESAR (TABLET/LAPTOP) */
-        @media (min-width: 768px) {
-            .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-            .card-container { height: 380px; }
-            .card-img { height: 240px; } 
-            .card-name { font-size: 15px; margin-bottom: 5px; }
-            .card-desc { font-size: 11px; }
-            .click-hint { font-size: 11px; margin-top: 10px; }
-            .visi-misi-content { font-size: 11px; }
-            .visi-misi-content h4 { font-size: 12px; }
-            .btn-pilih-dari-back { padding: 12px; font-size: 13px; margin-top: 15px; }
-        }
     </style>
 </head>
 <body>
@@ -244,6 +171,22 @@
             <h4 id="floatName">Pilih Kandidat</h4>
         </div>
         <button class="btn-lanjut" onclick="openTokenModal()">LANJUT <i class="fas fa-arrow-right"></i></button>
+    </div>
+
+    <!-- MODAL ZOOM FOTO KANDIDAT -->
+    <div class="modal-overlay" id="zoomModal">
+        <div class="modal-box zoom-modal-box">
+            <button class="close-btn" onclick="closeModal('zoomModal')"><i class="fas fa-times"></i></button>
+            <div class="zoom-img-container">
+                <img src="" id="zoomFoto" class="zoom-img" alt="Foto Calon" onerror="this.style.display='none'">
+            </div>
+            <div class="zoom-info">
+                <h3 class="zoom-name" id="zoomName">Nama Calon</h3>
+                <p class="zoom-desc" id="zoomDesc">Deskripsi</p>
+                <!-- Tombol ini memicu fungsi pilih kandidat -->
+                <button class="btn-pilih-zoom" id="btnPilihZoom" onclick=""><i class="fas fa-vote-yea"></i> PILIH KANDIDAT INI</button>
+            </div>
+        </div>
     </div>
 
     <!-- MODAL 1: INPUT TOKEN -->
@@ -289,42 +232,34 @@
     </div>
 
     <script>
-        // DAFTAR KANDIDAT
+        // DAFTAR KANDIDAT (Tanpa Visi Misi)
         const candidates = [
-            { id: 1, name: "Om Dani", desc: "(F1717)", val: "Om Dani (F1717)", foto: "./calon1.jpg", visi: "", misi: [] },
-            { id: 2, name: "Om H.Nurhadi", desc: "(F1493)", val: "Om Nurhadi (F)", foto: "./calon2.jpg", visi: "", misi: [] },
-            { id: 3, name: "Om Hasyim", desc: "(F1396)", val: "Om Hasyim (F1396)", foto: "./calon3.png", visi: "", misi: [] },
-            { id: 4, name: "Om Hendra Sinaga", desc: "(F1812)", val: "Om Hendra Sinaga (F1812)", foto: "./calon4.jpg", visi: "", misi: [] },
-            { id: 5, name: "Om Umri", desc: "(F2216)", val: "Om Umri (F2216)", foto: "./calon5.jpg", visi: "", misi: [] },
-            { id: 6, name: "Om Tantra Deska", desc: "(F1884)", val: "Om Tantra Deska (F1884)", foto: "./calon6.jpg", visi: "", misi: [] },
-            { id: 7, name: "Om Ronald", desc: "(F1488)", val: "Om Ronald (F1488)", foto: "./calon7.jpg", visi: "", misi: [] },
-            { id: 8, name: "Om Afdhal", desc: "(F)", val: "Om Afdhal (F)", foto: "./calon8.jpg", visi: "", misi: [] },
-            { id: 9, name: "Om Hery Zz", desc: "(F2850)", val: "Om Hery Zz (F2850)", foto: "./calon9.jpg", visi: "", misi: [] },
-            { id: 10, name: "Om H.Wansa/Endri Irwanto", desc: "(F965)", val: "Om Wansa/Endri Irwanto (F965)", foto: "./calon10.jpg", visi: "", misi: [] },
-            { id: 11, name: "Om Erick/Sulaiman Azhari", desc: "(F)", val: "Om Erick/Sulaiman Azhari (F)", foto: "./calon11.jpg", visi: "", misi: [] },
-            { id: 12, name: "Om Husni", desc: "(F)", val: "Om Husni (F)", foto: "./calon12.jpg", visi: "", misi: [] },
-            { id: 13, name: "Om Jefrie Himawan", desc: "F", val: "Om Jefrie Himawan (F)", foto: "./calon13.jpg", visi: "", misi: [] },
-            { id: 14, name: "Om Dicky", desc: "(F2177)", val: "Om Dicky (2177)", foto: "./calon14.jpg", visi: "", misi: [] },
-            { id: 15, name: "Om Dedy Ginting", desc: "(F)", val: "Om Dedy Ginting (F)", foto: "./calon15.jpeg", visi: "", misi: [] },
-            { id: 16, name: "Om Hendra Martin", desc: "(F2552)", val: "Om Hendra Martin (F2552)", foto: "./calon16.jpg", visi: "", misi: [] },
-            { id: 17, name: "Om Nanang", desc: "(F)", val: "Om Nanang (F)", foto: "./calon17.jpg", visi: "", misi: [] },
-            { id: 18, name: "Om Try Sutrisno", desc: "(F2782)", val: "Om Try Sutrisno (F2782)", foto: "./calon18.jpg", visi: "", misi: [] },
-            { id: 19, name: "Om Wyne Purba", desc: "(F2913)", val: "Om Wyne Purba (F2913)", foto: "./calon19.jpg", visi: "", misi: [] }
+            { id: 1, name: "Om Dani", desc: "(F1717)", val: "Om Dani (F1717)", foto: "./calon1.jpg" },
+            { id: 2, name: "Om Hj.Nurhadi", desc: "(F1493)", val: "Om Nurhadi (F)", foto: "./calon2.jpg" },
+            { id: 3, name: "Om Hasyim", desc: "(F1396)", val: "Om Hasyim (F1396)", foto: "./calon3.png" },
+            { id: 4, name: "Om Hendra Sinaga", desc: "(F1812)", val: "Om Hendra Sinaga (F1812)", foto: "./calon4.jpg" },
+            { id: 5, name: "Om Umri", desc: "(F2216)", val: "Om Umri (F2216)", foto: "./calon5.jpg" },
+            { id: 6, name: "Om Tantra Deska", desc: "(F1884)", val: "Om Tantra Deska (F1884)", foto: "./calon6.jpg" },
+            { id: 7, name: "Om Ronald", desc: "(F1488)", val: "Om Ronald (F1488)", foto: "./calon7.jpg" },
+            { id: 8, name: "Om Afdhal", desc: "(F)", val: "Om Afdhal (F)", foto: "./calon8.jpg" },
+            { id: 9, name: "Om Hery Zz", desc: "(F2850)", val: "Om Hery Zz (F2850)", foto: "./calon9.jpg" },
+            { id: 10, name: "Om Hj.Wansa/Endri Irwanto", desc: "(F965)", val: "Om Wansa/Endri Irwanto (F965)", foto: "./calon10.jpg" },
+            { id: 11, name: "Om Erick/Sulaiman Azhari", desc: "(F)", val: "Om Erick/Sulaiman Azhari (F)", foto: "./calon11.jpg" },
+            { id: 12, name: "Om Husni", desc: "(F)", val: "Om Husni (F)", foto: "./calon12.jpg" },
+            { id: 13, name: "Om Jefrie Himawan", desc: "F", val: "Om Jefrie Himawan (F)", foto: "./calon13.jpg" },
+            { id: 14, name: "Om Dicky", desc: "(F2177)", val: "Om Dicky (2177)", foto: "./calon14.jpg" },
+            { id: 15, name: "Om Dedy Ginting", desc: "(F)", val: "Om Dedy Ginting (F)", foto: "./calon15.jpeg" },
+            { id: 16, name: "Om Hendra Martin", desc: "(F2552)", val: "Om Hendra Martin (F2552)", foto: "./calon16.jpg" },
+            { id: 17, name: "Om Nanang", desc: "(F)", val: "Om Nanang (F)", foto: "./calon17.jpg" },
+            { id: 18, name: "Om Try Sutrisno", desc: "(F2782)", val: "Om Try Sutrisno (F2782)", foto: "./calon18.jpg" },
+            { id: 19, name: "Om Wyne Purba", desc: "(F2913)", val: "Om Wyne Purba (F2913)", foto: "./calon19.jpg" }
         ];
 
         const grid = document.getElementById('candidateGrid');
         
+        // Merender Kartu Kandidat
         candidates.forEach(c => {
             const numPad = c.id.toString().padStart(2, '0');
-            
-            // Format list Misi
-            let misiList = "";
-            if (c.misi && c.misi.length > 0) {
-                c.misi.forEach(m => { misiList += `<li>${m}</li>`; });
-            } else {
-                misiList = "<li style='list-style:none; padding-left:0; color:#888;'>Belum ada data misi.</li>";
-            }
-            let visiText = (c.visi && c.visi !== "") ? `"${c.visi}"` : "<span style='color:#888;'>Belum ada data visi.</span>";
             
             const imageRender = `
                 <img src="${c.foto}" class="foto-kandidat" alt="${c.name}" 
@@ -337,41 +272,20 @@
                 <i class="fas fa-user-astronaut placeholder-icon" style="display:none;"></i>
             `;
 
+            // Ketika kartu diklik, langsung buka modal zoom foto
             const cardHTML = `
-                <div class="card-container" id="card-${c.id}" data-name="${c.name.toLowerCase()}" onclick="handleCardClick(${c.id}, event)">
-                    <div class="card-inner">
-                        
-                        <!-- SISI DEPAN (FOTO KANDIDAT) -->
-                        <div class="card-front">
-                            <div class="number-badge">${numPad}</div>
-                            <!-- Tombol Batal Pilih (X) -->
-                            <button class="cancel-badge" id="cancel-${c.id}" onclick="batalPilih(event)" title="Batal Pilih"><i class="fas fa-times"></i></button>
-                            
-                            <div class="card-img">
-                                ${imageRender}
-                            </div>
-                            <div class="card-info">
-                                <h3 class="card-name">${c.name}</h3>
-                                <p class="card-desc">${c.desc}</p>
-                                <span class="click-hint"><i class="fas fa-sync-alt"></i> Ketuk untuk Visi-Misi</span>
-                            </div>
-                        </div>
-
-                        <!-- SISI BELAKANG (VISI MISI) -->
-                        <div class="card-back">
-                            <div class="back-header">
-                                <h3 class="back-title">VISI & MISI</h3>
-                                <button class="btn-close-flip" onclick="handleCardClick(${c.id}, event)"><i class="fas fa-times-circle"></i></button>
-                            </div>
-                            <div class="visi-misi-content">
-                                <h4>VISI:</h4>
-                                <p style="margin-top:0;">${visiText}</p>
-                                <h4>MISI:</h4>
-                                <ul>${misiList}</ul>
-                            </div>
-                            <button class="btn-pilih-dari-back" onclick="pilihDariBelakang(${c.id}, '${c.name}', '${c.val}', event)"><i class="fas fa-vote-yea"></i> PILIH CALON INI</button>
-                        </div>
-
+                <div class="card" id="card-${c.id}" data-name="${c.name.toLowerCase()}" onclick="bukaZoomModal(${c.id}, '${c.foto}', '${c.name}', '${c.desc}', '${c.val}')">
+                    <div class="number-badge">${numPad}</div>
+                    
+                    <!-- Tombol Batal Pilih (X) -->
+                    <button class="cancel-badge" id="cancel-${c.id}" onclick="batalPilih(event)" title="Batal Pilih"><i class="fas fa-times"></i></button>
+                    
+                    <div class="card-img">
+                        ${imageRender}
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-name">${c.name}</h3>
+                        <p class="card-desc">${c.desc}</p>
                     </div>
                 </div>
             `;
@@ -381,7 +295,7 @@
         // Fitur Pencarian
         function filterCandidates() {
             let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.querySelectorAll('.card-container');
+            let cards = document.querySelectorAll('.card');
             cards.forEach(card => {
                 let name = card.getAttribute('data-name');
                 if (name.includes(input)) card.style.display = "";
@@ -389,83 +303,71 @@
             });
         }
 
-        // FUNGSI 1: Memutar Kartu Saja
-        function handleCardClick(id, event) {
-            event.stopPropagation(); 
+        // FUNGSI 1: Membuka Modal Zoom Saat Kartu Diklik
+        function bukaZoomModal(id, foto, name, desc, val) {
+            // Isi data di modal zoom
+            const zoomImg = document.getElementById('zoomFoto');
+            zoomImg.src = foto;
+            zoomImg.style.display = 'block'; // Pastikan gambar tampil
             
-            const card = document.getElementById(`card-${id}`);
+            document.getElementById('zoomName').innerText = name;
+            document.getElementById('zoomDesc').innerText = desc;
             
-            // Tutup kartu lain yang sedang terbuka agar rapi
-            document.querySelectorAll('.card-container').forEach(c => {
-                if(c.id !== `card-${id}`) {
-                    c.classList.remove('is-flipped');
-                }
-            });
+            // Ubah fungsi tombol "Pilih Kandidat Ini" di dalam zoom
+            const btnPilih = document.getElementById('btnPilihZoom');
+            btnPilih.onclick = function() {
+                prosesPilihKandidat(id, name, val);
+            };
 
-            // Putar kartu ini
-            card.classList.toggle('is-flipped');
+            // Tampilkan Modal
+            document.getElementById('zoomModal').classList.add('active');
         }
 
-        // FUNGSI 2: Klik Tombol Merah 'PILIH CALON INI' di Belakang
-        function pilihDariBelakang(id, nameDisplay, realValue, event) {
-            event.stopPropagation(); 
+        // FUNGSI 2: Mengeksekusi Pilihan (Dari tombol di dalam Modal Zoom)
+        function prosesPilihKandidat(id, nameDisplay, realValue) {
+            // 1. Tutup modal zoom
+            closeModal('zoomModal');
             
-            const card = document.getElementById(`card-${id}`);
-            
-            // 1. Reset semua kartu ke awal
-            document.querySelectorAll('.card-container').forEach(c => {
+            // 2. Reset semua kartu ke awal (hapus bingkai merah)
+            document.querySelectorAll('.card').forEach(c => {
                 c.classList.remove('active');
             });
             
-            // 2. Reset semua tulisan tombol kembali normal
-            resetSemuaTombolPilih();
-
-            // 3. Putar kembali kartu ini menghadap depan
-            card.classList.remove('is-flipped');
+            // 3. Jadikan kartu yg dipilih jadi ACTIVE (bingkai merah, tombol X muncul)
+            const selectedCard = document.getElementById(`card-${id}`);
+            selectedCard.classList.add('active');
             
-            // 4. Jadikan kartu ini TERPILIH (bingkai merah & tombol X muncul)
-            card.classList.add('active');
-            
-            // 5. Ganti tulisan tombol khusus di kartu ini jadi TERPILIH
-            event.target.innerHTML = '<i class="fas fa-check-circle"></i> TERPILIH';
-            
-            // 6. Munculkan Bar Floating di bawah
+            // 4. Munculkan Bar Floating di bawah
             document.getElementById('floatName').innerText = nameDisplay;
             document.getElementById('confirmName').innerText = nameDisplay;
             document.getElementById('selectedCandidateVal').value = realValue;
             document.getElementById('floatingBar').classList.add('visible');
         }
 
-        // FUNGSI 3: Membatalkan Pilihan (Klik Tombol X)
+        // FUNGSI 3: Membatalkan Pilihan (Klik Tombol X di Kartu)
         function batalPilih(event) {
-            event.stopPropagation(); // Cegah kartu berputar
+            event.stopPropagation(); // Cegah event klik kartu memicu modal zoom
             
-            // 1. Hapus bingkai merah
-            document.querySelectorAll('.card-container').forEach(c => {
+            // 1. Hapus bingkai merah dari semua kartu
+            document.querySelectorAll('.card').forEach(c => {
                 c.classList.remove('active');
             });
             
-            // 2. Reset tombol
-            resetSemuaTombolPilih();
-            
-            // 3. Sembunyikan Bar di bawah
+            // 2. Sembunyikan Bar Lanjut di bawah
             document.getElementById('floatingBar').classList.remove('visible');
             document.getElementById('selectedCandidateVal').value = "";
         }
 
-        function resetSemuaTombolPilih() {
-            document.querySelectorAll('.btn-pilih-dari-back').forEach(btn => {
-                btn.innerHTML = '<i class="fas fa-vote-yea"></i> PILIH CALON INI';
-            });
-        }
-
+        // Fungsi Umum Tutup Modal
         function openTokenModal() { 
             document.getElementById('tokenModal').classList.add('active'); 
             document.getElementById('errorMsg').style.display = "none";
         }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function closeModal(id) { 
+            document.getElementById(id).classList.remove('active'); 
+        }
 
-        // Proses Voting API
+        // Proses Voting API (Tetap Sama, Tidak Diubah)
         document.getElementById('formVoting').addEventListener('submit', function(e) {
             e.preventDefault();
             
