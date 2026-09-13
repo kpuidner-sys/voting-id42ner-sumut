@@ -60,45 +60,105 @@
         }
         .search-input:focus { border-color: var(--red-main); box-shadow: 0 0 15px var(--red-glow); }
 
-        /* GRID KANDIDAT */
+        /* GRID KANDIDAT & FLIP CARD ANIMATION */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-        .card {
-            background: var(--card-bg); border-radius: 15px; border: 2px solid transparent; overflow: hidden;
-            position: relative; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
-        .card.active { border-color: var(--red-main); box-shadow: 0 0 20px var(--red-glow); transform: scale(1.02); }
-        .card-img { height: 180px; background-color: #2a2a2f; position: relative; overflow: hidden; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; perspective: 1000px; }
         
-        /* Tambahan Kode Baru Untuk Foto Asli */
-        .foto-kandidat {
+        .card-container {
+            position: relative;
+            width: 100%;
+            height: 380px; 
+        }
+
+        .card-inner {
+            position: absolute;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Biar foto tidak gepeng, otomatis menyesuaikan kotak */
-            object-position: center top; /* Fokus ke wajah */
-            transition: all 0.4s ease;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .card-container.is-flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* BAGIAN DEPAN (FOTO) */
+        .card-container.active .card-front {
+            border-color: var(--red-main);
+            box-shadow: 0 0 20px var(--red-glow);
         }
         
-        /* Kalau foto belum ada, ikon ini yang muncul */
-        .card-img i.placeholder-icon {
-            font-size: 60px; color: rgba(255,255,255,0.1); 
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            z-index: 10;
-        }
+        .card-img { height: 200px; background-color: #2a2a2f; position: relative; overflow: hidden; }
+        .foto-kandidat { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: all 0.4s ease; }
+        .placeholder-icon { font-size: 60px; color: rgba(255,255,255,0.1); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; }
+        .card-container.active .foto-kandidat { filter: brightness(1.2); }
         
-        .card.active .foto-kandidat { transform: scale(1.1); filter: brightness(1.2); }
-        .card-img i { transition: all 0.3s; }
-        .card.active .card-img i { color: var(--red-main); transform: translate(-50%, -50%) scale(1.1); }
         .number-badge { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; font-weight: 900; padding: 4px 8px; border-radius: 8px; font-size: 14px; border: 1px solid rgba(255,255,255,0.1); z-index: 20; }
         .check-badge {
             position: absolute; top: 10px; right: 10px; background: var(--red-main); color: white; width: 25px; height: 25px;
             border-radius: 50%; display: flex; justify-content: center; align-items: center; opacity: 0; transform: scale(0); transition: all 0.3s; z-index: 20;
         }
-        .card.active .check-badge { opacity: 1; transform: scale(1); }
-        .card-info { padding: 15px; text-align: center; }
-        .card-name { font-weight: 800; font-size: 14px; margin: 0 0 5px 0; line-height: 1.3; }
-        .card-desc { font-size: 11px; color: var(--text-muted); margin: 0; }
+        .card-container.active .check-badge { opacity: 1; transform: scale(1); }
+        
+        .card-info { padding: 15px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center;}
+        .card-name { font-weight: 800; font-size: 15px; margin: 0 0 5px 0; line-height: 1.3; }
+        .card-desc { font-size: 12px; color: var(--text-muted); margin: 0 0 15px 0; }
+        
+        .btn-flip { 
+            background: none; border: 1px solid rgba(255,255,255,0.2); color: white; 
+            padding: 8px 15px; border-radius: 20px; font-size: 11px; cursor: pointer;
+            transition: 0.3s; margin: 0 auto; width: 80%; display: flex; justify-content: center; align-items: center; gap: 5px;
+        }
+        .btn-flip:hover { background: rgba(255,255,255,0.1); border-color: white; }
+
+        .btn-pilih-langsung {
+            background: var(--red-main); border: none; color: white;
+            padding: 10px; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer;
+            margin-top: 10px; width: 100%; transition: 0.2s;
+        }
+        .btn-pilih-langsung:active { transform: scale(0.95); }
+
+        /* BAGIAN BELAKANG (VISI MISI) */
+        .card-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(145deg, #1f1f23, #151518);
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+        .back-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px; }
+        .back-title { font-weight: 900; font-size: 14px; margin: 0; color: var(--red-main); }
+        .btn-close-flip { background: none; border: none; color: #888; font-size: 18px; cursor: pointer; padding: 0; }
+        
+        .visi-misi-content { flex-grow: 1; overflow-y: auto; font-size: 12px; line-height: 1.5; color: #ccc; padding-right: 5px; }
+        .visi-misi-content::-webkit-scrollbar { width: 4px; }
+        .visi-misi-content::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+        .visi-misi-content h4 { margin: 0 0 5px 0; color: white; font-size: 13px; }
+        .visi-misi-content ul { margin: 0 0 10px 0; padding-left: 20px; }
+        .visi-misi-content li { margin-bottom: 5px; }
+
+        .btn-pilih-dari-back {
+            background: var(--red-main); border: none; color: white;
+            padding: 12px; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer;
+            margin-top: 15px; width: 100%; transition: 0.2s; box-shadow: 0 4px 10px rgba(229,9,20,0.3);
+        }
+        .btn-pilih-dari-back:active { transform: scale(0.95); }
+
 
         /* FLOATING ACTION BAR */
         .floating-bar {
@@ -115,58 +175,35 @@
         .btn-lanjut:active { transform: scale(0.95); }
 
         /* MODALS (TOKEN & SUCCESS) */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px);
-            z-index: 999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s;
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
         .modal-overlay.active { opacity: 1; pointer-events: all; }
-        .modal-box {
-            background: var(--card-bg); width: 90%; max-width: 400px; padding: 30px; border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); transform: translateY(50px) scale(0.9);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative;
-        }
+        .modal-box { background: var(--card-bg); width: 90%; max-width: 400px; padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); transform: translateY(50px) scale(0.9); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
         .modal-overlay.active .modal-box { transform: translateY(0) scale(1); }
         .close-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; color: var(--text-muted); font-size: 20px; cursor: pointer; }
         .modal-title { margin: 0 0 20px 0; font-weight: 900; font-size: 20px; text-align: center; }
         
-        /* Input Token Khusus */
         .input-group { position: relative; margin-bottom: 20px; }
         .input-group i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
-        .input-group input {
-            width: 100%; padding: 15px 15px 15px 45px; background: #121212; border: 1px solid rgba(255,255,255,0.1);
-            color: #4CAF50; border-radius: 12px; font-size: 20px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase;
-            box-sizing: border-box; outline: none; transition: 0.3s; font-family: 'Montserrat', sans-serif; text-align: center;
-        }
+        .input-group input { width: 100%; padding: 15px 15px 15px 45px; background: #121212; border: 1px solid rgba(255,255,255,0.1); color: #4CAF50; border-radius: 12px; font-size: 20px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; box-sizing: border-box; outline: none; transition: 0.3s; font-family: 'Montserrat', sans-serif; text-align: center; }
         .input-group input:focus { border-color: #4CAF50; box-shadow: 0 0 10px rgba(76, 175, 80, 0.3); }
         
-        .btn-submit-final {
-            width: 100%; background: var(--red-main); color: white; border: none; padding: 15px; border-radius: 12px;
-            font-weight: 900; font-size: 16px; cursor: pointer; box-shadow: 0 5px 15px var(--red-glow); font-family: 'Montserrat', sans-serif; letter-spacing: 1px;
-        }
+        .btn-submit-final { width: 100%; background: var(--red-main); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: 900; font-size: 16px; cursor: pointer; box-shadow: 0 5px 15px var(--red-glow); font-family: 'Montserrat', sans-serif; letter-spacing: 1px; }
 
-        /* PESAN ERROR */
         #errorMsg { color: #E50914; font-size: 13px; font-weight: bold; text-align: center; margin-bottom: 15px; display: none; }
 
-        /* LOADING ANIMATION */
-        .loader-container {
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000;
-        }
+        .loader-container { display: none; flex-direction: column; align-items: center; justify-content: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; }
         .spinner { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.1); border-top-color: var(--red-main); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        @media (min-width: 768px) { .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; } }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="navbar-brand"><i class="fas fa-steering-wheel"></i> ID42NER<span>SUMUT</span></div>
         <div class="timer"><i class="fas fa-lock"></i> Sesi Rahasia</div>
     </nav>
 
-    <!-- HEADER & PENCARIAN -->
     <div class="header-section">
         <h1>Bilik Suara Digital</h1>
         <div class="search-container">
@@ -191,7 +228,7 @@
         <button class="btn-lanjut" onclick="openTokenModal()">LANJUT <i class="fas fa-arrow-right"></i></button>
     </div>
 
-    <!-- MODAL 1: INPUT TOKEN (PENGGANTI NOPUNG) -->
+    <!-- MODAL 1: INPUT TOKEN -->
     <div class="modal-overlay" id="tokenModal">
         <div class="modal-box">
             <button class="close-btn" onclick="closeModal('tokenModal')"><i class="fas fa-times"></i></button>
@@ -210,7 +247,7 @@
         </div>
     </div>
 
-    <!-- MODAL 2: SUCCESS TICKET (TIDAK PERLU WA LAGI) -->
+    <!-- MODAL 2: SUCCESS TICKET -->
     <div class="modal-overlay" id="successModal">
         <div class="modal-box" style="text-align: center;">
             <i class="fas fa-check-circle" style="font-size: 60px; color: #4CAF50; margin-bottom: 15px;"></i>
@@ -234,65 +271,98 @@
     </div>
 
     <script>
+        // DAFTAR KANDIDAT DENGAN DATA VISI-MISI
         const candidates = [
-            { id: 1, name: "Om Dani", desc: "(F1717)", val: "Om Dani (F1717)", foto: "calon1.jpg" },
-            { id: 2, name: "Om H.Nurhadi", desc: "(F1493)", val: "Om Nurhadi (F)", foto: "calon2.jpg" },
-            { id: 3, name: "Om Hasyim", desc: "(F1396)", val: "Om Hasyim (F1396)", foto: "calon3.png" },
-            { id: 4, name: "Om Hendra Sinaga", desc: "(F1812)", val: "Om Hendra Sinaga (F1812)", foto: "calon4.jpg" },
-            { id: 5, name: "Om Umri", desc: "(F2216)", val: "Om Umri (F2216)", foto: "calon5.jpg" },
-            { id: 6, name: "Om Tantra Deska", desc: "(F1884)", val: "Om Tantra Deska (F1884)", foto: "calon6.jpg" },
-            { id: 7, name: "Om Ronald", desc: "(F1488)", val: "Om Ronald (F1488)", foto: "calon7.jpg" },
-            { id: 8, name: "Om Afdhal", desc: "(F)", val: "Om Afdhal (F)", foto: "calon8.jpg" },
-            { id: 9, name: "Om Hery Zz", desc: "(F2850)", val: "Om Hery Zz (F2850)", foto: "calon9.jpg" },
-            { id: 10, name: "Om H.Wansa/Endri Irwanto", desc: "(F965)", val: "Om Wansa/Endri Irwanto (F965)", foto: "calon10.jpg" },
-            { id: 11, name: "Om Erick/Sulaiman Azhari", desc: "(F)", val: "Om Erick/Sulaiman Azhari (F)", foto: "calon11.jpg" },
-            { id: 12, name: "Om Husni", desc: "(F)", val: "Om Husni (F)", foto: "calon12.jpg" },
-            { id: 13, name: "Om Jefrie Himawan", desc: "F", val: "Om Jefrie Himawan (F)", foto: "calon13.jpg" },
-            { id: 14, name: "Om Dicky", desc: "(F2177)", val: "Om Dicky (2177)", foto: "calon14.jpg" },
-            { id: 15, name: "Om Dedy Ginting", desc: "(F)", val: "Om Dedy Ginting (F)", foto: "calon15.jpeg" },
-            { id: 16, name: "Om Hendra Martin", desc: "(F2552)", val: "Om Hendra Martin (F2552)", foto: "calon16.jpg" },
-            { id: 17, name: "Om Nanang", desc: "(F)", val: "Om Nanang (F)", foto: "calon17.jpg" },
-            { id: 18, name: "Om Try Sutrisno", desc: "(F2782)", val: "Om Try Sutrisno (F2782)", foto: "calon18.jpg" },
-            { id: 19, name: "Om Wyne Purba", desc: "(F2913)", val: "Om Wyne Purba (F2913)", foto: "calon19.jpg" }
+            { id: 1, name: "Om Dani", desc: "(F1717)", val: "Om Dani (F1717)", foto: "./calon1.jpg", visi: "Menjadikan ID42NER Sumut chapter terbaik se-Indonesia.", misi: ["Meningkatkan silaturahmi member", "Mengadakan touring lintas sumatera", "Berbagi dengan masyarakat sekitar"] },
+            { id: 2, name: "Om H.Nurhadi", desc: "(F1493)", val: "Om Nurhadi (F)", foto: "./calon2.jpg", visi: "Membangun persaudaraan tanpa batas.", misi: ["Program kopdar wajib", "Edukasi safety driving"] },
+            { id: 3, name: "Om Hasyim", desc: "(F1396)", val: "Om Hasyim (F1396)", foto: "./calon3.png", visi: "ID42NER Kuat, ID42NER Hebat.", misi: ["Penguatan struktur organisasi", "Peningkatan kas chapter"] },
+            { id: 4, name: "Om Hendra Sinaga", desc: "(F1812)", val: "Om Hendra Sinaga (F1812)", foto: "./calon4.jpg", visi: "Solidaritas adalah kunci.", misi: ["Acara family gathering rutin", "Bantuan sosial kebencanaan"] },
+            { id: 5, name: "Om Umri", desc: "(F2216)", val: "Om Umri (F2216)", foto: "./calon5.jpg", visi: "Menjadi wadah otomotif paling positif.", misi: ["Kerjasama dengan bengkel mitra", "Touring wisata keluarga"] },
+            { id: 6, name: "Om Tantra Deska", desc: "(F1884)", val: "Om Tantra Deska (F1884)", foto: "./calon6.jpg", visi: "Transparansi dan kebersamaan.", misi: ["Laporan keuangan terbuka", "Diskon khusus member di merchant"] },
+            { id: 7, name: "Om Ronald", desc: "(F1488)", val: "Om Ronald (F1488)", foto: "./calon7.jpg", visi: "Administrasi rapi, chapter maju.", misi: ["Digitalisasi data member", "Pembuatan KTA cepat"] },
+            { id: 8, name: "Om Afdhal", desc: "(F)", val: "Om Afdhal (F)", foto: "./calon8.jpg", visi: "Kemandirian finansial chapter.", misi: ["Pengadaan merchandise resmi", "Iuran yang fleksibel"] },
+            { id: 9, name: "Om Hery Zz", desc: "(F2850)", val: "Om Hery Zz (F2850)", foto: "./calon9.jpg", visi: "Dukungan penuh untuk program kerja.", misi: ["Membantu sekretariat", "Komunikasi antar chapter"] },
+            { id: 10, name: "Om H.Wansa/Endri Irwanto", desc: "(F965)", val: "Om Wansa/Endri Irwanto (F965)", foto: "./calon10.jpg", visi: "Kolaborasi untuk inovasi.", misi: ["Event otomotif besar tahunan", "Kopdar tematik"] },
+            { id: 11, name: "Om Erick/Sulaiman Azhari", desc: "(F)", val: "Om Erick/Sulaiman Azhari (F)", foto: "./calon11.jpg", visi: "Menyatukan semua hobi member.", misi: ["Mini touring 2 bulan sekali", "Kegiatan olahraga bersama"] },
+            { id: 12, name: "Om Husni", desc: "(F)", val: "Om Husni (F)", foto: "./calon12.jpg", visi: "Maju bersama meraih prestasi.", misi: ["Ikut serta kontes mobil", "Bakti sosial panti asuhan"] },
+            { id: 13, name: "Om Jefrie Himawan", desc: "F", val: "Om Jefrie Himawan (F)", foto: "./calon13.jpg", visi: "Membawa nama baik ID42NER.", misi: ["Tertib berlalu lintas", "Kampanye anti narkoba"] },
+            { id: 14, name: "Om Dicky", desc: "(F2177)", val: "Om Dicky (2177)", foto: "./calon14.jpg", visi: "Selalu ada untuk keluarga ID42NER.", misi: ["Tanggap darurat member", "Solidaritas di jalan"] },
+            { id: 15, name: "Om Dedy Ginting", desc: "(F)", val: "Om Dedy Ginting (F)", foto: "./calon15.jpeg", visi: "Eksistensi di Sumatera Utara.", misi: ["Kopdar lintas kota", "Pengenalan wisata lokal"] },
+            { id: 16, name: "Om Hendra Martin", desc: "(F2552)", val: "Om Hendra Martin (F2552)", foto: "./calon16.jpg", visi: "Menjadikan mobil bukan sekadar alat.", misi: ["Klinik perbaikan mobil darurat", "Sharing modifikasi"] },
+            { id: 17, name: "Om Nanang", desc: "(F)", val: "Om Nanang (F)", foto: "./calon17.jpg", visi: "Gembira, Guyub, Rukun.", misi: ["Tidak ada sekat senior-junior", "Acara makan bersama rutin"] },
+            { id: 18, name: "Om Try Sutrisno", desc: "(F2782)", val: "Om Try Sutrisno (F2782)", foto: "./calon18.jpg", visi: "Berjaya di aspal, beramal di darat.", misi: ["Touring religi", "Pengajian rutin bulanan"] },
+            { id: 19, name: "Om Wyne Purba", desc: "(F2913)", val: "Om Wyne Purba (F2913)", foto: "./calon19.jpg", visi: "Integritas dan kekompakan.", misi: ["Resolusi konflik member", "Pendampingan hukum jika perlu"] }
         ];
 
         const grid = document.getElementById('candidateGrid');
+        
         candidates.forEach(c => {
             const numPad = c.id.toString().padStart(2, '0');
             
-            // Kode Sapu Jagat untuk Gambar yang DIJAMIN JALAN
+            // Format list Misi menjadi elemen <li>
+            let misiList = "";
+            c.misi.forEach(m => {
+                misiList += `<li>${m}</li>`;
+            });
+            
+            // Kode Gambar Sapu Jagat
             const imageRender = `
                 <img src="${c.foto}" class="foto-kandidat" alt="${c.name}" 
                      onerror="
                         this.onerror=null; 
                         this.style.display='none'; 
                         var icon = this.nextElementSibling;
-                        if(icon) {
-                            icon.style.display='block';
-                        }
+                        if(icon) { icon.style.display='block'; }
                      ">
                 <i class="fas fa-user-astronaut placeholder-icon" style="display:none;"></i>
             `;
 
             const cardHTML = `
-                <div class="card" data-name="${c.name.toLowerCase()}" data-desc="${c.desc.toLowerCase()}" onclick="selectCard(this, '${c.name}', '${c.val}')">
-                    <div class="number-badge">${numPad}</div>
-                    <div class="check-badge"><i class="fas fa-check"></i></div>
-                    <div class="card-img">
-                        ${imageRender}
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-name">${c.name}</h3>
-                        <p class="card-desc">${c.desc}</p>
+                <div class="card-container" id="card-${c.id}" data-name="${c.name.toLowerCase()}">
+                    <div class="card-inner">
+                        
+                        <!-- SISI DEPAN (FOTO KANDIDAT) -->
+                        <div class="card-front">
+                            <div class="number-badge">${numPad}</div>
+                            <div class="check-badge" id="check-${c.id}"><i class="fas fa-check"></i></div>
+                            <div class="card-img">
+                                ${imageRender}
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-name">${c.name}</h3>
+                                <p class="card-desc">${c.desc}</p>
+                                <div style="display:flex; gap:10px; width:100%; margin-top:5px;">
+                                    <button class="btn-flip" onclick="flipCard(${c.id}, event)"><i class="fas fa-book-open"></i> Visi Misi</button>
+                                </div>
+                                <button class="btn-pilih-langsung" onclick="pilihKandidat(${c.id}, '${c.name}', '${c.val}')"><i class="fas fa-vote-yea"></i> PILIH CALON INI</button>
+                            </div>
+                        </div>
+
+                        <!-- SISI BELAKANG (VISI MISI) -->
+                        <div class="card-back">
+                            <div class="back-header">
+                                <h3 class="back-title">VISI & MISI</h3>
+                                <button class="btn-close-flip" onclick="flipCard(${c.id}, event)"><i class="fas fa-times-circle"></i></button>
+                            </div>
+                            <div class="visi-misi-content">
+                                <h4>VISI:</h4>
+                                <p style="margin-top:0;">"${c.visi}"</p>
+                                <h4>MISI:</h4>
+                                <ul>${misiList}</ul>
+                            </div>
+                            <button class="btn-pilih-dari-back" onclick="pilihKandidat(${c.id}, '${c.name}', '${c.val}')"><i class="fas fa-check-circle"></i> SAYA PILIH INI</button>
+                        </div>
+
                     </div>
                 </div>
             `;
             grid.innerHTML += cardHTML;
         });
 
+        // Fitur Pencarian
         function filterCandidates() {
             let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.querySelectorAll('.card');
+            let cards = document.querySelectorAll('.card-container');
             cards.forEach(card => {
                 let name = card.getAttribute('data-name');
                 if (name.includes(input)) card.style.display = "";
@@ -300,16 +370,35 @@
             });
         }
 
-        let selectedValue = "";
-        function selectCard(cardElement, nameDisplay, realValue) {
-            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-            cardElement.classList.add('active');
+        // Fungsi Memutar Kartu (Flip)
+        function flipCard(id, event) {
+            event.stopPropagation(); // Mencegah klik menembus ke elemen lain
+            const card = document.getElementById(`card-${id}`);
+            card.classList.toggle('is-flipped');
+        }
+
+        // Fungsi Memilih Kandidat
+        function pilihKandidat(id, nameDisplay, realValue) {
+            // Hilangkan semua status 'active' dari SEMUA kartu (baik sisi depan maupun belakang)
+            document.querySelectorAll('.card-container').forEach(c => {
+                c.classList.remove('active');
+            });
             
-            selectedValue = realValue;
+            // Tambahkan status 'active' ke kartu yang dipilih (untuk memunculkan warna merah & centang di sisi depan)
+            const selectedCard = document.getElementById(`card-${id}`);
+            selectedCard.classList.add('active');
+            
+            // Kalau posisi kartu sedang terbalik (di halaman Visi Misi), kembalikan ke depan
+            if(selectedCard.classList.contains('is-flipped')){
+                selectedCard.classList.remove('is-flipped');
+            }
+            
+            // Set Data Pilihan untuk dikirim ke API
             document.getElementById('floatName').innerText = nameDisplay;
             document.getElementById('confirmName').innerText = nameDisplay;
             document.getElementById('selectedCandidateVal').value = realValue;
 
+            // Munculkan Bar Mengambang
             document.getElementById('floatingBar').classList.add('visible');
         }
 
@@ -319,12 +408,14 @@
         }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
+        // Proses Voting
         document.getElementById('formVoting').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const token = document.getElementById('tokenInput').value.toUpperCase();
             const pilihan = document.getElementById('selectedCandidateVal').value;
             
+            // URL API OM
             const urlAPI = "https://script.google.com/macros/s/AKfycbzLI3l43BbbueXFbwh0bJnP38GeSzXQFKrHRp_kiCtqGetgA4C5QD5l0ZqV6jOm-iyEVA/exec"; 
 
             closeModal('tokenModal');
