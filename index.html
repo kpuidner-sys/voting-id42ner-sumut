@@ -61,22 +61,32 @@
         .search-input:focus { border-color: var(--red-main); box-shadow: 0 0 15px var(--red-glow); }
 
         /* GRID KANDIDAT & FLIP CARD ANIMATION */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; perspective: 1000px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+        
+        /* Lebar Grid Diperkecil agar muat 2 kolom di HP */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; perspective: 1000px; }
         
         .card-container {
             position: relative;
             width: 100%;
-            height: 340px; 
             cursor: pointer;
+            display: flex;
         }
 
         .card-inner {
-            position: absolute;
+            position: relative; /* Diubah jadi relative agar tinggi kartu fleksibel */
             width: 100%;
-            height: 100%;
             transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.05);
+            background: var(--card-bg);
+        }
+
+        .card-container.active .card-inner {
+            border-color: var(--red-main);
+            box-shadow: 0 0 20px var(--red-glow);
         }
 
         .card-container.is-flipped .card-inner {
@@ -84,28 +94,24 @@
         }
 
         .card-front, .card-back {
-            position: absolute;
             width: 100%;
-            height: 100%;
             backface-visibility: hidden;
-            background: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.05);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
             display: flex;
             flex-direction: column;
+            border-radius: 13px; /* Mengikuti radius inner */
+        }
+
+        .card-back {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
         }
 
         /* BAGIAN DEPAN (FOTO) */
-        .card-container.active .card-front, .card-container.active .card-back {
-            border-color: var(--red-main);
-            box-shadow: 0 0 20px var(--red-glow);
-        }
-        
-        .card-img { height: 220px; background-color: #2a2a2f; position: relative; overflow: hidden; }
+        /* Tinggi foto diperbesar untuk rasio 9:16 */
+        .card-img { height: 240px; background-color: #2a2a2f; position: relative; overflow: hidden; border-top-left-radius: 13px; border-top-right-radius: 13px;}
         .foto-kandidat { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: all 0.4s ease; }
         .placeholder-icon { font-size: 60px; color: rgba(255,255,255,0.1); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; }
+        
         .card-container.active .foto-kandidat { filter: brightness(1.2); }
         
         .number-badge { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: white; font-weight: 900; padding: 4px 8px; border-radius: 8px; font-size: 14px; border: 1px solid rgba(255,255,255,0.1); z-index: 20; }
@@ -119,9 +125,9 @@
         .card-container.active .cancel-badge { opacity: 1; transform: scale(1); }
         .cancel-badge:active { transform: scale(0.8); }
         
-        .card-info { padding: 15px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center;}
-        .card-name { font-weight: 800; font-size: 15px; margin: 0 0 5px 0; line-height: 1.3; }
-        .card-desc { font-size: 12px; color: var(--text-muted); margin: 0; }
+        .card-info { padding: 15px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;}
+        .card-name { font-weight: 800; font-size: 14px; margin: 0 0 5px 0; line-height: 1.3; }
+        .card-desc { font-size: 11px; color: var(--text-muted); margin: 0; }
         
         /* Hint Klik */
         .click-hint { font-size: 10px; color: var(--red-main); margin-top: 8px; opacity: 0.8; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; }
@@ -130,25 +136,26 @@
         .card-back {
             transform: rotateY(180deg);
             background: linear-gradient(145deg, #1f1f23, #151518);
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
+            border-radius: 13px;
         }
         .back-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px; }
         .back-title { font-weight: 900; font-size: 14px; margin: 0; color: var(--red-main); }
         .btn-close-flip { background: none; border: none; color: #888; font-size: 20px; cursor: pointer; padding: 0; position: relative; z-index: 40;}
         
-        .visi-misi-content { flex-grow: 1; overflow-y: auto; font-size: 12px; line-height: 1.5; color: #ccc; padding-right: 5px; }
+        .visi-misi-content { flex-grow: 1; overflow-y: auto; font-size: 11px; line-height: 1.5; color: #ccc; padding-right: 5px; text-align: left;}
         .visi-misi-content::-webkit-scrollbar { width: 4px; }
         .visi-misi-content::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
-        .visi-misi-content h4 { margin: 0 0 5px 0; color: white; font-size: 13px; }
+        .visi-misi-content h4 { margin: 0 0 5px 0; color: white; font-size: 12px; }
         .visi-misi-content ul { margin: 0 0 10px 0; padding-left: 20px; }
         .visi-misi-content li { margin-bottom: 5px; }
 
         .btn-pilih-dari-back {
             background: var(--red-main); border: none; color: white;
-            padding: 12px; border-radius: 8px; font-size: 14px; font-weight: bold; cursor: pointer;
+            padding: 10px; border-radius: 8px; font-size: 13px; font-weight: bold; cursor: pointer;
             margin-top: 15px; width: 100%; transition: 0.2s; box-shadow: 0 4px 10px rgba(229,9,20,0.3);
             position: relative; z-index: 40;
         }
@@ -190,6 +197,11 @@
         .spinner { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.1); border-top-color: var(--red-main); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
+        /* Responsiveness tambahan untuk desktop */
+        @media (min-width: 768px) {
+            .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; }
+            .card-img { height: 280px; } /* Foto lebih tinggi di desktop */
+        }
     </style>
 </head>
 <body>
@@ -315,11 +327,11 @@
             `;
 
             const cardHTML = `
-                <div class="card-container" id="card-${c.id}" data-name="${c.name.toLowerCase()}">
+                <div class="card-container" id="card-${c.id}" data-name="${c.name.toLowerCase()}" onclick="handleCardClick(${c.id}, event)">
                     <div class="card-inner">
                         
                         <!-- SISI DEPAN (FOTO KANDIDAT) -->
-                        <div class="card-front" onclick="handleCardClick(${c.id}, event)">
+                        <div class="card-front">
                             <div class="number-badge">${numPad}</div>
                             <!-- Tombol Batal Pilih (X) -->
                             <button class="cancel-badge" id="cancel-${c.id}" onclick="batalPilih(event)" title="Batal Pilih"><i class="fas fa-times"></i></button>
