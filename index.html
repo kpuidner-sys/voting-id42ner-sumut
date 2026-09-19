@@ -127,7 +127,7 @@
         .close-btn { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.5); border: none; color: white; font-size: 16px; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; z-index: 50; display:flex; justify-content:center; align-items:center;}
         .modal-title { margin: 0 0 20px 0; font-weight: 900; font-size: 20px; text-align: center; }
         
-        /* MODAL ZOOM FOTO - PERBAIKAN TAMPILAN FULL & INTERAKTIF ZOOM */
+        /* MODAL ZOOM FOTO */
         .zoom-modal-box { 
             padding: 0; 
             overflow: hidden; 
@@ -153,7 +153,7 @@
             max-height: 100%; 
             width: auto; 
             height: auto; 
-            object-fit: contain; /* Memastikan foto nampak seluruhnya tanpa terpotong */
+            object-fit: contain;
             transition: transform 0.2s ease-out;
             user-select: none;
             -webkit-user-drag: none;
@@ -182,7 +182,10 @@
         .input-group i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
         .input-group input { width: 100%; padding: 15px 15px 15px 45px; background: #121212; border: 1px solid rgba(255,255,255,0.1); color: #4CAF50; border-radius: 12px; font-size: 20px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; box-sizing: border-box; outline: none; transition: 0.3s; font-family: 'Montserrat', sans-serif; text-align: center; }
         .input-group input:focus { border-color: #4CAF50; box-shadow: 0 0 10px rgba(76, 175, 80, 0.3); }
-        .btn-submit-final { width: 100%; background: var(--red-main); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: 900; font-size: 16px; cursor: pointer; box-shadow: 0 5px 15px var(--red-glow); font-family: 'Montserrat', sans-serif; letter-spacing: 1px; }
+        .btn-submit-final { width: 100%; background: var(--red-main); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: 900; font-size: 16px; cursor: pointer; box-shadow: 0 5px 15px var(--red-glow); font-family: 'Montserrat', sans-serif; letter-spacing: 1px; transition: all 0.3s ease; }
+        
+        /* State saat tombol ter-disable */
+        .btn-submit-final:disabled { background: #555; box-shadow: none; cursor: not-allowed; opacity: 0.7; }
 
         #errorMsg { color: #E50914; font-size: 13px; font-weight: bold; text-align: center; margin-bottom: 15px; display: none; }
 
@@ -263,7 +266,7 @@
                     <input type="text" id="tokenInput" placeholder="KODE TOKEN" required autocomplete="off" maxlength="6">
                 </div>
                 <div id="errorMsg"><i class="fas fa-exclamation-circle"></i> Token tidak valid atau sudah digunakan!</div>
-                <button type="submit" class="btn-submit-final">SAHKAN SUARA SAYA <i class="fas fa-check-double"></i></button>
+                <button type="submit" class="btn-submit-final" id="btnSubmitFinal">SAHKAN SUARA SAYA <i class="fas fa-check-double"></i></button>
             </form>
         </div>
     </div>
@@ -287,7 +290,7 @@
     <!-- FULL SCREEN LOADER -->
     <div class="loader-container" id="loader">
         <div class="spinner"></div>
-        <h3 style="margin-top: 20px; font-weight: 800; letter-spacing: 1px; color: white;">MEMVERIFIKASI TOKEN...</h3>
+        <h3 style="margin-top: 20px; font-weight: 800; letter-spacing: 1px; color: white;" id="loaderText">MEMVERIFIKASI TOKEN...</h3>
         <p style="color: var(--text-muted); font-size: 12px;">Sistem sedang mencocokkan kode dengan database panitia</p>
     </div>
 
@@ -376,19 +379,17 @@
             zoomFoto.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
         }
 
-        // Toggle zoom saat foto diklik/diketuk
         zoomImgContainer.addEventListener('click', (e) => {
             if (isDragging) return;
             if (currentScale === 1) {
-                currentScale = 2.5; // Zoom In
+                currentScale = 2.5; 
                 zoomImgContainer.style.cursor = 'grab';
             } else {
-                resetFotoZoom(); // Zoom Out
+                resetFotoZoom(); 
             }
             updateFotoTransform();
         });
 
-        // Fitur Geser Foto Saat Zoom In
         const startPan = (e) => {
             if (currentScale <= 1) return;
             isDragging = false;
@@ -425,10 +426,9 @@
         zoomImgContainer.addEventListener('mousedown', startPan);
         zoomImgContainer.addEventListener('touchstart', startPan, { passive: true });
 
-
         // MEMBUKA MODAL ZOOM
         function bukaZoomModal(id, foto, name, desc, val) {
-            resetFotoZoom(); // Reset level zoom ke semula
+            resetFotoZoom(); 
             
             const zoomImg = document.getElementById('zoomFoto');
             zoomImg.src = foto;
@@ -480,27 +480,47 @@
             document.getElementById(id).classList.remove('active'); 
         }
 
-        // Proses Voting API
+        // Fungsi Reset Tombol Submit
+        function resetSubmitButton(btn) {
+            btn.disabled = false;
+            btn.innerHTML = 'SAHKAN SUARA SAYA <i class="fas fa-check-double"></i>';
+        }
+
+        // PROSES VOTING API (SUDAH DIREVISI ANTI DOUBLE-CLICK)
         document.getElementById('formVoting').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const token = document.getElementById('tokenInput').value.toUpperCase();
+            const tokenInputElem = document.getElementById('tokenInput');
+            const token = tokenInputElem.value.trim().toUpperCase();
             const pilihan = document.getElementById('selectedCandidateVal').value;
+            const submitBtn = document.getElementById('btnSubmitFinal');
             
             if(!pilihan) {
                 alert("Silakan pilih kandidat terlebih dahulu!");
                 return;
             }
+            if(!token || token.length < 5) {
+                alert("Token tidak valid!");
+                return;
+            }
+
+            // 1. KUNCI TOMBOL SUBMIT AGAR TIDAK BISA DIKLIK BERKALI-KALI
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'MEMPROSES... <i class="fas fa-spinner fa-spin"></i>';
 
             const urlAPI = "https://script.google.com/macros/s/AKfycbzLI3l43BbbueXFbwh0bJnP38GeSzXQFKrHRp_kiCtqGetgA4C5QD5l0ZqV6jOm-iyEVA/exec"; 
 
             closeModal('tokenModal');
             document.getElementById('loader').style.display = "flex";
 
+            // 2. KIRIM DATA KE GOOGLE SCRIPT
             fetch(urlAPI + "?token=" + encodeURIComponent(token) + "&pilihan=" + encodeURIComponent(pilihan), { method: "GET" })
             .then(res => res.text())
             .then(responServer => {
                 document.getElementById('loader').style.display = "none";
+                
+                // KEMBALIKAN TOMBOL KE SEMULA
+                resetSubmitButton(submitBtn);
                 
                 if (responServer === "SUKSES") {
                     document.getElementById('successModal').classList.add('active');
@@ -509,11 +529,13 @@
                     document.getElementById('errorMsg').innerHTML = '<i class="fas fa-exclamation-circle"></i> Token tidak valid / tidak ditemukan!';
                     document.getElementById('errorMsg').style.display = "block";
                     document.getElementById('tokenModal').classList.add('active');
+                    tokenInputElem.value = ''; // Kosongkan input agar user bisa ketik ulang
                 }
                 else if (responServer === "TOKEN_HANGUS") {
                     document.getElementById('errorMsg').innerHTML = '<i class="fas fa-exclamation-circle"></i> Token ini SUDAH DIGUNAKAN!';
                     document.getElementById('errorMsg').style.display = "block";
                     document.getElementById('tokenModal').classList.add('active');
+                    tokenInputElem.value = ''; 
                 }
                 else {
                     alert("Terjadi kesalahan server: " + responServer);
@@ -522,7 +544,11 @@
             })
             .catch(err => {
                 document.getElementById('loader').style.display = "none";
-                alert("Koneksi gagal. Pastikan internet Anda stabil.");
+                
+                // KEMBALIKAN TOMBOL KE SEMULA JIKA GAGAL KONEKSI
+                resetSubmitButton(submitBtn);
+                
+                alert("Koneksi gagal. Pastikan internet Anda stabil dan coba lagi.");
                 document.getElementById('tokenModal').classList.add('active');
             });
         });
