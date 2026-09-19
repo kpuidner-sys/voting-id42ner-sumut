@@ -1,557 +1,532 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>E-Voting ID42NER Chapter Sumut</title>
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --red-main: #E50914;
-            --red-glow: rgba(229, 9, 20, 0.6);
-            --bg-dark: #0f0f11;
-            --card-bg: #1c1c1f;
-            --text-light: #f5f5f5;
-            --text-muted: #888;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>E-Voting ID42NER Chapter Sumut</title>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red-main: #E50914;
+            --red-glow: rgba(229, 9, 20, 0.6);
+            --bg-dark: #0f0f11;
+            --card-bg: #1c1c1f;
+            --text-light: #f5f5f5;
+            --text-muted: #888;
+        }
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            margin: 0;
-            padding: 0;
-            padding-bottom: 120px;
-            -webkit-tap-highlight-color: transparent;
-        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            margin: 0;
+            padding: 0;
+            padding-bottom: 120px;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-        /* NAVBAR */
-        .navbar {
-            background: rgba(15, 15, 17, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 12px 15px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-        }
-        .navbar-brand { font-weight: 900; font-size: 18px; letter-spacing: 1px; }
-        .navbar-brand span { color: var(--red-main); }
-        .timer { font-size: 11px; font-weight: 600; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 20px;}
+        /* NAVBAR */
+        .navbar {
+            background: rgba(15, 15, 17, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 12px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .navbar-brand { font-weight: 900; font-size: 18px; letter-spacing: 1px; }
+        .navbar-brand span { color: var(--red-main); }
+        .timer { font-size: 11px; font-weight: 600; color: var(--text-muted); background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 20px;}
 
-        /* HEADER & PENCARIAN */
-        .header-section { padding: 20px 15px; text-align: center; }
-        .header-section h1 {
-            margin: 0; font-size: 22px; font-weight: 900; text-transform: uppercase;
-            background: linear-gradient(to right, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .search-container { max-width: 500px; margin: 15px auto 0; position: relative; }
-        .search-container i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
-        .search-input {
-            width: 100%; padding: 12px 15px 12px 40px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1);
-            background: var(--card-bg); color: white; font-size: 14px; box-sizing: border-box; outline: none; transition: all 0.3s; font-family: 'Montserrat', sans-serif;
-        }
-        .search-input:focus { border-color: var(--red-main); box-shadow: 0 0 15px var(--red-glow); }
+        /* HEADER & PENCARIAN */
+        .header-section { padding: 20px 15px; text-align: center; }
+        .header-section h1 {
+            margin: 0; font-size: 22px; font-weight: 900; text-transform: uppercase;
+            background: linear-gradient(to right, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .search-container { max-width: 500px; margin: 15px auto 0; position: relative; }
+        .search-container i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+        .search-input {
+            width: 100%; padding: 12px 15px 12px 40px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1);
+            background: var(--card-bg); color: white; font-size: 14px; box-sizing: border-box; outline: none; transition: all 0.3s; font-family: 'Montserrat', sans-serif;
+        }
+        .search-input:focus { border-color: var(--red-main); box-shadow: 0 0 15px var(--red-glow); }
 
-        /* GRID KANDIDAT */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
-        
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
-            gap: 15px; 
-        }
-        
-        .card {
-            background: var(--card-bg); border-radius: 12px; overflow: hidden;
-            position: relative; cursor: pointer; transition: all 0.3s ease;
-            border: 2px solid transparent; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            display: flex; flex-direction: column;
-            aspect-ratio: 3 / 4; 
-        }
+        /* GRID KANDIDAT */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+        
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+            gap: 15px; 
+        }
+        
+        .card {
+            background: var(--card-bg); border-radius: 12px; overflow: hidden;
+            position: relative; cursor: pointer; transition: all 0.3s ease;
+            border: 2px solid transparent; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: flex; flex-direction: column;
+            aspect-ratio: 3 / 4; 
+        }
 
-        .card.active { border-color: var(--red-main); box-shadow: 0 0 15px var(--red-glow); transform: scale(1.02); }
+        .card.active { border-color: var(--red-main); box-shadow: 0 0 15px var(--red-glow); transform: scale(1.02); }
 
-        /* FOTO KANDIDAT */
-        .card-img { 
-            width: 100%; 
-            height: 70%; 
-            background-color: #2a2a2f; position: relative; overflow: hidden; 
-        }
-        .foto-kandidat { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: all 0.4s ease; }
-        .placeholder-icon { font-size: 50px; color: rgba(255,255,255,0.05); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; }
-        
-        .card.active .foto-kandidat { filter: brightness(1.2); }
-        
-        .number-badge { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.7); color: white; font-weight: 900; padding: 4px 8px; border-radius: 6px; font-size: 11px; border: 1px solid rgba(255,255,255,0.1); z-index: 20; backdrop-filter: blur(5px);}
-        
-        /* TOMBOL BATAL (X) DI CARD KECIL */
-        .cancel-badge {
-            position: absolute; top: 8px; right: 8px; background: var(--red-main); color: white; width: 28px; height: 28px;
-            border-radius: 50%; display: flex; justify-content: center; align-items: center; opacity: 0; transform: scale(0); 
-            transition: all 0.3s ease; z-index: 30; border: none; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5); font-size: 13px;
-        }
-        .card.active .cancel-badge { opacity: 1; transform: scale(1); }
-        .cancel-badge:active { transform: scale(0.8); }
-        
-        .card-info { padding: 10px 5px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; background: var(--card-bg);}
-        .card-name { font-weight: 800; font-size: 12px; margin: 0 0 3px 0; line-height: 1.2; }
-        .card-desc { font-size: 9px; color: var(--text-muted); margin: 0; }
-        
-        /* FLOATING ACTION BAR */
-        .floating-bar {
-            position: fixed; bottom: -100px; left: 0; width: 100%; background: rgba(28, 28, 31, 0.95); backdrop-filter: blur(10px);
-            padding: 15px 20px; box-sizing: border-box; border-top: 1px solid rgba(255,255,255,0.1);
-            display: flex; justify-content: space-between; align-items: center; transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 100; box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
-        }
-        .floating-bar.visible { bottom: 0; }
-        .selection-text { flex: 1; }
-        .selection-text p { margin: 0; font-size: 12px; color: var(--text-muted); }
-        .selection-text h4 { margin: 0; font-size: 16px; font-weight: 800; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;}
-        .btn-lanjut { background: var(--red-main); color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: 800; font-family: 'Montserrat', sans-serif; font-size: 14px; cursor: pointer; box-shadow: 0 4px 15px var(--red-glow); transition: transform 0.2s; }
-        .btn-lanjut:active { transform: scale(0.95); }
+        /* FOTO KANDIDAT */
+        .card-img { 
+            width: 100%; 
+            height: 70%; 
+            background-color: #2a2a2f; position: relative; overflow: hidden; 
+        }
+        .foto-kandidat { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: all 0.4s ease; }
+        .placeholder-icon { font-size: 50px; color: rgba(255,255,255,0.05); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; }
+        
+        .card.active .foto-kandidat { filter: brightness(1.2); }
+        
+        .number-badge { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.7); color: white; font-weight: 900; padding: 4px 8px; border-radius: 6px; font-size: 11px; border: 1px solid rgba(255,255,255,0.1); z-index: 20; backdrop-filter: blur(5px);}
+        
+        /* TOMBOL BATAL (X) DI CARD KECIL */
+        .cancel-badge {
+            position: absolute; top: 8px; right: 8px; background: var(--red-main); color: white; width: 28px; height: 28px;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center; opacity: 0; transform: scale(0); 
+            transition: all 0.3s ease; z-index: 30; border: none; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5); font-size: 13px;
+        }
+        .card.active .cancel-badge { opacity: 1; transform: scale(1); }
+        .cancel-badge:active { transform: scale(0.8); }
+        
+        .card-info { padding: 10px 5px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; background: var(--card-bg);}
+        .card-name { font-weight: 800; font-size: 12px; margin: 0 0 3px 0; line-height: 1.2; }
+        .card-desc { font-size: 9px; color: var(--text-muted); margin: 0; }
+        
+        /* FLOATING ACTION BAR */
+        .floating-bar {
+            position: fixed; bottom: -100px; left: 0; width: 100%; background: rgba(28, 28, 31, 0.95); backdrop-filter: blur(10px);
+            padding: 15px 20px; box-sizing: border-box; border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex; justify-content: space-between; align-items: center; transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 100; box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+        }
+        .floating-bar.visible { bottom: 0; }
+        .selection-text { flex: 1; }
+        .selection-text p { margin: 0; font-size: 12px; color: var(--text-muted); }
+        .selection-text h4 { margin: 0; font-size: 16px; font-weight: 800; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;}
+        .btn-lanjut { background: var(--red-main); color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: 800; font-family: 'Montserrat', sans-serif; font-size: 14px; cursor: pointer; box-shadow: 0 4px 15px var(--red-glow); transition: transform 0.2s; }
+        .btn-lanjut:active { transform: scale(0.95); }
 
-        /* MODALS */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(5px); z-index: 999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
-        .modal-overlay.active { opacity: 1; pointer-events: all; }
-        .modal-box { background: var(--card-bg); width: 90%; max-width: 400px; padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); transform: translateY(50px) scale(0.9); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
-        .modal-overlay.active .modal-box { transform: translateY(0) scale(1); }
-        .close-btn { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.5); border: none; color: white; font-size: 16px; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; z-index: 50; display:flex; justify-content:center; align-items:center;}
-        .modal-title { margin: 0 0 20px 0; font-weight: 900; font-size: 20px; text-align: center; }
-        
-        /* MODAL ZOOM FOTO */
-        .zoom-modal-box { 
-            padding: 0; 
-            overflow: hidden; 
-            display: flex; 
-            flex-direction: column; 
-            background: #151518;
-            max-height: 90vh;
-        }
-        .zoom-img-container { 
-            width: 100%; 
-            height: 60vh; 
-            position: relative; 
-            background: #000; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            cursor: zoom-in;
-            touch-action: none;
-        }
-        .zoom-img { 
-            max-width: 100%; 
-            max-height: 100%; 
-            width: auto; 
-            height: auto; 
-            object-fit: contain;
-            transition: transform 0.2s ease-out;
-            user-select: none;
-            -webkit-user-drag: none;
-        }
-        .zoom-hint {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(0, 0, 0, 0.6);
-            color: #fff;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            pointer-events: none;
-            z-index: 20;
-            backdrop-filter: blur(4px);
-        }
-        .zoom-info { padding: 15px 20px 20px; text-align: center; background: var(--card-bg); }
-        .zoom-name { font-weight: 900; font-size: 20px; margin: 0 0 3px 0; color: white; }
-        .zoom-desc { font-size: 13px; color: var(--text-muted); margin: 0 0 15px 0; }
-        .btn-pilih-zoom { width: 100%; background: var(--red-main); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: 900; font-size: 15px; cursor: pointer; box-shadow: 0 5px 20px var(--red-glow); transition: 0.2s; }
-        .btn-pilih-zoom:active { transform: scale(0.95); }
+        /* MODALS */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(5px); z-index: 999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        .modal-box { background: var(--card-bg); width: 90%; max-width: 400px; padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); transform: translateY(50px) scale(0.9); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; }
+        .modal-overlay.active .modal-box { transform: translateY(0) scale(1); }
+        .close-btn { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.5); border: none; color: white; font-size: 16px; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; z-index: 50; display:flex; justify-content:center; align-items:center;}
+        .modal-title { margin: 0 0 20px 0; font-weight: 900; font-size: 20px; text-align: center; }
+        
+        /* MODAL ZOOM FOTO - PERBAIKAN TAMPILAN FULL & INTERAKTIF ZOOM */
+        .zoom-modal-box { 
+            padding: 0; 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+            background: #151518;
+            max-height: 90vh;
+        }
+        .zoom-img-container { 
+            width: 100%; 
+            height: 60vh; 
+            position: relative; 
+            background: #000; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            cursor: zoom-in;
+            touch-action: none;
+        }
+        .zoom-img { 
+            max-width: 100%; 
+            max-height: 100%; 
+            width: auto; 
+            height: auto; 
+            object-fit: contain; /* Memastikan foto nampak seluruhnya tanpa terpotong */
+            transition: transform 0.2s ease-out;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        .zoom-hint {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            pointer-events: none;
+            z-index: 20;
+            backdrop-filter: blur(4px);
+        }
+        .zoom-info { padding: 15px 20px 20px; text-align: center; background: var(--card-bg); }
+        .zoom-name { font-weight: 900; font-size: 20px; margin: 0 0 3px 0; color: white; }
+        .zoom-desc { font-size: 13px; color: var(--text-muted); margin: 0 0 15px 0; }
+        .btn-pilih-zoom { width: 100%; background: var(--red-main); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: 900; font-size: 15px; cursor: pointer; box-shadow: 0 5px 20px var(--red-glow); transition: 0.2s; }
+        .btn-pilih-zoom:active { transform: scale(0.95); }
 
-        /* Input Token */
-        .input-group { position: relative; margin-bottom: 20px; }
-        .input-group i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
-        .input-group input { width: 100%; padding: 15px 15px 15px 45px; background: #121212; border: 1px solid rgba(255,255,255,0.1); color: #4CAF50; border-radius: 12px; font-size: 20px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; box-sizing: border-box; outline: none; transition: 0.3s; font-family: 'Montserrat', sans-serif; text-align: center; }
-        .input-group input:focus { border-color: #4CAF50; box-shadow: 0 0 10px rgba(76, 175, 80, 0.3); }
-        .btn-submit-final { width: 100%; background: var(--red-main); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: 900; font-size: 16px; cursor: pointer; box-shadow: 0 5px 15px var(--red-glow); font-family: 'Montserrat', sans-serif; letter-spacing: 1px; transition: all 0.3s ease; }
-        
-        /* State saat tombol ter-disable */
-        .btn-submit-final:disabled { background: #555; box-shadow: none; cursor: not-allowed; opacity: 0.7; }
+        /* Input Token */
+        .input-group { position: relative; margin-bottom: 20px; }
+        .input-group i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+        .input-group input { width: 100%; padding: 15px 15px 15px 45px; background: #121212; border: 1px solid rgba(255,255,255,0.1); color: #4CAF50; border-radius: 12px; font-size: 20px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; box-sizing: border-box; outline: none; transition: 0.3s; font-family: 'Montserrat', sans-serif; text-align: center; }
+        .input-group input:focus { border-color: #4CAF50; box-shadow: 0 0 10px rgba(76, 175, 80, 0.3); }
+        .btn-submit-final { width: 100%; background: var(--red-main); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: 900; font-size: 16px; cursor: pointer; box-shadow: 0 5px 15px var(--red-glow); font-family: 'Montserrat', sans-serif; letter-spacing: 1px; }
 
-        #errorMsg { color: #E50914; font-size: 13px; font-weight: bold; text-align: center; margin-bottom: 15px; display: none; }
+        #errorMsg { color: #E50914; font-size: 13px; font-weight: bold; text-align: center; margin-bottom: 15px; display: none; }
 
-        /* LOADING */
-        .loader-container { display: none; flex-direction: column; align-items: center; justify-content: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; }
-        .spinner { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.1); border-top-color: var(--red-main); border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        /* LOADING */
+        .loader-container { display: none; flex-direction: column; align-items: center; justify-content: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; }
+        .spinner { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.1); border-top-color: var(--red-main); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* RESPONSIVE LAYAR BESAR (PC / LAPTOP) */
-        @media (min-width: 768px) {
-            .grid { 
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-                gap: 20px; 
-            }
-            .card-name { font-size: 15px; }
-            .card-desc { font-size: 11px; }
-            .zoom-img-container { height: 65vh; }
-        }
-    </style>
+        /* RESPONSIVE LAYAR BESAR (PC / LAPTOP) */
+        @media (min-width: 768px) {
+            .grid { 
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+                gap: 20px; 
+            }
+            .card-name { font-size: 15px; }
+            .card-desc { font-size: 11px; }
+            .zoom-img-container { height: 65vh; }
+        }
+    </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="navbar-brand"><i class="fas fa-steering-wheel"></i> ID42NER<span>CHAPTER<span></span>SUMUT</span></div>        
-    </nav>
+    <nav class="navbar">
+        <div class="navbar-brand"><i class="fas fa-steering-wheel"></i> ID42NER<span>CHAPTER<span></span>SUMUT</span></div>        
+    </nav>
 
-    <div class="header-section">
-        <h1>PEMILIHAN CALON KETUA CHAPTER SUMUT</h1>
-        <div class="search-container">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" class="search-input" placeholder="Cari nama calon (misal: Dani)..." onkeyup="filterCandidates()">
-        </div>
-    </div>
+    <div class="header-section">
+        <h1>PEMILIHAN CALON KETUA CHAPTER SUMUT</h1>
+        <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="Cari nama calon (misal: Dani)..." onkeyup="filterCandidates()">
+        </div>
+    </div>
 
-    <!-- GRID KANDIDAT -->
-    <div class="container">
-        <div class="grid" id="candidateGrid">
-            <!-- Data digenerate via JS -->
-        </div>
-    </div>
+    <!-- GRID KANDIDAT -->
+    <div class="container">
+        <div class="grid" id="candidateGrid">
+            <!-- Data digenerate via JS -->
+        </div>
+    </div>
 
-    <!-- FLOATING ACTION BAR -->
-    <div class="floating-bar" id="floatingBar">
-        <div class="selection-text">
-            <p>Pilihan Anda:</p>
-            <h4 id="floatName">Pilih Kandidat</h4>
-        </div>
-        <button class="btn-lanjut" onclick="openTokenModal()">LANJUT <i class="fas fa-arrow-right"></i></button>
-    </div>
+    <!-- FLOATING ACTION BAR -->
+    <div class="floating-bar" id="floatingBar">
+        <div class="selection-text">
+            <p>Pilihan Anda:</p>
+            <h4 id="floatName">Pilih Kandidat</h4>
+        </div>
+        <button class="btn-lanjut" onclick="openTokenModal()">LANJUT <i class="fas fa-arrow-right"></i></button>
+    </div>
 
-    <!-- MODAL ZOOM FOTO KANDIDAT -->
-    <div class="modal-overlay" id="zoomModal">
-        <div class="modal-box zoom-modal-box">
-            <button class="close-btn" onclick="closeModal('zoomModal')"><i class="fas fa-times"></i></button>
-            <div class="zoom-img-container" id="zoomImgContainer">
-                <div class="zoom-hint"><i class="fas fa-search-plus"></i> Ketuk untuk Zoom / Geser</div>
-                <img src="" id="zoomFoto" class="zoom-img" alt="Foto Calon" onerror="this.style.display='none'">
-            </div>
-            <div class="zoom-info">
-                <h3 class="zoom-name" id="zoomName">Nama Calon</h3>
-                <p class="zoom-desc" id="zoomDesc">Deskripsi</p>
-                <button class="btn-pilih-zoom" id="btnPilihZoom" onclick=""><i class="fas fa-vote-yea"></i> PILIH KANDIDAT INI</button>
-            </div>
-        </div>
-    </div>
+    <!-- MODAL ZOOM FOTO KANDIDAT -->
+    <div class="modal-overlay" id="zoomModal">
+        <div class="modal-box zoom-modal-box">
+            <button class="close-btn" onclick="closeModal('zoomModal')"><i class="fas fa-times"></i></button>
+            <div class="zoom-img-container" id="zoomImgContainer">
+                <div class="zoom-hint"><i class="fas fa-search-plus"></i> Ketuk untuk Zoom / Geser</div>
+                <img src="" id="zoomFoto" class="zoom-img" alt="Foto Calon" onerror="this.style.display='none'">
+            </div>
+            <div class="zoom-info">
+                <h3 class="zoom-name" id="zoomName">Nama Calon</h3>
+                <p class="zoom-desc" id="zoomDesc">Deskripsi</p>
+                <button class="btn-pilih-zoom" id="btnPilihZoom" onclick=""><i class="fas fa-vote-yea"></i> PILIH KANDIDAT INI</button>
+            </div>
+        </div>
+    </div>
 
-    <!-- MODAL 1: INPUT TOKEN -->
-    <div class="modal-overlay" id="tokenModal">
-        <div class="modal-box">
-            <button class="close-btn" onclick="closeModal('tokenModal')"><i class="fas fa-times"></i></button>
-            <h3 class="modal-title">Masukkan Token</h3>
-            <p style="text-align: center; color: var(--text-muted); font-size: 13px; margin-bottom: 25px;">Masukkan 6 digit Kode Token rahasia yang Anda terima dari panitia untuk mensahkan pilihan: <br><b id="confirmName" style="color:white; font-size:16px;"></b></p>
-            
-            <form id="formVoting">
-                <input type="hidden" id="selectedCandidateVal">
-                <div class="input-group">
-                    <i class="fas fa-key"></i>
-                    <input type="text" id="tokenInput" placeholder="KODE TOKEN" required autocomplete="off" maxlength="6">
-                </div>
-                <div id="errorMsg"><i class="fas fa-exclamation-circle"></i> Token tidak valid atau sudah digunakan!</div>
-                <button type="submit" class="btn-submit-final" id="btnSubmitFinal">SAHKAN SUARA SAYA <i class="fas fa-check-double"></i></button>
-            </form>
-        </div>
-    </div>
+    <!-- MODAL 1: INPUT TOKEN -->
+    <div class="modal-overlay" id="tokenModal">
+        <div class="modal-box">
+            <button class="close-btn" onclick="closeModal('tokenModal')"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title">Masukkan Token</h3>
+            <p style="text-align: center; color: var(--text-muted); font-size: 13px; margin-bottom: 25px;">Masukkan 6 digit Kode Token rahasia yang Anda terima dari panitia untuk mensahkan pilihan: <br><b id="confirmName" style="color:white; font-size:16px;"></b></p>
+            
+            <form id="formVoting">
+                <input type="hidden" id="selectedCandidateVal">
+                <div class="input-group">
+                    <i class="fas fa-key"></i>
+                    <input type="text" id="tokenInput" placeholder="KODE TOKEN" required autocomplete="off" maxlength="6">
+                </div>
+                <div id="errorMsg"><i class="fas fa-exclamation-circle"></i> Token tidak valid atau sudah digunakan!</div>
+                <button type="submit" class="btn-submit-final">SAHKAN SUARA SAYA <i class="fas fa-check-double"></i></button>
+            </form>
+        </div>
+    </div>
 
-    <!-- MODAL 2: SUCCESS TICKET -->
-    <div class="modal-overlay" id="successModal">
-        <div class="modal-box" style="text-align: center;">
-            <i class="fas fa-check-circle" style="font-size: 60px; color: #4CAF50; margin-bottom: 15px;"></i>
-            <h2 style="margin: 0; color: white;">VOTING SAH!</h2>
-            <p style="color: var(--text-muted); font-size: 14px; margin-top:10px;">Terima kasih atas partisipasi Anda.</p>
-            
-            <div style="background: rgba(76, 175, 80, 0.1); border: 1px solid #4CAF50; padding: 20px; border-radius: 12px; margin-top: 25px;">
-                <p style="color: #4CAF50; margin: 0; font-size: 13px; font-weight: bold;"><i class="fas fa-lock"></i> SUARA TELAH MASUK KE DATABASE</p>
-                <p style="margin: 5px 0 0 0; font-size: 12px; color: #ccc;">Token Anda telah hangus untuk menjaga keamanan. Anda boleh menutup halaman ini.</p>
-            </div>
-            
-            <button onclick="window.location.reload()" style="background: #333; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; margin-top: 20px; cursor: pointer; width: 100%;">TUTUP HALAMAN</button>
-        </div>
-    </div>
+    <!-- MODAL 2: SUCCESS TICKET -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-box" style="text-align: center;">
+            <i class="fas fa-check-circle" style="font-size: 60px; color: #4CAF50; margin-bottom: 15px;"></i>
+            <h2 style="margin: 0; color: white;">VOTING SAH!</h2>
+            <p style="color: var(--text-muted); font-size: 14px; margin-top:10px;">Terima kasih atas partisipasi Anda.</p>
+            
+            <div style="background: rgba(76, 175, 80, 0.1); border: 1px solid #4CAF50; padding: 20px; border-radius: 12px; margin-top: 25px;">
+                <p style="color: #4CAF50; margin: 0; font-size: 13px; font-weight: bold;"><i class="fas fa-lock"></i> SUARA TELAH MASUK KE DATABASE</p>
+                <p style="margin: 5px 0 0 0; font-size: 12px; color: #ccc;">Token Anda telah hangus untuk menjaga keamanan. Anda boleh menutup halaman ini.</p>
+            </div>
+            
+            <button onclick="window.location.reload()" style="background: #333; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; margin-top: 20px; cursor: pointer; width: 100%;">TUTUP HALAMAN</button>
+        </div>
+    </div>
 
-    <!-- FULL SCREEN LOADER -->
-    <div class="loader-container" id="loader">
-        <div class="spinner"></div>
-        <h3 style="margin-top: 20px; font-weight: 800; letter-spacing: 1px; color: white;" id="loaderText">MEMVERIFIKASI TOKEN...</h3>
-        <p style="color: var(--text-muted); font-size: 12px;">Sistem sedang mencocokkan kode dengan database panitia</p>
-    </div>
+    <!-- FULL SCREEN LOADER -->
+    <div class="loader-container" id="loader">
+        <div class="spinner"></div>
+        <h3 style="margin-top: 20px; font-weight: 800; letter-spacing: 1px; color: white;">MEMVERIFIKASI TOKEN...</h3>
+        <p style="color: var(--text-muted); font-size: 12px;">Sistem sedang mencocokkan kode dengan database panitia</p>
+    </div>
 
-    <script>
-        const candidates = [
-            { id: 1, name: "Om Dani", desc: "(F1717)", val: "Om Dani (F1717)", foto: "./calon1.jpg" },
-            { id: 2, name: "Om H.Nurhadi", desc: "(F1493)", val: "Om Nurhadi (F1493)", foto: "./calon2.jpg" },
-            { id: 3, name: "Om Hasyim", desc: "(F1396)", val: "Om Hasyim (F1396)", foto: "./calon3.png" },
-            { id: 4, name: "Om Hendra Sinaga", desc: "(F1812)", val: "Om Hendra Sinaga (F1812)", foto: "./calon4.jpg" },
-            { id: 5, name: "Om Umri", desc: "(F2216)", val: "Om Umri (F2216)", foto: "./calon5.jpg" },
-            { id: 6, name: "Om Tantra Deska", desc: "(F1884)", val: "Om Tantra Deska (F1884)", foto: "./calon6.png" },
-            { id: 7, name: "Om Ronald", desc: "(F1488)", val: "Om Ronald (F1488)", foto: "./calon7.jpg" },
-            { id: 8, name: "Om Afdhal", desc: "(F1798)", val: "Om Afdhal (F1798)", foto: "./calon8.jpeg" },
-            { id: 9, name: "Om Hery Zz", desc: "(F2850)", val: "Om Hery Zz (F2850)", foto: "./calon9.jpeg" },
-            { id: 10, name: "Om H.Wansa/Endri Irwanto", desc: "(F965)", val: "Om Wansa/Endri Irwanto (F965)", foto: "./calon10.jpg" },
-            { id: 11, name: "Om Erick/Sulaiman Azhari", desc: "(F1702)", val: "Om Erick/Sulaiman Azhari (F1702)", foto: "./calon11.jpeg" },
-            { id: 12, name: "Om Husni", desc: "(F1452)", val: "Om Husni (F1452)", foto: "./calon12.jpeg" },
-            { id: 13, name: "Om Jefrie Himawan", desc: "(F1363)", val: "Om Jefrie Himawan (F1363)", foto: "./calon13.jpg" },
-            { id: 14, name: "Om Dicky", desc: "(F2177)", val: "Om Dicky (F2177)", foto: "./calon14.jpg" },
-            { id: 15, name: "Om Dedy Ginting", desc: "(F1558)", val: "Om Dedy Ginting (F1558)", foto: "./calon15.jpg" },
-            { id: 16, name: "Om Hendra Martin", desc: "(F2552)", val: "Om Hendra Martin (F2552)", foto: "./calon16.jpg" },
-            { id: 17, name: "Om Nanang", desc: "(F2606)", val: "Om Nanang (F2606)", foto: "./calon17.jpg" },
-            { id: 18, name: "Om Try Sutrisno", desc: "(F2782)", val: "Om Try Sutrisno (F2782)", foto: "./calon18.jpg" },
-            { id: 19, name: "Om Wyne Purba", desc: "(F2913)", val: "Om Wyne Purba (F2913)", foto: "./calon19.jpg" }
-        ];
+    <script>
+        const candidates = [
+            { id: 1, name: "Om Dani", desc: "(F1717)", val: "Om Dani (F1717)", foto: "./calon1.jpg" },
+            { id: 2, name: "Om H.Nurhadi", desc: "(F1493)", val: "Om Nurhadi (F1493)", foto: "./calon2.jpg" },
+            { id: 3, name: "Om Hasyim", desc: "(F1396)", val: "Om Hasyim (F1396)", foto: "./calon3.png" },
+            { id: 4, name: "Om Hendra Sinaga", desc: "(F1812)", val: "Om Hendra Sinaga (F1812)", foto: "./calon4.jpg" },
+            { id: 5, name: "Om Umri", desc: "(F2216)", val: "Om Umri (F2216)", foto: "./calon5.jpg" },
+            { id: 6, name: "Om Tantra Deska", desc: "(F1884)", val: "Om Tantra Deska (F1884)", foto: "./calon6.png" },
+            { id: 7, name: "Om Ronald", desc: "(F1488)", val: "Om Ronald (F1488)", foto: "./calon7.jpg" },
+            { id: 8, name: "Om Afdhal", desc: "(F1798)", val: "Om Afdhal (F1798)", foto: "./calon8.jpeg" },
+            { id: 9, name: "Om Hery Zz", desc: "(F2850)", val: "Om Hery Zz (F2850)", foto: "./calon9.jpeg" },
+            { id: 10, name: "Om H.Wansa/Endri Irwanto", desc: "(F965)", val: "Om Wansa/Endri Irwanto (F965)", foto: "./calon10.jpg" },
+            { id: 11, name: "Om Erick/Sulaiman Azhari", desc: "(F1702)", val: "Om Erick/Sulaiman Azhari (F1702)", foto: "./calon11.jpeg" },
+            { id: 12, name: "Om Husni", desc: "(F1452)", val: "Om Husni (F1452)", foto: "./calon12.jpeg" },
+            { id: 13, name: "Om Jefrie Himawan", desc: "(F1363)", val: "Om Jefrie Himawan (F1363)", foto: "./calon13.jpg" },
+            { id: 14, name: "Om Dicky", desc: "(F2177)", val: "Om Dicky (F2177)", foto: "./calon14.jpg" },
+            { id: 15, name: "Om Dedy Ginting", desc: "(F1558)", val: "Om Dedy Ginting (F1558)", foto: "./calon15.jpg" },
+            { id: 16, name: "Om Hendra Martin", desc: "(F2552)", val: "Om Hendra Martin (F2552)", foto: "./calon16.jpg" },
+            { id: 17, name: "Om Nanang", desc: "(F2606)", val: "Om Nanang (F2606)", foto: "./calon17.jpg" },
+            { id: 18, name: "Om Try Sutrisno", desc: "(F2782)", val: "Om Try Sutrisno (F2782)", foto: "./calon18.jpg" },
+            { id: 19, name: "Om Wyne Purba", desc: "(F2913)", val: "Om Wyne Purba (F2913)", foto: "./calon19.jpg" }
+        ];
 
-        const grid = document.getElementById('candidateGrid');
-        
-        candidates.forEach(c => {
-            const numPad = c.id.toString().padStart(2, '0');
-            
-            const imageRender = `
-                <img src="${c.foto}" class="foto-kandidat" alt="${c.name}" 
-                     onerror="
-                        this.onerror=null; 
-                        this.style.display='none'; 
-                        var icon = this.nextElementSibling;
-                        if(icon) { icon.style.display='block'; }
-                     ">
-                <i class="fas fa-user-astronaut placeholder-icon" style="display:none;"></i>
-            `;
+        const grid = document.getElementById('candidateGrid');
+        
+        candidates.forEach(c => {
+            const numPad = c.id.toString().padStart(2, '0');
+            
+            const imageRender = `
+                <img src="${c.foto}" class="foto-kandidat" alt="${c.name}" 
+                     onerror="
+                        this.onerror=null; 
+                        this.style.display='none'; 
+                        var icon = this.nextElementSibling;
+                        if(icon) { icon.style.display='block'; }
+                     ">
+                <i class="fas fa-user-astronaut placeholder-icon" style="display:none;"></i>
+            `;
 
-            const cardHTML = `
-                <div class="card" id="card-${c.id}" data-name="${c.name.toLowerCase()}" onclick="bukaZoomModal(${c.id}, '${c.foto}', '${c.name}', '${c.desc}', '${c.val}')">
-                    <div class="number-badge">${numPad}</div>
-                    <button class="cancel-badge" id="cancel-${c.id}" onclick="batalPilih(event)" title="Batal Pilih"><i class="fas fa-times"></i></button>
-                    <div class="card-img">
-                        ${imageRender}
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-name">${c.name}</h3>
-                        <p class="card-desc">${c.desc}</p>
-                    </div>
-                </div>
-            `;
-            grid.innerHTML += cardHTML;
-        });
+            const cardHTML = `
+                <div class="card" id="card-${c.id}" data-name="${c.name.toLowerCase()}" onclick="bukaZoomModal(${c.id}, '${c.foto}', '${c.name}', '${c.desc}', '${c.val}')">
+                    <div class="number-badge">${numPad}</div>
+                    <button class="cancel-badge" id="cancel-${c.id}" onclick="batalPilih(event)" title="Batal Pilih"><i class="fas fa-times"></i></button>
+                    <div class="card-img">
+                        ${imageRender}
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-name">${c.name}</h3>
+                        <p class="card-desc">${c.desc}</p>
+                    </div>
+                </div>
+            `;
+            grid.innerHTML += cardHTML;
+        });
 
-        function filterCandidates() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                let name = card.getAttribute('data-name');
-                if (name.includes(input)) card.style.display = "";
-                else card.style.display = "none";
-            });
-        }
+        function filterCandidates() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let name = card.getAttribute('data-name');
+                if (name.includes(input)) card.style.display = "";
+                else card.style.display = "none";
+            });
+        }
 
-        // --- SISTEM INTERAKTIF ZOOM & GESER (PAN) FOTO ---
-        const zoomImgContainer = document.getElementById('zoomImgContainer');
-        const zoomFoto = document.getElementById('zoomFoto');
-        let currentScale = 1;
-        let isDragging = false;
-        let startX = 0, startY = 0;
-        let translateX = 0, translateY = 0;
+        // --- SISTEM INTERAKTIF ZOOM & GESER (PAN) FOTO ---
+        const zoomImgContainer = document.getElementById('zoomImgContainer');
+        const zoomFoto = document.getElementById('zoomFoto');
+        let currentScale = 1;
+        let isDragging = false;
+        let startX = 0, startY = 0;
+        let translateX = 0, translateY = 0;
 
-        function resetFotoZoom() {
-            currentScale = 1;
-            translateX = 0;
-            translateY = 0;
-            updateFotoTransform();
-            zoomImgContainer.style.cursor = 'zoom-in';
-        }
+        function resetFotoZoom() {
+            currentScale = 1;
+            translateX = 0;
+            translateY = 0;
+            updateFotoTransform();
+            zoomImgContainer.style.cursor = 'zoom-in';
+        }
 
-        function updateFotoTransform() {
-            zoomFoto.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
-        }
+        function updateFotoTransform() {
+            zoomFoto.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+        }
 
-        zoomImgContainer.addEventListener('click', (e) => {
-            if (isDragging) return;
-            if (currentScale === 1) {
-                currentScale = 2.5; 
-                zoomImgContainer.style.cursor = 'grab';
-            } else {
-                resetFotoZoom(); 
-            }
-            updateFotoTransform();
-        });
+        // Toggle zoom saat foto diklik/diketuk
+        zoomImgContainer.addEventListener('click', (e) => {
+            if (isDragging) return;
+            if (currentScale === 1) {
+                currentScale = 2.5; // Zoom In
+                zoomImgContainer.style.cursor = 'grab';
+            } else {
+                resetFotoZoom(); // Zoom Out
+            }
+            updateFotoTransform();
+        });
 
-        const startPan = (e) => {
-            if (currentScale <= 1) return;
-            isDragging = false;
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            startX = clientX - translateX;
-            startY = clientY - translateY;
-            zoomImgContainer.style.cursor = 'grabbing';
-            
-            const onMove = (moveEvent) => {
-                isDragging = true;
-                const currentX = moveEvent.touches ? moveEvent.touches[0].clientX : moveEvent.clientX;
-                const currentY = moveEvent.touches ? moveEvent.touches[0].clientY : moveEvent.clientY;
-                translateX = currentX - startX;
-                translateY = currentY - startY;
-                updateFotoTransform();
-            };
+        // Fitur Geser Foto Saat Zoom In
+        const startPan = (e) => {
+            if (currentScale <= 1) return;
+            isDragging = false;
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            startX = clientX - translateX;
+            startY = clientY - translateY;
+            zoomImgContainer.style.cursor = 'grabbing';
+            
+            const onMove = (moveEvent) => {
+                isDragging = true;
+                const currentX = moveEvent.touches ? moveEvent.touches[0].clientX : moveEvent.clientX;
+                const currentY = moveEvent.touches ? moveEvent.touches[0].clientY : moveEvent.clientY;
+                translateX = currentX - startX;
+                translateY = currentY - startY;
+                updateFotoTransform();
+            };
 
-            const onEnd = () => {
-                window.removeEventListener('mousemove', onMove);
-                window.removeEventListener('mouseup', onEnd);
-                window.removeEventListener('touchmove', onMove);
-                window.removeEventListener('touchend', onEnd);
-                if (currentScale > 1) zoomImgContainer.style.cursor = 'grab';
-                setTimeout(() => { isDragging = false; }, 50);
-            };
+            const onEnd = () => {
+                window.removeEventListener('mousemove', onMove);
+                window.removeEventListener('mouseup', onEnd);
+                window.removeEventListener('touchmove', onMove);
+                window.removeEventListener('touchend', onEnd);
+                if (currentScale > 1) zoomImgContainer.style.cursor = 'grab';
+                setTimeout(() => { isDragging = false; }, 50);
+            };
 
-            window.addEventListener('mousemove', onMove);
-            window.addEventListener('mouseup', onEnd);
-            window.addEventListener('touchmove', onMove, { passive: true });
-            window.addEventListener('touchend', onEnd);
-        };
+            window.addEventListener('mousemove', onMove);
+            window.addEventListener('mouseup', onEnd);
+            window.addEventListener('touchmove', onMove, { passive: true });
+            window.addEventListener('touchend', onEnd);
+        };
 
-        zoomImgContainer.addEventListener('mousedown', startPan);
-        zoomImgContainer.addEventListener('touchstart', startPan, { passive: true });
+        zoomImgContainer.addEventListener('mousedown', startPan);
+        zoomImgContainer.addEventListener('touchstart', startPan, { passive: true });
 
-        // MEMBUKA MODAL ZOOM
-        function bukaZoomModal(id, foto, name, desc, val) {
-            resetFotoZoom(); 
-            
-            const zoomImg = document.getElementById('zoomFoto');
-            zoomImg.src = foto;
-            zoomImg.style.display = 'block';
-            
-            document.getElementById('zoomName').innerText = name;
-            document.getElementById('zoomDesc').innerText = desc;
-            
-            const btnPilih = document.getElementById('btnPilihZoom');
-            btnPilih.onclick = function() {
-                prosesPilihKandidat(id, name, val);
-            };
 
-            document.getElementById('zoomModal').classList.add('active');
-        }
+        // MEMBUKA MODAL ZOOM
+        function bukaZoomModal(id, foto, name, desc, val) {
+            resetFotoZoom(); // Reset level zoom ke semula
+            
+            const zoomImg = document.getElementById('zoomFoto');
+            zoomImg.src = foto;
+            zoomImg.style.display = 'block';
+            
+            document.getElementById('zoomName').innerText = name;
+            document.getElementById('zoomDesc').innerText = desc;
+            
+            const btnPilih = document.getElementById('btnPilihZoom');
+            btnPilih.onclick = function() {
+                prosesPilihKandidat(id, name, val);
+            };
 
-        function prosesPilihKandidat(id, nameDisplay, realValue) {
-            closeModal('zoomModal');
-            
-            document.querySelectorAll('.card').forEach(c => {
-                c.classList.remove('active');
-            });
-            
-            const selectedCard = document.getElementById(`card-${id}`);
-            selectedCard.classList.add('active');
-            
-            document.getElementById('floatName').innerText = nameDisplay;
-            document.getElementById('confirmName').innerText = nameDisplay;
-            document.getElementById('selectedCandidateVal').value = realValue;
-            document.getElementById('floatingBar').classList.add('visible');
-        }
+            document.getElementById('zoomModal').classList.add('active');
+        }
 
-        function batalPilih(event) {
-            event.stopPropagation();
-            
-            document.querySelectorAll('.card').forEach(c => {
-                c.classList.remove('active');
-            });
-            
-            document.getElementById('floatingBar').classList.remove('visible');
-            document.getElementById('selectedCandidateVal').value = "";
-        }
+        function prosesPilihKandidat(id, nameDisplay, realValue) {
+            closeModal('zoomModal');
+            
+            document.querySelectorAll('.card').forEach(c => {
+                c.classList.remove('active');
+            });
+            
+            const selectedCard = document.getElementById(`card-${id}`);
+            selectedCard.classList.add('active');
+            
+            document.getElementById('floatName').innerText = nameDisplay;
+            document.getElementById('confirmName').innerText = nameDisplay;
+            document.getElementById('selectedCandidateVal').value = realValue;
+            document.getElementById('floatingBar').classList.add('visible');
+        }
 
-        function openTokenModal() { 
-            document.getElementById('tokenModal').classList.add('active'); 
-            document.getElementById('errorMsg').style.display = "none";
-        }
-        function closeModal(id) { 
-            document.getElementById(id).classList.remove('active'); 
-        }
+        function batalPilih(event) {
+            event.stopPropagation();
+            
+            document.querySelectorAll('.card').forEach(c => {
+                c.classList.remove('active');
+            });
+            
+            document.getElementById('floatingBar').classList.remove('visible');
+            document.getElementById('selectedCandidateVal').value = "";
+        }
 
-        // Fungsi Reset Tombol Submit
-        function resetSubmitButton(btn) {
-            btn.disabled = false;
-            btn.innerHTML = 'SAHKAN SUARA SAYA <i class="fas fa-check-double"></i>';
-        }
+        function openTokenModal() { 
+            document.getElementById('tokenModal').classList.add('active'); 
+            document.getElementById('errorMsg').style.display = "none";
+        }
+        function closeModal(id) { 
+            document.getElementById(id).classList.remove('active'); 
+        }
 
-        // PROSES VOTING API (SUDAH DIREVISI ANTI DOUBLE-CLICK)
-        document.getElementById('formVoting').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const tokenInputElem = document.getElementById('tokenInput');
-            const token = tokenInputElem.value.trim().toUpperCase();
-            const pilihan = document.getElementById('selectedCandidateVal').value;
-            const submitBtn = document.getElementById('btnSubmitFinal');
-            
-            if(!pilihan) {
-                alert("Silakan pilih kandidat terlebih dahulu!");
-                return;
-            }
-            if(!token || token.length < 5) {
-                alert("Token tidak valid!");
-                return;
-            }
+        // Proses Voting API
+        document.getElementById('formVoting').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const token = document.getElementById('tokenInput').value.toUpperCase();
+            const pilihan = document.getElementById('selectedCandidateVal').value;
+            
+            if(!pilihan) {
+                alert("Silakan pilih kandidat terlebih dahulu!");
+                return;
+            }
 
-            // 1. KUNCI TOMBOL SUBMIT AGAR TIDAK BISA DIKLIK BERKALI-KALI
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = 'MEMPROSES... <i class="fas fa-spinner fa-spin"></i>';
+            const urlAPI = "https://script.google.com/macros/s/AKfycbzLI3l43BbbueXFbwh0bJnP38GeSzXQFKrHRp_kiCtqGetgA4C5QD5l0ZqV6jOm-iyEVA/exec"; 
 
-            const urlAPI = "https://script.google.com/macros/s/AKfycby7iK71PzQEZpXUR4Et0M5nHm4LEcXKWQ4xPs11OfylxD6j46eSdjDlHE_x08Va7LMYoA/exec"; 
+            closeModal('tokenModal');
+            document.getElementById('loader').style.display = "flex";
 
-            closeModal('tokenModal');
-            document.getElementById('loader').style.display = "flex";
-
-            // 2. KIRIM DATA KE GOOGLE SCRIPT
-            fetch(urlAPI + "?token=" + encodeURIComponent(token) + "&pilihan=" + encodeURIComponent(pilihan), { method: "GET" })
-            .then(res => res.text())
-            .then(responServer => {
-                document.getElementById('loader').style.display = "none";
-                
-                // KEMBALIKAN TOMBOL KE SEMULA
-                resetSubmitButton(submitBtn);
-                
-                if (responServer === "SUKSES") {
-                    document.getElementById('successModal').classList.add('active');
-                } 
-                else if (responServer === "TOKEN_SALAH") {
-                    document.getElementById('errorMsg').innerHTML = '<i class="fas fa-exclamation-circle"></i> Token tidak valid / tidak ditemukan!';
-                    document.getElementById('errorMsg').style.display = "block";
-                    document.getElementById('tokenModal').classList.add('active');
-                    tokenInputElem.value = ''; // Kosongkan input agar user bisa ketik ulang
-                }
-                else if (responServer === "TOKEN_HANGUS") {
-                    document.getElementById('errorMsg').innerHTML = '<i class="fas fa-exclamation-circle"></i> Token ini SUDAH DIGUNAKAN!';
-                    document.getElementById('errorMsg').style.display = "block";
-                    document.getElementById('tokenModal').classList.add('active');
-                    tokenInputElem.value = ''; 
-                }
-                else {
-                    alert("Terjadi kesalahan server: " + responServer);
-                    document.getElementById('tokenModal').classList.add('active');
-                }
-            })
-            .catch(err => {
-                document.getElementById('loader').style.display = "none";
-                
-                // KEMBALIKAN TOMBOL KE SEMULA JIKA GAGAL KONEKSI
-                resetSubmitButton(submitBtn);
-                
-                alert("Koneksi gagal. Pastikan internet Anda stabil dan coba lagi.");
-                document.getElementById('tokenModal').classList.add('active');
-            });
-        });
-    </script>
+            fetch(urlAPI + "?token=" + encodeURIComponent(token) + "&pilihan=" + encodeURIComponent(pilihan), { method: "GET" })
+            .then(res => res.text())
+            .then(responServer => {
+                document.getElementById('loader').style.display = "none";
+                
+                if (responServer === "SUKSES") {
+                    document.getElementById('successModal').classList.add('active');
+                } 
+                else if (responServer === "TOKEN_SALAH") {
+                    document.getElementById('errorMsg').innerHTML = '<i class="fas fa-exclamation-circle"></i> Token tidak valid / tidak ditemukan!';
+                    document.getElementById('errorMsg').style.display = "block";
+                    document.getElementById('tokenModal').classList.add('active');
+                }
+                else if (responServer === "TOKEN_HANGUS") {
+                    document.getElementById('errorMsg').innerHTML = '<i class="fas fa-exclamation-circle"></i> Token ini SUDAH DIGUNAKAN!';
+                    document.getElementById('errorMsg').style.display = "block";
+                    document.getElementById('tokenModal').classList.add('active');
+                }
+                else {
+                    alert("Terjadi kesalahan server: " + responServer);
+                    document.getElementById('tokenModal').classList.add('active');
+                }
+            })
+            .catch(err => {
+                document.getElementById('loader').style.display = "none";
+                alert("Koneksi gagal. Pastikan internet Anda stabil.");
+                document.getElementById('tokenModal').classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>
+
